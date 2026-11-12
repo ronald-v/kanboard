@@ -1,5 +1,13 @@
 # UI/UX e identidad
 
+## Aprobación vigente
+La propuesta concreta en [mockup F-004](../mockups/f004/index.html) fue aprobada
+expresamente en DEC-010. El usuario confirmó el protocolo manual de escritorio,
+móvil, foco/Tab, diálogos, campos avanzados y zoom 200% en DEC-012. Evidencia y
+límites: [cierre F-004](../evidence/2026-11-12-f004-validacion-final.md).
+Las secciones siguientes conservan la propuesta original; usar la versión
+aprobada como referencia, manteniendo funciones nativas y permisos de servidor.
+
 ## Activos oficiales recibidos
 Directorio externo autorizado de origen:
 `C:\Users\ronal\OneDrive - Universidad de Cundinamarca\Escritorio\Proyectos\RvSoftware\Logos\2026`.

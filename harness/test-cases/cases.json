@@ -132,10 +132,15 @@
       "command": null,
       "expectedResult": "Diseño aprobado, accesible y sin seguridad basada en ocultación",
       "verificationType": "manual",
-      "status": "planned",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "No ejecutado; caso diseñado."
+      "status": "validated",
+      "observedResult": "Usuario aprobó diseño y confirmó que funcionaron carga, Tab/foco, diálogo/Escape, campos avanzados, menú móvil y zoom 200% (DEC-010/012). 26 etiquetas y nueve contrastes verificados por agente.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f004-diseno.md",
+        "harness/evidence/2026-11-12-f004-aprobacion.md",
+        "harness/evidence/2026-11-12-f004-chrome.md",
+        "harness/evidence/2026-11-12-f004-validacion-final.md"
+      ],
+      "limitations": "Comprobación interactiva manual del usuario, sin captura automática ni auditoría WCAG completa."
     },
     {
       "id": "TC-F-005-01",
