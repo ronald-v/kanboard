@@ -73,24 +73,25 @@
     {
       "id": "TC-F-002-01",
       "featureId": "F-002",
-      "objective": "Reproducir Dashboard y regresión",
+      "objective": "Verificar exclusión explícita del incidente externo",
       "preconditions": [
-        "URL/versión/rol/pasos y entorno autorizado"
+        "Instrucción del usuario disponible: omitir ese error"
       ],
-      "syntheticData": "Roles admin/miembro/observador; proyectos vacío/asignado/revocado",
+      "syntheticData": "No aplica: revisión de alcance, sin modificación de datos",
       "steps": [
-        "Registrar observado original",
-        "Capturar HTTP/redirecciones/log depurado",
-        "Comparar copia limpia si aporta",
-        "Repetir roles, vacío y parámetros ajenos después de corregir"
+        "Verificar solicitud de exclusión",
+        "Registrar DEC-007 y criterios revisados",
+        "Revisar que el diff no cambie Dashboard ni permisos"
       ],
       "command": null,
-      "expectedResult": "Vista propia usable, sin datos ajenos; causa original cubierta",
-      "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": "Defecto reportado por el usuario, pendiente de reproducir.",
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "expectedResult": "Exclusión documentada; sin afirmar reproducción o corrección",
+      "verificationType": "review",
+      "status": "validated",
+      "observedResult": "Usuario pidió omitir el error; DEC-007 registrado. Solo documentos y estado; ningún cambio al Dashboard.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f002-exclusion.md"
+      ],
+      "limitations": "No se reprodujo ni corrigió el incidente; matriz de regresión original excluida expresamente."
     },
     {
       "id": "TC-F-003-01",

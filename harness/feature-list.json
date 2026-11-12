@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-12T04:34:50.542414-05:00",
+    "updatedAt": "2026-11-12T04:36:10.501837-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -80,36 +80,40 @@
         {
             "id": "F-002",
             "name": "Diagnóstico y corrección del Dashboard",
-            "status": "planned",
+            "status": "validated",
             "targetVersion": null,
-            "description": "Diagnóstico y corrección del Dashboard. Reutilizar capacidad nativa antes de extender.",
+            "description": "Incidente externo excluido expresamente por el usuario; conservar Dashboard nativo.",
             "dependsOn": [
                 "F-001"
             ],
             "acceptanceCriteria": [
-                "Incidente identificado y reproducido o bloqueo explícito.",
-                "Corrección mínima con regresión por roles, navegación y vacío."
+                "Exclusión expresa del incidente externo documentada bajo DEC-007.",
+                "Dashboard y permisos nativos conservados; no atribuir una corrección no realizada."
             ],
             "subtasks": [
                 {
                     "id": "F-002-S1",
                     "name": "Precisar alcance, reutilización y aceptación",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "dev",
                     "agentNotes": "Rol de prompt, no agente independiente.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f002-exclusion.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Leer contexto y decisiones pertinentes."
+                    "nextAction": "Conservar exclusión explícita; reincorporar solo mediante nueva decisión."
                 },
                 {
                     "id": "F-002-S2",
                     "name": "Realizar entregable y verificar criterios",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "testing",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f002-exclusion.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Obtener URL sin secretos, versión, rol, pasos y error; reproducir."
+                    "nextAction": "Conservar exclusión explícita; reincorporar solo mediante nueva decisión."
                 }
             ],
             "relatedPrompts": [
@@ -129,10 +133,12 @@
             "testCases": [
                 "TC-F-002-01"
             ],
-            "evidence": [],
+            "evidence": [
+                "harness/evidence/2026-11-12-f002-exclusion.md"
+            ],
             "blockers": [],
-            "nextAction": "Obtener URL sin secretos, versión, rol, pasos y error; reproducir.",
-            "notes": "Defecto reportado, no reproducido.",
+            "nextAction": "Continuar F-003; regresión del Dashboard local permanece en validación integrada.",
+            "notes": "Exclusión aprobada, no corrección técnica. DEC-007 conserva historial.",
             "suspensionApproval": null
         },
         {
