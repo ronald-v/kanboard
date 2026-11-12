@@ -1,0 +1,741 @@
+{
+    "schemaVersion": "1.0",
+    "project": "Kanboard rvSoftware",
+    "statusValues": [
+        "planned",
+        "in_progress",
+        "blocked",
+        "done",
+        "validated"
+    ],
+    "updatedAt": "2026-11-11T22:38:03.0416450-05:00",
+    "activeFeatureId": null,
+    "features": [
+        {
+            "id": "F-001",
+            "name": "Línea base y entorno",
+            "status": "blocked",
+            "targetVersion": null,
+            "description": "Línea base y entorno. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [],
+            "acceptanceCriteria": [
+                "Base exacta, Git, stack y comandos comprobados.",
+                "Entorno aislado preparado, suite y arranque ejecutados; fallos resueltos/documentados."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-001-S1",
+                    "name": "Inspeccionar base, estructura y comandos",
+                    "status": "validated",
+                    "assignedAgent": "architect",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [
+                        "harness/evidence/2026-11-11-baseline.md"
+                    ],
+                    "blockers": [],
+                    "nextAction": "Conservar evidencia; revisar si cambia la base."
+                },
+                {
+                    "id": "F-001-S2",
+                    "name": "Preparar y ejecutar entorno aislado",
+                    "status": "blocked",
+                    "assignedAgent": "testing",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [
+                        "Faltan GD, driver PDO y PHPUnit; preparación fuera de generar harness."
+                    ],
+                    "nextAction": "Autorizar preparación F-001; habilitar GD/PDO de prueba e instalar dependencias del lock; ejecutar suite/arranque."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/architect.md",
+                "harness/prompts/testing.md"
+            ],
+            "relatedContext": [
+                "harness/context/project.md",
+                "harness/context/testing.md",
+                "harness/context/upstream.md"
+            ],
+            "relatedFiles": [
+                "composer.json",
+                "composer.lock",
+                "tests/units.sqlite.xml"
+            ],
+            "testCases": [
+                "TC-F-001-01",
+                "TC-F-001-02",
+                "TC-F-001-03"
+            ],
+            "evidence": [
+                "harness/evidence/2026-11-11-baseline.md"
+            ],
+            "blockers": [
+                "Entorno incompleto: GD, PDO y PHPUnit ausentes."
+            ],
+            "nextAction": "Autorizar preparación F-001; habilitar GD/PDO de prueba e instalar dependencias del lock; ejecutar suite/arranque.",
+            "notes": "Inspección comprobada; suite/arranque no ejecutados.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-002",
+            "name": "Diagnóstico y corrección del Dashboard",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Diagnóstico y corrección del Dashboard. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [
+                "F-001"
+            ],
+            "acceptanceCriteria": [
+                "Incidente identificado y reproducido o bloqueo explícito.",
+                "Corrección mínima con regresión por roles, navegación y vacío."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-002-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "dev",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-002-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "testing",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Obtener URL sin secretos, versión, rol, pasos y error; reproducir."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/architecture.md",
+                "harness/context/testing.md",
+                "harness/context/security.md"
+            ],
+            "relatedFiles": [
+                "app/Controller/DashboardController.php",
+                "app/Pagination/DashboardPagination.php"
+            ],
+            "testCases": [
+                "TC-F-002-01"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Obtener URL sin secretos, versión, rol, pasos y error; reproducir.",
+            "notes": "Defecto reportado, no reproducido.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-003",
+            "name": "Capacidades y contrato comercial",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Capacidades y contrato comercial. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [],
+            "acceptanceCriteria": [
+                "Capacidades/brechas sustentadas.",
+                "BR-01..10 decididas o excluidas expresamente del alcance."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-003-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "leader",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-003-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "leader",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Revisar alternativas BR-01..10 con el usuario."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/leader.md",
+                "harness/prompts/architect.md",
+                "harness/prompts/db.md"
+            ],
+            "relatedContext": [
+                "harness/context/project.md",
+                "harness/context/time-billing.md",
+                "harness/context/database.md"
+            ],
+            "relatedFiles": [
+                "app/Model/SubtaskTimeTrackingModel.php",
+                "app/Model/CurrencyModel.php"
+            ],
+            "testCases": [
+                "TC-F-003-01"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Revisar alternativas BR-01..10 con el usuario.",
+            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-004",
+            "name": "Navegación y sistema visual",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Navegación y sistema visual. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [],
+            "acceptanceCriteria": [
+                "Navegación/formularios/mockup revisables.",
+                "Aprobación y accesibilidad antes de implementar."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-004-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "ui-ux",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-004-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "ui-ux",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Preparar vista representativa con activos oficiales al autorizar F-004."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/ui-ux.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/ui-brand.md",
+                "harness/context/architecture.md",
+                "harness/context/security.md"
+            ],
+            "relatedFiles": [
+                "app/Template/layout.php",
+                "app/Template/header/title.php"
+            ],
+            "testCases": [
+                "TC-F-004-01"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Preparar vista representativa con activos oficiales al autorizar F-004.",
+            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-005",
+            "name": "Extensión propia y compatibilidad",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Extensión propia y compatibilidad. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [
+                "F-001",
+                "F-004"
+            ],
+            "acceptanceCriteria": [
+                "Plugin versionado y compatible con base exacta.",
+                "Carga/rutas/assets/ACL/esquema probados sin reglas inventadas."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-005-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "architect",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-005-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "testing",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Confirmar plugin RvSoftware y excepción limitada de gitignore; probar carga."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/architect.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/db.md",
+                "harness/prompts/testing.md"
+            ],
+            "relatedContext": [
+                "harness/context/architecture.md",
+                "harness/context/upstream.md",
+                "harness/context/database.md"
+            ],
+            "relatedFiles": [
+                "app/Core/Plugin/Loader.php",
+                "app/Core/Plugin/SchemaHandler.php",
+                "plugins/.gitignore"
+            ],
+            "testCases": [
+                "TC-F-005-01"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Confirmar plugin RvSoftware y excepción limitada de gitignore; probar carga.",
+            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-006",
+            "name": "Proyectos y tablero simplificados",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Proyectos y tablero simplificados. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [
+                "F-004",
+                "F-005"
+            ],
+            "acceptanceCriteria": [
+                "Flujos simplificados según diseño.",
+                "Capacidades y permisos conservados en escritorio/móvil."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-006-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "ui-ux",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-006-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "testing",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Aplicar overrides mínimos y verificar flujo proyecto/tarea/tablero."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/ui-ux.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md"
+            ],
+            "relatedContext": [
+                "harness/context/ui-brand.md",
+                "harness/context/architecture.md",
+                "harness/context/security.md"
+            ],
+            "relatedFiles": [
+                "app/Template/board",
+                "app/Model/TaskModel.php"
+            ],
+            "testCases": [
+                "TC-F-006-01"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Aplicar overrides mínimos y verificar flujo proyecto/tarea/tablero.",
+            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-007",
+            "name": "Sesiones e integridad del tiempo",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Sesiones e integridad del tiempo. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [
+                "F-003",
+                "F-005"
+            ],
+            "acceptanceCriteria": [
+                "Fuente única y conversión sin doble conteo.",
+                "Persistencia, simultaneidad, reintentos y concurrencia probados UI/API."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-007-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "db",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-007-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "testing",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Cerrar reglas de timers/manuales y adaptar servicio nativo."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/db.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/time-billing.md",
+                "harness/context/database.md",
+                "harness/context/testing.md"
+            ],
+            "relatedFiles": [
+                "app/Model/SubtaskTimeTrackingModel.php",
+                "app/Controller/SubtaskStatusController.php",
+                "app/Api/Procedure/SubtaskTimeTrackingProcedure.php"
+            ],
+            "testCases": [
+                "TC-F-007-01",
+                "TC-F-007-02",
+                "TC-F-007-03",
+                "TC-F-007-04"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Cerrar reglas de timers/manuales y adaptar servicio nativo.",
+            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-008",
+            "name": "Clasificación facturable y permisos",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Clasificación facturable y permisos. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [
+                "F-003",
+                "F-007"
+            ],
+            "acceptanceCriteria": [
+                "Clasificación/correcciones según BR-05/06/08.",
+                "Servidor rechaza accesos indebidos en UI/URL/API/exportación."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-008-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "dev",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-008-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "testing",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Vincular clasificación a origen y matriz de permisos aprobada."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/dev.md",
+                "harness/prompts/security.md",
+                "harness/prompts/testing.md"
+            ],
+            "relatedContext": [
+                "harness/context/time-billing.md",
+                "harness/context/security.md",
+                "harness/context/database.md"
+            ],
+            "relatedFiles": [
+                "app/ServiceProvider/AuthenticationProvider.php",
+                "app/Api/Authorization/SubtaskAuthorization.php"
+            ],
+            "testCases": [
+                "TC-F-008-01",
+                "TC-F-008-02"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Vincular clasificación a origen y matriz de permisos aprobada.",
+            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-009",
+            "name": "Clientes y bolsas",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Clientes y bolsas. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [
+                "F-003",
+                "F-005"
+            ],
+            "acceptanceCriteria": [
+                "Relaciones/ciclo de bolsa acordados y probados.",
+                "Visibilidad correcta; compartir solo si aprobado."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-009-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "db",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-009-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "db",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Implementar entidades/migraciones tras BR-01/02/08."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/db.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/time-billing.md",
+                "harness/context/database.md",
+                "harness/context/security.md"
+            ],
+            "relatedFiles": [
+                "app/Model/ProjectModel.php",
+                "app/Core/Plugin/SchemaHandler.php"
+            ],
+            "testCases": [
+                "TC-F-009-01",
+                "TC-F-009-02"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Implementar entidades/migraciones tras BR-01/02/08.",
+            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-010",
+            "name": "Consumos, ajustes y reconciliación",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Consumos, ajustes y reconciliación. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [
+                "F-007",
+                "F-008",
+                "F-009"
+            ],
+            "acceptanceCriteria": [
+                "Un consumo por origen/operación; saldo reconciliable.",
+                "Ajustes/agotamiento/vigencia conservan historia y reglas aprobadas."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-010-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "db",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-010-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "testing",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Definir operaciones/claves y probar concurrencia en motor objetivo."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/db.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/time-billing.md",
+                "harness/context/database.md",
+                "harness/context/security.md"
+            ],
+            "relatedFiles": [
+                "app/Model/SubtaskTimeTrackingModel.php"
+            ],
+            "testCases": [
+                "TC-F-010-01",
+                "TC-F-010-02",
+                "TC-F-010-03"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Definir operaciones/claves y probar concurrencia en motor objetivo.",
+            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-011",
+            "name": "Reportes y exportaciones",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Reportes y exportaciones. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [
+                "F-008",
+                "F-010"
+            ],
+            "acceptanceCriteria": [
+                "Filtros por fecha trabajada y zona/corte aprobados.",
+                "Totales conciliados, permisos/precisión e historia de tarifa si procede."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-011-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "dev",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-011-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "testing",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Reutilizar estimado/real y crear reporte comercial por sesiones."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/dev.md",
+                "harness/prompts/db.md",
+                "harness/prompts/security.md",
+                "harness/prompts/testing.md"
+            ],
+            "relatedContext": [
+                "harness/context/time-billing.md",
+                "harness/context/database.md",
+                "harness/context/security.md"
+            ],
+            "relatedFiles": [
+                "app/Export/SubtaskExport.php",
+                "app/Analytic/EstimatedTimeComparisonAnalytic.php"
+            ],
+            "testCases": [
+                "TC-F-011-01",
+                "TC-F-011-02"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Reutilizar estimado/real y crear reporte comercial por sesiones.",
+            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-012",
+            "name": "Validación integrada y despliegue PHP",
+            "status": "planned",
+            "targetVersion": null,
+            "description": "Validación integrada y despliegue PHP. Reutilizar capacidad nativa antes de extender.",
+            "dependsOn": [
+                "F-002",
+                "F-006",
+                "F-011"
+            ],
+            "acceptanceCriteria": [
+                "Flujo integrado y actualización probados en sintéticos.",
+                "Artefacto sin harness/secretos, destino compatible y restauración; autorización antes de producción."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-012-S1",
+                    "name": "Precisar alcance, reutilización y aceptación",
+                    "status": "planned",
+                    "assignedAgent": "release",
+                    "agentNotes": "Rol de prompt, no agente independiente.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Leer contexto y decisiones pertinentes."
+                },
+                {
+                    "id": "F-012-S2",
+                    "name": "Realizar entregable y verificar criterios",
+                    "status": "planned",
+                    "assignedAgent": "testing",
+                    "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Verificar Hostinger, empaquetado y recuperación; separar autorización productiva."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/release.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/security.md",
+                "harness/prompts/validator.md"
+            ],
+            "relatedContext": [
+                "harness/context/deployment.md",
+                "harness/context/upstream.md",
+                "harness/context/testing.md",
+                "harness/context/security.md"
+            ],
+            "relatedFiles": [
+                "Makefile",
+                ".gitattributes",
+                "data/.htaccess"
+            ],
+            "testCases": [
+                "TC-F-012-01",
+                "TC-F-012-02"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Verificar Hostinger, empaquetado y recuperación; separar autorización productiva.",
+            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "suspensionApproval": null
+        }
+    ]
+}

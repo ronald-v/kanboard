@@ -1,0 +1,500 @@
+{
+  "schemaVersion": "1.0",
+  "cases": [
+    {
+      "id": "TC-F-001-01",
+      "featureId": "F-001",
+      "objective": "Identificar base y límites",
+      "preconditions": [
+        "Repositorio presente; inspección sin migraciones"
+      ],
+      "syntheticData": "Sin datos reales",
+      "steps": [
+        "Leer Git/licencia/composer/tests/código",
+        "Comprobar herramientas/drivers"
+      ],
+      "command": "git status --short; git rev-parse HEAD",
+      "expectedResult": "Base exacta y bloqueos documentados",
+      "verificationType": "static",
+      "status": "validated",
+      "observedResult": "HEAD 60d2caf29, fork y coincidencia oficial verificados; plataforma incompleta documentada.",
+      "evidence": [
+        "harness/evidence/2026-11-11-baseline.md"
+      ],
+      "limitations": "Inspección estática, no prueba funcional."
+    },
+    {
+      "id": "TC-F-001-02",
+      "featureId": "F-001",
+      "objective": "Ejecutar suite aislada",
+      "preconditions": [
+        "GD, PDO SQLite y PHPUnit; alcance autorizado"
+      ],
+      "syntheticData": "Fixtures SQLite en memoria",
+      "steps": [
+        "Confirmar configuración sin destino real",
+        "Ejecutar suite y registrar resumen/exit"
+      ],
+      "command": "php vendor/bin/phpunit -c tests/units.sqlite.xml",
+      "expectedResult": "Suite ejecutada; fallos resueltos o documentados antes de cierre",
+      "verificationType": "unit",
+      "status": "blocked",
+      "observedResult": "Exit 1: PHPUnit ausente; GD y drivers PDO también ausentes.",
+      "evidence": [
+        "harness/evidence/2026-11-11-baseline.md"
+      ],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-001-03",
+      "featureId": "F-001",
+      "objective": "Arranque sintético",
+      "preconditions": [
+        "Entorno preparado; revisar migraciones"
+      ],
+      "syntheticData": "Admin/miembro ficticios; proyecto vacío",
+      "steps": [
+        "Iniciar servidor local",
+        "Verificar login y Dashboard vacío",
+        "Detener servidor"
+      ],
+      "command": "php -S localhost:8000 -t .",
+      "expectedResult": "Aplicación accesible con permisos nativos",
+      "verificationType": "manual",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-002-01",
+      "featureId": "F-002",
+      "objective": "Reproducir Dashboard y regresión",
+      "preconditions": [
+        "URL/versión/rol/pasos y entorno autorizado"
+      ],
+      "syntheticData": "Roles admin/miembro/observador; proyectos vacío/asignado/revocado",
+      "steps": [
+        "Registrar observado original",
+        "Capturar HTTP/redirecciones/log depurado",
+        "Comparar copia limpia si aporta",
+        "Repetir roles, vacío y parámetros ajenos después de corregir"
+      ],
+      "command": null,
+      "expectedResult": "Vista propia usable, sin datos ajenos; causa original cubierta",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": "Defecto reportado por el usuario, pendiente de reproducir.",
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-003-01",
+      "featureId": "F-003",
+      "objective": "Cerrar contrato comercial",
+      "preconditions": [
+        "Decisiones del usuario disponibles"
+      ],
+      "syntheticData": "Cliente A, P1/P2, bolsa 10 h, trabajo 60 min",
+      "steps": [
+        "Revisar BR-01..10",
+        "Registrar decisiones/exclusiones y aceptación",
+        "Vincular reglas a casos"
+      ],
+      "command": null,
+      "expectedResult": "Conceptos separados y reglas suficientes para implementar",
+      "verificationType": "review",
+      "status": "planned",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "No ejecutado; caso diseñado."
+    },
+    {
+      "id": "TC-F-004-01",
+      "featureId": "F-004",
+      "objective": "Revisar diseño",
+      "preconditions": [
+        "Activos oficiales y mockup"
+      ],
+      "syntheticData": "Inicio con/sin proyectos; vencida y error",
+      "steps": [
+        "Revisar navegación/formularios",
+        "Comprobar teclado/foco/contraste/zoom/móvil",
+        "Registrar aprobación"
+      ],
+      "command": null,
+      "expectedResult": "Diseño aprobado, accesible y sin seguridad basada en ocultación",
+      "verificationType": "manual",
+      "status": "planned",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "No ejecutado; caso diseñado."
+    },
+    {
+      "id": "TC-F-005-01",
+      "featureId": "F-005",
+      "objective": "Carga del plugin",
+      "preconditions": [
+        "Plugin autorizado; F-001/F-004 validadas"
+      ],
+      "syntheticData": "Instalación sintética limpia",
+      "steps": [
+        "Verificar plugin versionado",
+        "Cargar rutas/assets con/sin sesión",
+        "Probar esquema/reejecución",
+        "Deshabilitar en copia y comprobar núcleo"
+      ],
+      "command": null,
+      "expectedResult": "Carga reproducible, ACL/esquema correctos, núcleo preservado",
+      "verificationType": "integration",
+      "status": "planned",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "No ejecutado; caso diseñado."
+    },
+    {
+      "id": "TC-F-006-01",
+      "featureId": "F-006",
+      "objective": "Flujo simplificado",
+      "preconditions": [
+        "Plugin y diseño aprobados"
+      ],
+      "syntheticData": "Proyecto A; miembro/observador; dos tareas",
+      "steps": [
+        "Crear y asignar",
+        "Mover por tablero",
+        "Usar teclado/móvil",
+        "Revisar avanzadas y permisos"
+      ],
+      "command": null,
+      "expectedResult": "Capacidades conservadas; observador no modifica",
+      "verificationType": "manual",
+      "status": "planned",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "No ejecutado; caso diseñado."
+    },
+    {
+      "id": "TC-F-007-01",
+      "featureId": "F-007",
+      "objective": "Conversión sin doble conteo",
+      "preconditions": [
+        "Fuente única y política manual aprobadas"
+      ],
+      "syntheticData": "Dos subtareas: 3600 s y 1800 s; histórico manual separado",
+      "steps": [
+        "Registrar sesiones",
+        "Comparar detalle/subtarea/tarea",
+        "Comprobar total único",
+        "Conservar histórico sin inventar sesiones"
+      ],
+      "command": null,
+      "expectedResult": "5400 s nuevos; 1.5 h proyectadas; histórico tratado por contrato",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-007-02",
+      "featureId": "F-007",
+      "objective": "Recuperar sesión",
+      "preconditions": [
+        "BR-09 aprobada"
+      ],
+      "syntheticData": "Usuario A; S1/S2",
+      "steps": [
+        "Iniciar y cerrar navegador",
+        "Reabrir y recuperar del servidor",
+        "Intentar segundo timer",
+        "Detener"
+      ],
+      "command": null,
+      "expectedResult": "Persistencia y simultaneidad según regla, sin duplicar",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-007-03",
+      "featureId": "F-007",
+      "objective": "Reintentos concurrentes",
+      "preconditions": [
+        "Servicio adaptado, motor confirmado y conexiones independientes"
+      ],
+      "syntheticData": "A/S1, clave repetida",
+      "steps": [
+        "Enviar dos inicios simultáneos",
+        "Enviar cierres simultáneos y repetir respuesta perdida",
+        "Comparar filas/totales; repetir UI/API"
+      ],
+      "command": null,
+      "expectedResult": "Una operación efectiva por clave; cero duplicados",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-007-04",
+      "featureId": "F-007",
+      "objective": "Retroactividad y precisión",
+      "preconditions": [
+        "BR-05/09/10 aprobadas"
+      ],
+      "syntheticData": "1,35,36,3601 s; retroactivo; medianoche",
+      "steps": [
+        "Comparar segundos y horas",
+        "Enviar fin anterior a inicio",
+        "Registrar fuera del límite y cruzando corte"
+      ],
+      "command": null,
+      "expectedResult": "Segundos conservados, conversión explícita y rechazo/corte según contrato",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-008-01",
+      "featureId": "F-008",
+      "objective": "Facturable/no facturable",
+      "preconditions": [
+        "BR-05/06 y sesiones integradas"
+      ],
+      "syntheticData": "3600 s facturables; 1800 s no facturables",
+      "steps": [
+        "Clasificar por rol",
+        "Comparar trabajo/subconjunto",
+        "Corregir con auditoría",
+        "Consumir solo según BR-03"
+      ],
+      "command": null,
+      "expectedResult": "5400 s trabajados y 3600 s facturables antes de corrección; consumo separado",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-008-02",
+      "featureId": "F-008",
+      "objective": "Acceso indebido directo",
+      "preconditions": [
+        "BR-08 aprobada"
+      ],
+      "syntheticData": "A/B, proyectos privados, tarifa/bolsa restringidas",
+      "steps": [
+        "Leer/modificar horas ajenas UI/URL/API",
+        "Consultar tarifa/bolsa/reporte/exportación ajenos",
+        "Repetir autorizado"
+      ],
+      "command": null,
+      "expectedResult": "Servidor rechaza sin filtrar; autorizado funciona",
+      "verificationType": "security",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-009-01",
+      "featureId": "F-009",
+      "objective": "Ciclo de bolsa",
+      "preconditions": [
+        "BR-01/02/08 aprobadas"
+      ],
+      "syntheticData": "Cliente A; 10 h; ampliación 2 h y vigencia",
+      "steps": [
+        "Crear relaciones",
+        "Ampliar con motivo",
+        "Renovar/cambiar vigencia",
+        "Revisar historial"
+      ],
+      "command": null,
+      "expectedResult": "Cantidad/vigencia auditables y autorizadas",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-009-02",
+      "featureId": "F-009",
+      "objective": "Bolsa compartida",
+      "preconditions": [
+        "BR-01 aprueba expresamente compartir"
+      ],
+      "syntheticData": "P1/P2, bolsa 10 h; usuario solo P1",
+      "steps": [
+        "Vincular proyectos",
+        "Consumir 1 h por proyecto",
+        "Consultar saldo/detalles por rol"
+      ],
+      "command": null,
+      "expectedResult": "Saldo común conciliable sin filtrar proyecto ajeno",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Si compartir no se aprueba, registrar exclusión; no marcar como ejecutado."
+    },
+    {
+      "id": "TC-F-010-01",
+      "featureId": "F-010",
+      "objective": "Consumo único",
+      "preconditions": [
+        "BR-03, motor y transacciones implementados"
+      ],
+      "syntheticData": "10 h; origen 3600 s elegible",
+      "steps": [
+        "Repetir misma clave",
+        "Enviar solicitudes concurrentes independientes",
+        "Reconciliar ledger"
+      ],
+      "command": null,
+      "expectedResult": "Un débito 3600 s; saldo 9 h",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-010-02",
+      "featureId": "F-010",
+      "objective": "Corrección/anulación",
+      "preconditions": [
+        "BR-05/06 aprobadas"
+      ],
+      "syntheticData": "3600 s consumidos; corregir a 1800 s; reporte abierto/cerrado",
+      "steps": [
+        "Corregir/anular por rol/estado",
+        "Registrar actor/motivo/valores",
+        "Reconciliar",
+        "Intentar borrar origen cerrado"
+      ],
+      "command": null,
+      "expectedResult": "Ajuste/rechazo según contrato, historia intacta y saldo coherente",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-010-03",
+      "featureId": "F-010",
+      "objective": "Agotamiento y vencimiento",
+      "preconditions": [
+        "BR-02/04 aprobadas"
+      ],
+      "syntheticData": "Saldo 30 min, consumo 60 min; ampliar 2 h; bolsa vencida",
+      "steps": [
+        "Consumir insuficiente",
+        "Ampliar/reintentar",
+        "Consumir antes/después de vencimiento con concurrencia"
+      ],
+      "command": null,
+      "expectedResult": "Aviso/bloqueo/excedente y vigencia según decisiones",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-011-01",
+      "featureId": "F-011",
+      "objective": "Reporte por fecha trabajada",
+      "preconditions": [
+        "BR-08/10 y dominio implementado"
+      ],
+      "syntheticData": "Tarea enero; sesiones febrero; cruce de medianoche",
+      "steps": [
+        "Filtrar febrero por sesión",
+        "Comparar detalle/agregado/exportación",
+        "Revisar permisos/zona"
+      ],
+      "command": null,
+      "expectedResult": "Incluye trabajo febrero; sin doble conteo ni filtración",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+    },
+    {
+      "id": "TC-F-011-02",
+      "featureId": "F-011",
+      "objective": "Tarifa histórica precisa",
+      "preconditions": [
+        "BR-07 e importes aprobados"
+      ],
+      "syntheticData": "Tarifa decimal A, reporte cerrado, nueva tarifa B",
+      "steps": [
+        "Calcular escala acordada",
+        "Cambiar tarifa",
+        "Abrir/exportar histórico"
+      ],
+      "command": null,
+      "expectedResult": "Sin flotantes monetarios; snapshot conserva importe",
+      "verificationType": "integration",
+      "status": "blocked",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "Importes pendientes; emisión de facturas fuera del alcance."
+    },
+    {
+      "id": "TC-F-012-01",
+      "featureId": "F-012",
+      "objective": "Regresión y release",
+      "preconditions": [
+        "Dependencias validadas; staging/destino verificados"
+      ],
+      "syntheticData": "Roles, proyecto/tarea/sesión/bolsa/reporte sintéticos",
+      "steps": [
+        "Login/Dashboard/proyecto/tarea/tiempo/reporte",
+        "Inspeccionar ZIP y ejecución PHP",
+        "Verificar rutas sensibles/adjuntos",
+        "Ensayar restauración"
+      ],
+      "command": null,
+      "expectedResult": "Flujo autorizado, exclusiones correctas, recuperación demostrada",
+      "verificationType": "integration",
+      "status": "planned",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "No ejecutado; caso diseñado."
+    },
+    {
+      "id": "TC-F-012-02",
+      "featureId": "F-012",
+      "objective": "Actualización upstream",
+      "preconditions": [
+        "Commits origen/destino, copia aislada, backup sintético"
+      ],
+      "syntheticData": "Sesiones abiertas/cerradas y ledger anterior",
+      "steps": [
+        "Revisar diff/requisitos/overrides",
+        "Actualizar/migrar copia",
+        "Ejecutar ACL/timer/reportes/reconciliación",
+        "Restaurar anterior"
+      ],
+      "command": null,
+      "expectedResult": "Compatibilidad y restauración completas",
+      "verificationType": "integration",
+      "status": "planned",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "No ejecutado; caso diseñado."
+    }
+  ]
+}
