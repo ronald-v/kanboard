@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-12T04:36:10.501837-05:00",
+    "updatedAt": "2026-11-12T04:37:44.669002-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -144,7 +144,7 @@
         {
             "id": "F-003",
             "name": "Capacidades y contrato comercial",
-            "status": "planned",
+            "status": "validated",
             "targetVersion": null,
             "description": "Capacidades y contrato comercial. Reutilizar capacidad nativa antes de extender.",
             "dependsOn": [],
@@ -156,22 +156,26 @@
                 {
                     "id": "F-003-S1",
                     "name": "Precisar alcance, reutilización y aceptación",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "leader",
                     "agentNotes": "Rol de prompt, no agente independiente.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f003-contrato.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Leer contexto y decisiones pertinentes."
+                    "nextAction": "Conservar contrato aprobado y sus exclusiones en DEC-008."
                 },
                 {
                     "id": "F-003-S2",
                     "name": "Realizar entregable y verificar criterios",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "leader",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f003-contrato.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Revisar alternativas BR-01..10 con el usuario."
+                    "nextAction": "Conservar contrato aprobado y sus exclusiones en DEC-008."
                 }
             ],
             "relatedPrompts": [
@@ -191,10 +195,12 @@
             "testCases": [
                 "TC-F-003-01"
             ],
-            "evidence": [],
+            "evidence": [
+                "harness/evidence/2026-11-12-f003-contrato.md"
+            ],
             "blockers": [],
-            "nextAction": "Revisar alternativas BR-01..10 con el usuario.",
-            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "nextAction": "Usar contrato en F-007..F-011; continuar mockup F-004.",
+            "notes": "BR-01..10 aceptadas expresamente bajo DEC-008; capacidades contrastadas. Sin implementación de dominio en esta feature.",
             "suspensionApproval": null
         },
         {

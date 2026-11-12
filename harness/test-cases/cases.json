@@ -109,10 +109,12 @@
       "command": null,
       "expectedResult": "Conceptos separados y reglas suficientes para implementar",
       "verificationType": "review",
-      "status": "planned",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "No ejecutado; caso diseñado."
+      "status": "validated",
+      "observedResult": "Usuario aceptó propuesta BR-01..10. DEC-008 registra decisiones; time-billing y evidencia contrastan capacidades y casos derivados.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f003-contrato.md"
+      ],
+      "limitations": "Revisión documental del contrato aceptado; casos de negocio aún no implementados ni probados funcionalmente."
     },
     {
       "id": "TC-F-004-01",
