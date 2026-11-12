@@ -141,4 +141,19 @@ class FileStorageTest extends Base
         $this->assertEquals($this->tempDir . DIRECTORY_SEPARATOR . 'subdir' . DIRECTORY_SEPARATOR . 'file.txt', $this->storage->getSanitizedFilePath('subdir/file.txt'));
         $this->assertEquals($this->tempDir . DIRECTORY_SEPARATOR . 'file.txt', $this->storage->getSanitizedFilePath('file.txt'));
     }
+
+    public function testRejectSiblingSharingBaseDirectoryPrefix()
+    {
+        $this->expectException(ObjectStorageException::class);
+        $this->storage->getSanitizedFilePath('../'.basename($this->tempDir).'_outside.txt');
+    }
+
+    public function testMoveFileWithSubdirectory()
+    {
+        $source = $this->tempDir.DIRECTORY_SEPARATOR.'source.txt';
+        file_put_contents($source, 'synthetic');
+        $this->assertTrue($this->storage->moveFile($source, 'nested/moved.txt'));
+        $this->assertEquals('synthetic', $this->storage->get('nested/moved.txt'));
+        $this->assertFileDoesNotExist($source);
+    }
 }

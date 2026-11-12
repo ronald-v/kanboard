@@ -8,13 +8,13 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-11T22:38:03.0416450-05:00",
+    "updatedAt": "2026-11-12T04:34:50.542414-05:00",
     "activeFeatureId": null,
     "features": [
         {
             "id": "F-001",
             "name": "Línea base y entorno",
-            "status": "blocked",
+            "status": "validated",
             "targetVersion": null,
             "description": "Línea base y entorno. Reutilizar capacidad nativa antes de extender.",
             "dependsOn": [],
@@ -30,22 +30,23 @@
                     "assignedAgent": "architect",
                     "agentNotes": "Rol de prompt, no agente independiente.",
                     "evidence": [
-                        "harness/evidence/2026-11-11-baseline.md"
+                        "harness/evidence/2026-11-11-baseline.md",
+                        "harness/evidence/2026-11-12-f001-entorno.md"
                     ],
                     "blockers": [],
-                    "nextAction": "Conservar evidencia; revisar si cambia la base."
+                    "nextAction": "Conservar evidencia y repetir solo ante cambios pertinentes."
                 },
                 {
                     "id": "F-001-S2",
                     "name": "Preparar y ejecutar entorno aislado",
-                    "status": "blocked",
+                    "status": "validated",
                     "assignedAgent": "testing",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
-                    "evidence": [],
-                    "blockers": [
-                        "Faltan GD, driver PDO y PHPUnit; preparación fuera de generar harness."
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f001-entorno.md"
                     ],
-                    "nextAction": "Autorizar preparación F-001; habilitar GD/PDO de prueba e instalar dependencias del lock; ejecutar suite/arranque."
+                    "blockers": [],
+                    "nextAction": "Conservar evidencia y repetir solo ante cambios pertinentes."
                 }
             ],
             "relatedPrompts": [
@@ -68,13 +69,12 @@
                 "TC-F-001-03"
             ],
             "evidence": [
-                "harness/evidence/2026-11-11-baseline.md"
+                "harness/evidence/2026-11-11-baseline.md",
+                "harness/evidence/2026-11-12-f001-entorno.md"
             ],
-            "blockers": [
-                "Entorno incompleto: GD, PDO y PHPUnit ausentes."
-            ],
-            "nextAction": "Autorizar preparación F-001; habilitar GD/PDO de prueba e instalar dependencias del lock; ejecutar suite/arranque.",
-            "notes": "Inspección comprobada; suite/arranque no ejecutados.",
+            "blockers": [],
+            "nextAction": "Conservar regresión y usar scripts aislados; iniciar F-002 según exclusión del usuario.",
+            "notes": "Entorno aislado y suite completos; 1240 tests/181101 aserciones, exit 0, 1 warning. Sin MySQL ni revisión independiente.",
             "suspensionApproval": null
         },
         {

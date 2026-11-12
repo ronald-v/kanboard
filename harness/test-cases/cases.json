@@ -17,11 +17,12 @@
       "expectedResult": "Base exacta y bloqueos documentados",
       "verificationType": "static",
       "status": "validated",
-      "observedResult": "HEAD 60d2caf29, fork y coincidencia oficial verificados; plataforma incompleta documentada.",
+      "observedResult": "Base exacta y Git comprobados; herramientas y extensiones aisladas preparadas bajo DEC-003.",
       "evidence": [
-        "harness/evidence/2026-11-11-baseline.md"
+        "harness/evidence/2026-11-11-baseline.md",
+        "harness/evidence/2026-11-12-f001-entorno.md"
       ],
-      "limitations": "Inspección estática, no prueba funcional."
+      "limitations": "SQLite sintético local; sin MySQL ni revisión independiente."
     },
     {
       "id": "TC-F-001-02",
@@ -35,15 +36,16 @@
         "Confirmar configuración sin destino real",
         "Ejecutar suite y registrar resumen/exit"
       ],
-      "command": "php vendor/bin/phpunit -c tests/units.sqlite.xml",
+      "command": "powershell -NoProfile -File harness/scripts/Invoke-UnitTests.ps1 -ContinueOnFailure",
       "expectedResult": "Suite ejecutada; fallos resueltos o documentados antes de cierre",
       "verificationType": "unit",
-      "status": "blocked",
-      "observedResult": "Exit 1: PHPUnit ausente; GD y drivers PDO también ausentes.",
+      "status": "validated",
+      "observedResult": "Suite completa exit 0: 1240 tests, 181101 aserciones, sin fallos/errores/omisiones, 1 warning. Fallos previos corregidos y documentados.",
       "evidence": [
-        "harness/evidence/2026-11-11-baseline.md"
+        "harness/evidence/2026-11-11-baseline.md",
+        "harness/evidence/2026-11-12-f001-entorno.md"
       ],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "limitations": "SQLite sintético local; sin MySQL ni revisión independiente."
     },
     {
       "id": "TC-F-001-03",
@@ -58,13 +60,15 @@
         "Verificar login y Dashboard vacío",
         "Detener servidor"
       ],
-      "command": "php -S localhost:8000 -t .",
+      "command": "powershell -NoProfile -File harness/scripts/Start-IsolatedServer.ps1; python harness/scripts/Test-IsolatedHttp.py",
       "expectedResult": "Aplicación accesible con permisos nativos",
       "verificationType": "manual",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "Login admin/miembro, proyecto vacío y cuatro rutas Dashboard accesibles; consulta de usuario ajeno denegada por plantilla nativa (HTTP 200).",
+      "evidence": [
+        "harness/evidence/2026-11-12-f001-entorno.md"
+      ],
+      "limitations": "SQLite sintético local; sin MySQL ni revisión independiente."
     },
     {
       "id": "TC-F-002-01",
