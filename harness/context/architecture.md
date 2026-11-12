@@ -18,7 +18,14 @@ Puntos comprobados:
 - [Temporizador](../../app/Model/SubtaskTimeTrackingModel.php): hook
   model:subtask-time-tracking:calculate:time-spent; solo altera cálculo, no atomicidad.
 
-## Propuesta de producto, no creada
+## Plugin propio desde F-005
+`plugins/RvSoftware` existe y usa loader, ACL, hooks y migraciones nativos.
+Versión interna 0.1.0 sobre commit exacto documentado en su README. Pruebas en
+tests/units/Plugin y HTTP sintético; sin dependencias nuevas ni cambios del núcleo.
+Evidencia: [F-005](../evidence/2026-11-12-f005-plugin.md).
+Las secciones siguientes conservan el diseño de extensión para features futuras.
+
+## Diseño de extensión
 Plugin cohesionado `plugins/RvSoftware/` con Plugin.php, Controller/, Model/,
 Template/, Assets/, Schema/ y pruebas en ubicación convencional que se defina en
 F-005 según integración con PHPUnit. Los assets y esquemas no van en harness.

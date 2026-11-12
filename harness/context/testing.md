@@ -21,6 +21,10 @@ El servidor escucha exclusivamente en 127.0.0.1:18001; usa
 No reutiliza DATABASE_URL ni DB_DRIVER heredados; detener con Ctrl+C. Solo datos
 sintéticos, admin/admin del esquema nuevo. El smoke no registra cookies ni tokens.
 El test runner fuerza la configuración SQLite :memory: y el autoload aislado.
+`-Plugin` en Invoke-UnitTests.ps1/Start-IsolatedServer.ps1 copia solo RvSoftware
+al directorio `.runtime/plugins-enabled`; el modo nativo usa `plugins-disabled`.
+HTTP de integración: servidores 18005 con plugin y 18006 sin él, luego
+`python harness/scripts/Test-RvSoftwareHttp.py`. No es automatización de navegador.
 MySQL no es necesario para esta línea base; sí se requiere validación en el motor
 objetivo antes de una entrega que lo use. Resultados reales en evidence/.
 

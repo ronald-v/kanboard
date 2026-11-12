@@ -14,7 +14,7 @@ foreach ($config in @('config.php', 'data/config.php', '.runtime/data/config.php
         throw "Refusing to boot with an unreviewed config: $config"
     }
 }
-foreach ($directory in @('data', 'data/files', 'data/cache', 'plugins')) {
+foreach ($directory in @('data', 'data/files', 'data/cache', 'plugins-disabled', 'plugins-enabled')) {
     New-Item -ItemType Directory -Force -Path (Join-Path $testRuntime $directory) | Out-Null
 }
 # DATABASE_URL takes precedence over native constants. Never inherit a real target.
@@ -24,7 +24,7 @@ $env:DB_FILENAME = Join-Path $testRuntime 'data/db.sqlite'
 $env:DATA_DIR = Join-Path $testRuntime 'data'
 $env:FILES_DIR = Join-Path $testRuntime 'data/files'
 $env:CACHE_DIR = Join-Path $testRuntime 'data/cache'
-$env:PLUGINS_DIR = Join-Path $testRuntime 'plugins'
+$env:PLUGINS_DIR = Join-Path $testRuntime 'plugins-disabled'
 $env:PLUGIN_INSTALLER = 'false'
 $env:DB_RUN_MIGRATIONS = 'true'
 $env:LOG_DRIVER = 'stderr'
@@ -32,3 +32,11 @@ $env:LOG_FILE = Join-Path $testRuntime 'debug.log'
 $env:DEBUG = 'false'
 $env:COMPOSER_VENDOR_DIR = Join-Path $testRuntime 'vendor'
 Set-Location -LiteralPath $testRoot
+
+function Enable-RvSoftwareTestPlugin {
+    $sourcePlugin = Join-Path $testRoot 'plugins/RvSoftware'
+    $enabledPlugins = Join-Path $testRuntime 'plugins-enabled'
+    Copy-Item -LiteralPath $sourcePlugin -Destination $enabledPlugins -Recurse -Force
+    $env:PLUGINS_DIR = $enabledPlugins
+    $env:RVSOFTWARE_TEST = 'true'
+}

@@ -123,7 +123,10 @@
       "codeZones": [
         "app/Core/Plugin/Loader.php",
         "app/Core/Plugin/SchemaHandler.php",
-        "plugins/.gitignore"
+        "plugins/.gitignore",
+        "plugins/RvSoftware/Plugin.php",
+        "plugins/RvSoftware/Schema",
+        "tests/units/Plugin"
       ],
       "testCases": [
         "TC-F-005-01"

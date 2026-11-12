@@ -1,5 +1,6 @@
-param([string]$Filter = '', [switch]$ContinueOnFailure)
+param([string]$Filter = '', [switch]$ContinueOnFailure, [switch]$Plugin)
 . (Join-Path $PSScriptRoot 'TestEnvironment.ps1')
+if ($Plugin) { Enable-RvSoftwareTestPlugin }
 $testRunner = Join-Path $testRuntime 'vendor/bin/phpunit'
 if (-not (Test-Path -LiteralPath $testRunner) -or
     -not (Test-Path -LiteralPath (Join-Path $testRuntime 'vendor/autoload.php'))) {
