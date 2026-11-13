@@ -18,4 +18,29 @@ class RvTimeProcedure extends \Kanboard\Api\Procedure\BaseProcedure
     {
         return $this->rvTimeModel->mine();
     }
+
+    public function rvGetVisibleTime()
+    {
+        return $this->rvTimeModel->visible();
+    }
+
+    public function rvGetTime($session_id)
+    {
+        return $this->rvTimeModel->readable($session_id);
+    }
+
+    public function rvReviewTime($session_id, $billable, $approve, $reason, $operation_key)
+    {
+        return $this->rvTimeModel->review($session_id, $billable, $approve, $reason, $operation_key);
+    }
+
+    public function rvRectifyTime($session_id, $start, $end, $billable, $note, $reason, $operation_key)
+    {
+        return $this->rvTimeModel->rectify($session_id, $start, $end, $billable, $note, $reason, $operation_key);
+    }
+
+    public function rvGetTimeAudit($session_id)
+    {
+        return $this->rvTimeModel->history($session_id);
+    }
 }

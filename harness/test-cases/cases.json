@@ -301,10 +301,12 @@
       "command": null,
       "expectedResult": "5400 s trabajados y 3600 s facturables antes de corrección; consumo separado",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "Clasificación, aprobación, rectificación y privacidad comprobadas en 20 tests/113 aserciones y HTTP/UI/API con regresiones y concurrencia; límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f008-revision.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-008-02",
@@ -322,10 +324,12 @@
       "command": null,
       "expectedResult": "Servidor rechaza sin filtrar; autorizado funciona",
       "verificationType": "security",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "Clasificación, aprobación, rectificación y privacidad comprobadas en 20 tests/113 aserciones y HTTP/UI/API con regresiones y concurrencia; límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f008-revision.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-009-01",
