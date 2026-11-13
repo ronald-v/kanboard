@@ -15,6 +15,14 @@ class Plugin extends Base
         $this->applicationAccessMap->add('RvHomeController', '*', Role::APP_USER);
         $this->route->addRoute('rvsoftware', 'RvHomeController', 'show', 'RvSoftware');
         $this->hook->on('template:layout:css', array('template' => 'plugins/RvSoftware/Assets/app.css'));
+        $this->template->setTemplateOverride('layout', 'RvSoftware:layout');
+        $this->template->setTemplateOverride('task_creation/show', 'RvSoftware:task/create');
+        $this->hook->on('template:layout:top', array('template' => 'RvSoftware:layout/sidebar'));
+    }
+
+    public function getClasses()
+    {
+        return array('Plugin\\RvSoftware\\Model' => array('RvDashboardModel'));
     }
 
     public function getPluginName() { return 'RvSoftware'; }
