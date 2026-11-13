@@ -12,8 +12,8 @@ def main():
         assert root.call('addProjectUser', {'project_id': project, 'user_id': user, 'role': 'project-manager' if name == 'leader' else 'project-member'})
     leader = API('review-leader','synthetic-review')
     other = API('review-leader','synthetic-review','http://127.0.0.1:18007/')
-    leader.call('rvAssignClient', {'project_id': project,'name': 'Ledger client','operation_key': 'ledger-client'})
-    bag = leader.call('rvCreateBag', {'project_id': project,'name':'Ledger bag','seconds':1800,'operation_key':'ledger-bag'})
+    leader.call('rvAssignClient', {'project_id': project,'name': 'Ledger client','operation_key': 'ledger-client-' + str(time.time_ns())})
+    bag = leader.call('rvCreateBag', {'project_id': project,'name':'Ledger bag','seconds':1800,'operation_key':'ledger-bag-' + str(time.time_ns())})
     end = int(time.time())-120
     ids = []
     for name, seconds in (('member',3600),('peer',900)):
