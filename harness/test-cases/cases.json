@@ -511,10 +511,12 @@
       "command": null,
       "expectedResult": "Flujo autorizado, exclusiones correctas, recuperación demostrada",
       "verificationType": "integration",
-      "status": "planned",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "No ejecutado; caso diseñado."
+      "status": "blocked",
+      "observedResult": "Flujo HTTP/UI/API, ZIP, ejecución PHP, actualización plugin 4→6 y restauración sintética local pasan sobre el upstream exacto fijado. La compatibilidad y actualización en el destino real no están comprobadas.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f012-preparacion.md"
+      ],
+      "limitations": "Falta ficha del hosting/motor para ensayo de actualización y recuperación en ese destino. No desplegado; sin revisión independiente. Siguiente acción y responsable en DEC-021."
     },
     {
       "id": "TC-F-012-02",
@@ -533,10 +535,12 @@
       "command": null,
       "expectedResult": "Compatibilidad y restauración completas",
       "verificationType": "integration",
-      "status": "planned",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "No ejecutado; caso diseñado."
+      "status": "blocked",
+      "observedResult": "Flujo HTTP/UI/API, ZIP, ejecución PHP, actualización plugin 4→6 y restauración sintética local pasan sobre el upstream exacto fijado. La compatibilidad y actualización en el destino real no están comprobadas.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f012-preparacion.md"
+      ],
+      "limitations": "Falta ficha del hosting/motor para ensayo de actualización y recuperación en ese destino. No desplegado; sin revisión independiente. Siguiente acción y responsable en DEC-021."
     }
   ]
 }

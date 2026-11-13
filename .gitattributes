@@ -6,6 +6,22 @@ app/constants.php export-subst
 .gitignore export-ignore
 .dockerignore export-ignore
 .php-cs-fixer.php export-ignore
+AGENTS.md export-ignore
+harness export-ignore
+.runtime export-ignore
+config.php export-ignore
+data/config.php export-ignore
+data/files export-ignore
+data/cache export-ignore
+data/*.sqlite-* export-ignore
+data/*.sql export-ignore
+data/*.zip export-ignore
+data/*.bak export-ignore
+libs/*/tests export-ignore
+libs/*/test export-ignore
+vendor/**/tests export-ignore
+node_modules export-ignore
+docker-compose.*.yml export-ignore
 
 custom-hooks export-ignore
 docker export-ignore

@@ -15,12 +15,29 @@ Desde F-007, Mi tiempo registra sesiones exactas con nota, fecha, duración,
 temporizador único, correcciones auditadas y claves de reintento. API de usuario:
 rvCreateTime, rvCorrectTime y rvGetMyTime. El API nativo de timers usa el mismo
 servicio. Los acumulados no se editan directamente: registrar una sesión fechada.
-Esquema actual 3: metadata/auditoría/FK restrict, snapshots históricos opacos y
-mutex por usuario/tarea. SQLite probado; MySQL pendiente de ejecución. El plugin
+Esquema actual 6: metadata/auditoría/FK restrict, snapshots históricos opacos,
+clasificación/aprobación, clientes/bolsas, ledger y mutex por usuario/tarea/proyecto.
+SQLite probado; MySQL pendiente de ejecución. El plugin
 solo habilita sus servicios para SQLite/MySQL, no para otros motores.
-Esquema inicial 1 sin DDL: versión en plugin_schema_versions nativo, sin tablas
-de negocio prematuras. MySQL solo incluye baseline sin DDL; se verifica en motor
-objetivo antes de una entrega que lo utilice. El loader migra antes de initialize.
+Esquema inicial 1 sin DDL; las versiones 2..6 incorporan el dominio. MySQL tiene
+migraciones equivalentes que requieren ensayo aislado antes de producción.
+El loader migra antes de initialize: revisar y respaldar antes de arrancar.
+
+Revisión de tiempo permite al líder/administrador clasificar, aprobar y rectificar.
+Miembro consulta sus propias horas; líder las de sus proyectos y administrador
+todo. Aprobación facturable requiere bolsa del mismo proyecto. Se permite saldo
+negativo con aviso. Rectificar compensa sin borrar movimientos. El historial de
+bolsa/proyecto se conserva; no se traslada una tarea con sesiones aprobadas.
+
+Clientes y bolsas ofrece asignación de cliente, capacidad, vigencia opcional,
+ampliaciones, archivo, ajustes con motivo e historial. El saldo suma movimientos.
+Reportes filtra por días trabajados en America/Bogota, recorta sesiones que cruzan
+medianoche y exporta CSV con segundos exactos y protección de fórmulas. Históricos
+opacos sin sesiones no se atribuyen a usuarios. No hay tarifas, facturas, cierres
+mensuales ni renovaciones automáticas.
+
+Instalación/recuperación: [INSTALL.md](INSTALL.md). Una entrega de desarrollo no
+autoriza producción ni acredita compatibilidad con un hosting todavía no probado.
 
 Pruebas locales: powershell -NoProfile -File harness/scripts/Invoke-UnitTests.ps1
 -Plugin -Filter RvSoftware. El harness es exclusivo de desarrollo y no se despliega.

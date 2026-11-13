@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-12T22:52:20.768473-05:00",
+    "updatedAt": "2026-11-12T23:03:38.745064-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -746,7 +746,7 @@
         {
             "id": "F-012",
             "name": "Validación integrada y despliegue PHP",
-            "status": "planned",
+            "status": "blocked",
             "targetVersion": null,
             "description": "Validación integrada y despliegue PHP. Reutilizar capacidad nativa antes de extender.",
             "dependsOn": [
@@ -762,22 +762,28 @@
                 {
                     "id": "F-012-S1",
                     "name": "Precisar alcance, reutilización y aceptación",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "release",
                     "agentNotes": "Rol de prompt, no agente independiente.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f012-preparacion.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Leer contexto y decisiones pertinentes."
+                    "nextAction": "Conservar alcance local y límites de DEC-021."
                 },
                 {
                     "id": "F-012-S2",
                     "name": "Realizar entregable y verificar criterios",
-                    "status": "planned",
+                    "status": "blocked",
                     "assignedAgent": "testing",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
-                    "evidence": [],
-                    "blockers": [],
-                    "nextAction": "Verificar Hostinger, empaquetado y recuperación; separar autorización productiva."
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f012-preparacion.md"
+                    ],
+                    "blockers": [
+                        "Responsable Ronnie: identificar PHP, motor/versión y servidor/destino de staging; verificar compatibilidad, reglas HTTP y recuperación en ese motor antes de producción."
+                    ],
+                    "nextAction": "Recibir ficha técnica del destino y ensayar actualización, migración, concurrencia, reglas HTTP y recuperación en ese motor/staging sobre la base exacta ya fijada."
                 }
             ],
             "relatedPrompts": [
@@ -801,10 +807,14 @@
                 "TC-F-012-01",
                 "TC-F-012-02"
             ],
-            "evidence": [],
-            "blockers": [],
-            "nextAction": "Verificar Hostinger, empaquetado y recuperación; separar autorización productiva.",
-            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "evidence": [
+                "harness/evidence/2026-11-12-f012-preparacion.md"
+            ],
+            "blockers": [
+                "Responsable Ronnie: identificar PHP, motor/versión y servidor/destino de staging; verificar compatibilidad, reglas HTTP y recuperación en ese motor antes de producción."
+            ],
+            "nextAction": "Recibir ficha técnica del destino y ensayar actualización, migración, concurrencia, reglas HTTP y recuperación en ese motor/staging sobre la base exacta ya fijada.",
+            "notes": "Preparación local implementada y comprobada: 33 tests/189 aserciones del plugin, suite nativa, HTTP integral, ZIP reproducible y restauración real de sintéticos. Destino y upstream objetivo pendientes; sin despliegue. DEC-021.",
             "suspensionApproval": null
         }
     ]
