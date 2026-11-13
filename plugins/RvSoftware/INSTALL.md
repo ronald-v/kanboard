@@ -7,9 +7,10 @@ versión oficial de Kanboard. Mantener LICENSE MIT y avisos de dependencias.
 El paquete incluye PHP, vendor/libs de runtime y assets compilados. No necesita
 Node ni Composer en hosting. Requiere PHP >=8.1 y las extensiones que verifica
 app/check_setup.php: PDO del motor, GD, mbstring, OpenSSL, JSON, ctype, session,
-DOM, SimpleXML, XML y las funciones hash/filter. PHP 8.3.27 + SQLite es el entorno
-ensayado. MySQL/MariaDB requiere ensayo previo en su versión exacta. PostgreSQL
-y SQL Server no están habilitados para este plugin.
+DOM, SimpleXML, XML y las funciones hash/filter. Entornos locales ensayados:
+PHP 8.3.27 + SQLite y PHP 8.5.12 + SQLite/MariaDB 11.8.9 (incluido binary log).
+Son pruebas en Windows; no acreditan por sí mismas el SAPI, extensiones ni reglas
+de acceso del hosting. PostgreSQL y SQL Server no están habilitados para el plugin.
 
 ## Antes de activar
 

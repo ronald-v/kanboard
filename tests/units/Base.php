@@ -46,7 +46,7 @@ abstract class Base extends TestCase
         $test = get_class($this)."::".$testName;
 
         if (DB_DRIVER === 'mysql') {
-            $pdo = new PDO('mysql:host='.DB_HOSTNAME, DB_USERNAME, DB_PASSWORD);
+            $pdo = new PDO('mysql:host='.DB_HOSTNAME.(DB_PORT ? ';port='.DB_PORT : ''), DB_USERNAME, DB_PASSWORD);
             $pdo->exec('DROP DATABASE '.DB_NAME);
             $pdo->exec('CREATE DATABASE '.DB_NAME);
             $pdo = null;

@@ -512,11 +512,12 @@
       "expectedResult": "Flujo autorizado, exclusiones correctas, recuperación demostrada",
       "verificationType": "integration",
       "status": "blocked",
-      "observedResult": "Flujo HTTP/UI/API, ZIP, ejecución PHP, actualización plugin 4→6 y restauración sintética local pasan sobre el upstream exacto fijado. La compatibilidad y actualización en el destino real no están comprobadas.",
+      "observedResult": "PHP 8.5.12 y MariaDB 11.8.9-MariaDB-log: 36 tests/203 aserciones, migración plugin 4→6, concurrencia HTTP/roles/CSV, ZIP y restauración de base/archivos pasan localmente. Hosting real pendiente.",
       "evidence": [
-        "harness/evidence/2026-11-12-f012-preparacion.md"
+        "harness/evidence/2026-11-12-f012-preparacion.md",
+        "harness/evidence/2026-11-13-f012-compatibilidad.md"
       ],
-      "limitations": "Falta ficha del hosting/motor para ensayo de actualización y recuperación en ese destino. No desplegado; sin revisión independiente. Siguiente acción y responsable en DEC-021."
+      "limitations": "Ensayo local Windows/CLI/servidor PHP integrado; faltan PHP/SAPI/extensiones efectivos, reglas del servidor y recuperación en staging de Hostinger. Sin despliegue ni revisión independiente."
     },
     {
       "id": "TC-F-012-02",
@@ -536,11 +537,12 @@
       "expectedResult": "Compatibilidad y restauración completas",
       "verificationType": "integration",
       "status": "blocked",
-      "observedResult": "Flujo HTTP/UI/API, ZIP, ejecución PHP, actualización plugin 4→6 y restauración sintética local pasan sobre el upstream exacto fijado. La compatibilidad y actualización en el destino real no están comprobadas.",
+      "observedResult": "PHP 8.5.12 y MariaDB 11.8.9-MariaDB-log: 36 tests/203 aserciones, migración plugin 4→6, concurrencia HTTP/roles/CSV, ZIP y restauración de base/archivos pasan localmente. Hosting real pendiente.",
       "evidence": [
-        "harness/evidence/2026-11-12-f012-preparacion.md"
+        "harness/evidence/2026-11-12-f012-preparacion.md",
+        "harness/evidence/2026-11-13-f012-compatibilidad.md"
       ],
-      "limitations": "Falta ficha del hosting/motor para ensayo de actualización y recuperación en ese destino. No desplegado; sin revisión independiente. Siguiente acción y responsable en DEC-021."
+      "limitations": "Ensayo local Windows/CLI/servidor PHP integrado; faltan PHP/SAPI/extensiones efectivos, reglas del servidor y recuperación en staging de Hostinger. Sin despliegue ni revisión independiente."
     }
   ]
 }

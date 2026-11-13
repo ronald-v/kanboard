@@ -1,5 +1,18 @@
 # Despliegue PHP y recuperación
 
+## Destino informado el 2026-11-13
+
+Ronnie indicó PHP 8.5 y MariaDB 11.8.9-MariaDB-log en Hostinger, dominio ya creado
+`projecta.rvsoftware.site`. No se recibió acceso ni instrucción de cargar código.
+Una consulta HEAD pública devuelve HTTPS 200, Server hcdn y X-Powered-By PHP/8.3.36:
+esto puede corresponder a la página actual/intermediario, no demuestra el runtime
+de la futura aplicación. Verificar PHP efectivo, extensiones y servidor de origen.
+
+El ensayo local usa PHP 8.5.12 y MariaDB 11.8.9 portable, con binary log activado,
+datos sintéticos y puertos loopback. Acredita ese ensayo, no las reglas del hosting.
+La base upstream permanece fijada. Los párrafos siguientes conservan la planificación
+histórica; evidencia y pendientes actuales están en feature-list.json/current-task.md.
+
 ## Confirmado / pendiente
 Hostinger permite un sitio PHP/HTML. No se verificaron destino, PHP/extensiones,
 motor/versiones, servidor, permisos, límites, cron, SSH/SFTP o mecanismo de carga.

@@ -17,10 +17,12 @@ rvCreateTime, rvCorrectTime y rvGetMyTime. El API nativo de timers usa el mismo
 servicio. Los acumulados no se editan directamente: registrar una sesión fechada.
 Esquema actual 6: metadata/auditoría/FK restrict, snapshots históricos opacos,
 clasificación/aprobación, clientes/bolsas, ledger y mutex por usuario/tarea/proyecto.
-SQLite probado; MySQL pendiente de ejecución. El plugin
+SQLite y MariaDB 11.8.9 probados localmente; PHP 8.5.12 incluido en el ensayo. El plugin
 solo habilita sus servicios para SQLite/MySQL, no para otros motores.
 Esquema inicial 1 sin DDL; las versiones 2..6 incorporan el dominio. MySQL tiene
-migraciones equivalentes que requieren ensayo aislado antes de producción.
+migraciones ensayadas en MariaDB; verificar también las condiciones del hosting
+antes de producción. Sus FLOAT nativos son una proyección aproximada en horas;
+duraciones exactas y consumos se mantienen en segundos enteros.
 El loader migra antes de initialize: revisar y respaldar antes de arrancar.
 
 Revisión de tiempo permite al líder/administrador clasificar, aprobar y rectificar.

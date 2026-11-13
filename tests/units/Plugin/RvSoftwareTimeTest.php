@@ -38,8 +38,11 @@ class RvSoftwareTimeTest extends RvSoftwareBase
             $this->assertEquals($seconds, $c['rvTimeModel']->session($id)['duration_seconds']);
         }
         $this->assertEquals(3673, $c['db']->table('rv_time_meta')->sum('duration_seconds'));
-        $this->assertEquals(1.02, (float) $c['subtaskModel']->getById($this->subtaskId)['time_spent']);
-        $this->assertEquals(1.02, (float) $c['taskFinderModel']->getById($this->taskId)['time_spent']);
+        $this->assertEqualsWithDelta(1.02, (float) $c['subtaskModel']->getById($this->subtaskId)['time_spent'], 0.000001);
+        $this->assertEqualsWithDelta(1.02, (float) $c['taskFinderModel']->getById($this->taskId)['time_spent'], 0.000001);
+        $this->assertTrue($c['subtaskModel']->update(array('id'=>$this->subtaskId,'task_id'=>$this->taskId,'title'=>'Formatted readonly','time_spent'=>'1.02')));
+        $this->assertTrue($c['taskModificationModel']->update(array('id'=>$this->taskId,'title'=>'Formatted readonly','time_spent'=>'1.02')));
+        $this->assertEquals(3673,$c['db']->table('rv_time_meta')->sum('duration_seconds'));
     }
 
     public function testRetryAndPayloadConflict()
@@ -80,7 +83,7 @@ class RvSoftwareTimeTest extends RvSoftwareBase
         $this->assertGreaterThanOrEqual(120, $seconds);
         $this->assertTrue($c['subtaskTimeTrackingModel']->logEndTime($this->subtaskId, $this->userId));
         $this->assertEquals(2, $c['db']->table('rv_time_audit')->count());
-        $this->assertEquals(round($seconds / 3600, 2), (float) $c['subtaskModel']->getById($this->subtaskId)['time_spent']);
+        $this->assertEqualsWithDelta(round($seconds / 3600, 2), (float) $c['subtaskModel']->getById($this->subtaskId)['time_spent'], 0.000001);
     }
 
     public function testCorrectionAuditAndRetry()

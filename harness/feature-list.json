@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-12T23:03:38.745064-05:00",
+    "updatedAt": "2026-11-13T05:08:39.485116-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -766,10 +766,11 @@
                     "assignedAgent": "release",
                     "agentNotes": "Rol de prompt, no agente independiente.",
                     "evidence": [
-                        "harness/evidence/2026-11-12-f012-preparacion.md"
+                        "harness/evidence/2026-11-12-f012-preparacion.md",
+                        "harness/evidence/2026-11-13-f012-compatibilidad.md"
                     ],
                     "blockers": [],
-                    "nextAction": "Conservar alcance local y límites de DEC-021."
+                    "nextAction": "Conservar destino informado y alcance de DEC-022."
                 },
                 {
                     "id": "F-012-S2",
@@ -778,12 +779,13 @@
                     "assignedAgent": "testing",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
                     "evidence": [
-                        "harness/evidence/2026-11-12-f012-preparacion.md"
+                        "harness/evidence/2026-11-12-f012-preparacion.md",
+                        "harness/evidence/2026-11-13-f012-compatibilidad.md"
                     ],
                     "blockers": [
-                        "Responsable Ronnie: identificar PHP, motor/versión y servidor/destino de staging; verificar compatibilidad, reglas HTTP y recuperación en ese motor antes de producción."
+                        "Pendiente verificación en staging de Hostinger: PHP 8.5/SAPI/extensiones efectivos, servidor de origen, reglas HTTP y recuperación allí. El dominio responde con cabecera PHP/8.3.36; no se recibió acceso ni alcance de despliegue. Responsable Ronnie para habilitar el entorno, agente para comprobarlo."
                     ],
-                    "nextAction": "Recibir ficha técnica del destino y ensayar actualización, migración, concurrencia, reglas HTTP y recuperación en ese motor/staging sobre la base exacta ya fijada."
+                    "nextAction": "Verificar con el artefacto en staging de projecta.rvsoftware.site PHP efectivo, extensiones, protección HTTP y recuperación; producción requiere su autorización separada."
                 }
             ],
             "relatedPrompts": [
@@ -808,13 +810,14 @@
                 "TC-F-012-02"
             ],
             "evidence": [
-                "harness/evidence/2026-11-12-f012-preparacion.md"
+                "harness/evidence/2026-11-12-f012-preparacion.md",
+                "harness/evidence/2026-11-13-f012-compatibilidad.md"
             ],
             "blockers": [
-                "Responsable Ronnie: identificar PHP, motor/versión y servidor/destino de staging; verificar compatibilidad, reglas HTTP y recuperación en ese motor antes de producción."
+                "Pendiente verificación en staging de Hostinger: PHP 8.5/SAPI/extensiones efectivos, servidor de origen, reglas HTTP y recuperación allí. El dominio responde con cabecera PHP/8.3.36; no se recibió acceso ni alcance de despliegue. Responsable Ronnie para habilitar el entorno, agente para comprobarlo."
             ],
-            "nextAction": "Recibir ficha técnica del destino y ensayar actualización, migración, concurrencia, reglas HTTP y recuperación en ese motor/staging sobre la base exacta ya fijada.",
-            "notes": "Preparación local implementada y comprobada: 33 tests/189 aserciones del plugin, suite nativa, HTTP integral, ZIP reproducible y restauración real de sintéticos. Destino y upstream objetivo pendientes; sin despliegue. DEC-021.",
+            "nextAction": "Verificar con el artefacto en staging de projecta.rvsoftware.site PHP efectivo, extensiones, protección HTTP y recuperación; producción requiere su autorización separada.",
+            "notes": "DEC-022: destino PHP 8.5/MariaDB 11.8.9-MariaDB-log recibido. Compatibilidad local ensayada: 36 tests/203 aserciones del plugin, suite nativa PHP 8.5, concurrencia HTTP y restauración real del ZIP en MariaDB pasan. Pendiente entorno efectivo de Hostinger; sin despliegue.",
             "suspensionApproval": null
         }
     ]

@@ -7,6 +7,14 @@ use PDO;
 
 class RvTimeModel extends RvBaseModel
 {
+    public function sameProjection($value, $stored)
+    {
+        // MariaDB's native FLOAT columns cannot represent hundredths exactly.
+        // A readonly form may submit the formatted hundredth. It is validated
+        // here and discarded by callers; it never becomes a work-time write.
+        return is_numeric($value) && is_finite((float)$value) && round((float)$value,2) === round((float)$stored,2);
+    }
+
     public function session($id)
     {
         return $this->sql('SELECT t.*, m.duration_seconds, m.source, m.note, m.version,m.status,m.billable,m.approved_by,m.approved_at,m.approved_project_id,m.rectified_at,m.bag_id FROM subtask_time_tracking t JOIN rv_time_meta m ON m.session_id=t.id WHERE t.id=?', array($id))->fetch(PDO::FETCH_ASSOC);
