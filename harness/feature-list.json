@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-12T22:41:37.303548-05:00",
+    "updatedAt": "2026-11-12T22:47:13.067295-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -611,7 +611,7 @@
         {
             "id": "F-010",
             "name": "Consumos, ajustes y reconciliación",
-            "status": "planned",
+            "status": "validated",
             "targetVersion": null,
             "description": "Consumos, ajustes y reconciliación. Reutilizar capacidad nativa antes de extender.",
             "dependsOn": [
@@ -627,22 +627,26 @@
                 {
                     "id": "F-010-S1",
                     "name": "Precisar alcance, reutilización y aceptación",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "db",
                     "agentNotes": "Rol de prompt, no agente independiente.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f010-ledger.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Leer contexto y decisiones pertinentes."
+                    "nextAction": "Conservar evidencia comprobada."
                 },
                 {
                     "id": "F-010-S2",
                     "name": "Realizar entregable y verificar criterios",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "testing",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f010-ledger.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Definir operaciones/claves y probar concurrencia en motor objetivo."
+                    "nextAction": "Conservar evidencia comprobada."
                 }
             ],
             "relatedPrompts": [
@@ -664,10 +668,12 @@
                 "TC-F-010-02",
                 "TC-F-010-03"
             ],
-            "evidence": [],
+            "evidence": [
+                "harness/evidence/2026-11-12-f010-ledger.md"
+            ],
             "blockers": [],
-            "nextAction": "Definir operaciones/claves y probar concurrencia en motor objetivo.",
-            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "nextAction": "Conservar evidencia y continuar siguiente feature con dependencias validadas.",
+            "notes": "Aprobación/consumo atómicos, compensaciones, ajustes y reconciliación: 28 tests/156 aserciones y concurrencia dos procesos SQLite; regresiones pasan, límites en evidencia.",
             "suspensionApproval": null
         },
         {

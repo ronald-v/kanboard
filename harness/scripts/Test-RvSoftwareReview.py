@@ -28,7 +28,9 @@ def main():
     assert first in [int(r['id']) for r in rows] and second not in [int(r['id']) for r in rows]
     assert 'error' in member.call('rvGetTime', {'session_id': second}, True)
     assert 'error' in member.call('rvGetTimeAudit', {'session_id': second}, True)
-    review = {'session_id': first, 'billable': True, 'approve': True, 'reason': 'Synthetic approval', 'operation_key': 'approve-' + str(time.time_ns())}
+    leader.call('rvAssignClient', {'project_id': project, 'name': 'Review client', 'operation_key': 'review-client'})
+    bag = leader.call('rvCreateBag', {'project_id': project, 'name': 'Review bag', 'seconds': 36000, 'operation_key': 'review-bag'})
+    review = {'bag_id': bag, 'session_id': first, 'billable': True, 'approve': True, 'reason': 'Synthetic approval', 'operation_key': 'approve-' + str(time.time_ns())}
     assert 'error' in member.call('rvReviewTime', review, True)
     assert leader.call('rvReviewTime', review) == first
     assert leader.call('rvReviewTime', review) == first

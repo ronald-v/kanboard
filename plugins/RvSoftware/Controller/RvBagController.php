@@ -13,16 +13,17 @@ class RvBagController extends BaseController
         $projectId = $this->request->getIntegerParam('project_id');
         $projects = $this->rvBagModel->projects();
         if (! $projectId && $projects) { $projectId = (int)$projects[0]['id']; }
-        $bags = array(); $client = null;
+        $bags = array(); $client = null; $differences = array();
         try {
             if ($projectId) {
                 $client = $this->rvBagModel->client($projectId);
                 $bags = $this->rvBagModel->bags($projectId);
+                $differences = $this->rvLedgerModel->reconcile($projectId)['differences'];
                 foreach ($bags as &$bag) { $bag['entries'] = $this->rvBagModel->entries($bag['id']); }
                 unset($bag);
             }
         } catch (DomainException $e) { $this->response->text('Acceso denegado',403); return; }
-        $this->response->html($this->helper->layout->app('RvSoftware:bag/index',array('title'=>'Clientes y bolsas','projects'=>$projects,'projectId'=>$projectId,'client'=>$client,'clients'=>$this->rvBagModel->clients(),'bags'=>$bags,'error'=>$error)));
+        $this->response->html($this->helper->layout->app('RvSoftware:bag/index',array('title'=>'Clientes y bolsas','projects'=>$projects,'projectId'=>$projectId,'client'=>$client,'clients'=>$this->rvBagModel->clients(),'bags'=>$bags,'differences'=>$differences,'error'=>$error)));
     }
 
     private function date($value, $exclusiveEnd = false)
@@ -51,6 +52,7 @@ class RvBagController extends BaseController
                 case 'bag': $this->rvBagModel->createBag((int)($v['project_id'] ?? 0),$v['name'] ?? '',$this->hours($v['hours'] ?? ''),$this->date($v['from'] ?? ''),$this->date($v['until'] ?? '',true),$v['operation_key'] ?? ''); break;
                 case 'extend': $this->rvBagModel->amend((int)($v['bag_id'] ?? 0),$this->hours($v['hours'] ?? ''),$v['reason'] ?? '',$v['operation_key'] ?? ''); break;
                 case 'archive': $this->rvBagModel->amend((int)($v['bag_id'] ?? 0),0,$v['reason'] ?? '',$v['operation_key'] ?? '',true); break;
+                case 'adjust': $this->rvLedgerModel->adjust((int)($v['bag_id'] ?? 0),$v['seconds'] ?? '',$v['reason'] ?? '',$v['operation_key'] ?? ''); break;
                 default: throw new DomainException('Operación no válida.');
             }
             $this->response->redirect($this->helper->url->to('RvBagController','show',array('plugin'=>'RvSoftware','project_id'=>(int)($v['project_id'] ?? 0))));
