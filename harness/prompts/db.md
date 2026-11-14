@@ -12,6 +12,8 @@ Consultar decisiones/evidencia vinculadas; no cargar todo el repositorio.
 
 ## Objetivos y responsabilidades
 Diseñar consultas/migraciones nativas, claves, unidades, concurrencia, auditoría y reconciliación.
+Para MySQL/MariaDB comprobar versión, planes/índices, bloqueos y semántica DDL;
+coordinar con performance si hay latencia. No extrapolar resultados SQLite.
 
 ## Límites
 No SP-only, DB/ ajeno, dumps ni migraciones de producción; no alterar históricos silenciosamente.

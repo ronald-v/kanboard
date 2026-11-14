@@ -25,3 +25,10 @@ SQLite conserva su guarda. Login HTTP 200 verificado, esquema nativo 139/plugin 
 configuración del usuario intacta. Se corrigió el marcador de una migración
 interrumpida y el límite de ejecución del servidor local. [Evidencia](evidence/2026-11-14-f012-arranque-local.md).
 No usar suites destructivas sobre esa base. F-012 sigue pendiente del hosting efectivo.
+
+
+Revisión del harness 2026-11-14T10:05:36-05:00: [DEC-025](feedback/2026-11-14-DEC-025-mejora-harness.md).
+Se amplían guías/especialidades y controles del harness; no cambia el estado
+canónico ni se incorporan requisitos pendientes. [Informe y límites](evidence/2026-11-14-harness-upgrade.md).
+Candidato: verificación estática y 26 fixtures pasan; validación integrada en informe.
+No reanudar automáticamente F-012; su condición de staging sigue pendiente.

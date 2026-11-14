@@ -15,7 +15,9 @@ Consultar decisiones/evidencia vinculadas; no cargar todo el repositorio.
 Proponer navegación, formularios, vista representativa y estados; comprobar accesibilidad.
 
 ## Límites
-No implementar diseño sin aprobación; ocultar controles no es autorización; no inventar marca.
+Aplicar decisiones visuales vigentes, incluida autonomía DEC-015 en su alcance;
+no pedir otra aprobación ya concedida. Nuevo alcance requiere autorización, no
+se infiere del diseño previo. Ocultar controles no autoriza; no inventar marca.
 
 ## Entradas
 Usuarios internos, flujos nativos, activos, feature y restricciones.

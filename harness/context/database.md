@@ -9,9 +9,10 @@ inspección inicial siguientes conservan el contexto histórico.
 
 ## Existente comprobado
 PicoDB/PDO: app/ServiceProvider/DatabaseProvider.php; libs/picodb.
-SQLite predeterminado, archivo data/db.sqlite; no base local creada en esta entrega.
+En el diagnóstico inicial SQLite era predeterminado, archivo data/db.sqlite.
+Desde DEC-024 existe configuración MariaDB del usuario; no usarla como fixture.
 MySQL/MariaDB y PostgreSQL disponibles en código; SQL Server tiene rutas adicionales,
-sin selección para este proyecto. Motor Hostinger pendiente.
+sin selección para este proyecto. Motor informado en DEC-022: MariaDB; hosting efectivo pendiente.
 Esquemas app/Schema/Sqlite.php (128), Mysql.php (139), Postgres.php (117),
 Mssql.php (3); números independientes por motor, no versiones del producto.
 app/Schema/Sql contiene SQL upstream legítimo: no ignorar todos los *.sql.
@@ -35,7 +36,7 @@ En SQLite versión 126 las sesiones tienen FK con ON DELETE CASCADE para usuario
 y subtarea. Un ledger comercial no debe desaparecer al borrar su origen: definir
 restricciones y snapshots de trazabilidad antes de implementarlo.
 
-## Diseño pendiente de implementación
+## Diseño histórico; contrastar implementación F-007..F-011
 Mantener capa nativa y tablas del plugin con nombres propios, claves y migraciones
 versionadas. Preferir segundos enteros derivados de start/end para sesiones nuevas;
 no convertir ni redondear históricos silenciosamente. Dinero en DECIMAL o unidad
@@ -52,5 +53,6 @@ auxiliares requieren utilidad y entorno comprobados.
 Unitarias SQLite en memoria; motor productivo también requerido antes de release.
 tests/units/Base.php recrea bases en MySQL/PostgreSQL: usar destinos aislados.
 Backup/restauración conjunta de base y archivos con código compatible. Ningún
-backup, dump o migración fue ejecutado aquí.
+backup, dump o migración fue ejecutado en el diagnóstico inicial. Las pruebas
+posteriores de recuperación se documentan en la evidencia F-012, no en esta línea base.
 Fuente: [migraciones de plugins](https://docs.kanboard.org/v1/plugins/schema_migrations/).

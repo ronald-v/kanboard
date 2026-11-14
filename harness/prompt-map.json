@@ -322,5 +322,201 @@
         "TC-F-012-02"
       ]
     }
+  ],
+  "specialties": [
+    {
+      "id": "SPEC-PHP",
+      "triggers": [
+        "PHP, servicios, plantillas o refactorización"
+      ],
+      "responsible": "dev",
+      "prompts": [
+        "harness/prompts/dev.md",
+        "harness/prompts/architect.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/engineering.md",
+        "harness/context/architecture.md",
+        "harness/context/testing.md"
+      ],
+      "codeZones": [
+        "app",
+        "plugins/RvSoftware"
+      ]
+    },
+    {
+      "id": "SPEC-MYSQL",
+      "triggers": [
+        "Persistencia MySQL/MariaDB, consultas, índices o migraciones"
+      ],
+      "responsible": "db",
+      "prompts": [
+        "harness/prompts/db.md",
+        "harness/prompts/performance.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/database.md",
+        "harness/context/performance.md",
+        "harness/context/testing.md"
+      ],
+      "codeZones": [
+        "app/Schema",
+        "plugins/RvSoftware/Schema"
+      ]
+    },
+    {
+      "id": "SPEC-API",
+      "triggers": [
+        "Métodos JSON-RPC, clientes o autenticación de API"
+      ],
+      "responsible": "api",
+      "prompts": [
+        "harness/prompts/api.md",
+        "harness/prompts/security.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/api-mcp.md",
+        "harness/context/security.md",
+        "harness/context/testing.md"
+      ],
+      "codeZones": [
+        "jsonrpc.php",
+        "app/Api",
+        "plugins/RvSoftware/Plugin.php"
+      ]
+    },
+    {
+      "id": "SPEC-MCP",
+      "triggers": [
+        "Adaptador MCP o conexión de un cliente autorizado"
+      ],
+      "responsible": "mcp",
+      "prompts": [
+        "harness/prompts/mcp.md",
+        "harness/prompts/api.md",
+        "harness/prompts/security.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/api-mcp.md",
+        "harness/context/architecture.md",
+        "harness/context/security.md"
+      ],
+      "codeZones": [
+        "jsonrpc.php",
+        "app/Api"
+      ]
+    },
+    {
+      "id": "SPEC-PENTEST",
+      "triggers": [
+        "Pruebas negativas de seguridad sobre objetivo autorizado"
+      ],
+      "responsible": "pentesting",
+      "prompts": [
+        "harness/prompts/pentesting.md",
+        "harness/prompts/security.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/pentesting.md",
+        "harness/context/security.md",
+        "harness/context/testing.md"
+      ],
+      "codeZones": [
+        "app/Auth",
+        "app/Api",
+        "app/Middleware"
+      ]
+    },
+    {
+      "id": "SPEC-PERFORMANCE",
+      "triggers": [
+        "Latencia, consultas lentas, carga o consumo de recursos"
+      ],
+      "responsible": "performance",
+      "prompts": [
+        "harness/prompts/performance.md",
+        "harness/prompts/db.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/performance.md",
+        "harness/context/database.md",
+        "harness/context/testing.md"
+      ],
+      "codeZones": [
+        "app/Model",
+        "app/ServiceProvider",
+        "plugins/RvSoftware"
+      ]
+    },
+    {
+      "id": "SPEC-UI",
+      "triggers": [
+        "Vistas, navegación, formularios o accesibilidad"
+      ],
+      "responsible": "ui-ux",
+      "prompts": [
+        "harness/prompts/ui-ux.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/ui-brand.md",
+        "harness/context/architecture.md",
+        "harness/context/security.md"
+      ],
+      "codeZones": [
+        "app/Template",
+        "plugins/RvSoftware/Template"
+      ]
+    },
+    {
+      "id": "SPEC-SIMPLIFY",
+      "triggers": [
+        "Retirada de componentes o cambio estructural"
+      ],
+      "responsible": "architect",
+      "prompts": [
+        "harness/prompts/architect.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/security.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/engineering.md",
+        "harness/context/architecture.md",
+        "harness/context/upstream.md"
+      ],
+      "codeZones": [
+        "composer.json",
+        "app",
+        "plugins/RvSoftware"
+      ]
+    },
+    {
+      "id": "SPEC-QA",
+      "triggers": [
+        "Aceptación, regresión o resultado sin evidencia suficiente"
+      ],
+      "responsible": "testing",
+      "prompts": [
+        "harness/prompts/testing.md",
+        "harness/prompts/validator.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/testing.md",
+        "harness/context/security.md"
+      ],
+      "codeZones": [
+        "tests",
+        "harness/scripts"
+      ]
+    }
   ]
 }

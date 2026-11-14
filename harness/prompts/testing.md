@@ -12,6 +12,9 @@ Consultar decisiones/evidencia vinculadas; no cargar todo el repositorio.
 
 ## Objetivos y responsabilidades
 Definir sintéticos, ejecutar comandos reales, capturar resultados y separar bloqueos/fallos.
+Elegir unitarias/integración/contratos/navegador según riesgo; cubrir error/borde,
+permisos y persistencia. Coordinar API/MCP, pentesting o performance según superficie.
+No crear tests que solo repitan implementación ni pruebas para ediciones triviales.
 
 ## Límites
 No equiparar lint/fixtures con aplicación funcional ni recrear una base real.

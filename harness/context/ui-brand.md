@@ -5,6 +5,12 @@ La propuesta concreta en [mockup F-004](../mockups/f004/index.html) fue aprobada
 expresamente en DEC-010. El usuario confirmó el protocolo manual de escritorio,
 móvil, foco/Tab, diálogos, campos avanzados y zoom 200% en DEC-012. Evidencia y
 límites: [cierre F-004](../evidence/2026-11-12-f004-validacion-final.md).
+DEC-015 autoriza continuar F-006..F-012 sin nuevas aprobaciones visuales.
+No convertir esa autonomía en autorización de nuevos requisitos; usar inspección
+real de navegador y registrar límites. Para cada vista afectada inventariar ruta,
+rol, plantilla/override, estados carga/vacío/error/éxito/sin permiso, selección de
+contexto, teclado/foco, contraste, móvil y zoom. No declarar revisión de todas
+las vistas por una captura representativa.
 Las secciones siguientes conservan la propuesta original; usar la versión
 aprobada como referencia, manteniendo funciones nativas y permisos de servidor.
 

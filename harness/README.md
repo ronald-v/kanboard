@@ -1,24 +1,13 @@
-# Harness de Kanboard rvSoftware
+# Harness de desarrollo y mantenimiento
 
-Actualización de alcance: [DEC-003](feedback/2026-11-12-DEC-003-desarrollo-secuencial.md)
-autoriza implementar secuencialmente F-001..F-012, ramas `feat/001`..`feat/012`,
-commits `dev feature 001`..`dev feature 012` y push al origin existente.
-Decisiones comerciales, diseño y producción mantienen sus condiciones explícitas.
-El estado actual siempre está en feature-list.json; los párrafos de entrega
-original siguientes describen el diagnóstico histórico. Preparación aislada y
-comandos reproducibles en [testing](context/testing.md).
+Entrada: [AGENTS.md](../AGENTS.md). Estado único: [feature-list.json](feature-list.json).
+Continuidad: [checkpoint](current-task.md). Esta revisión modifica solo el harness;
+no incorpora requisitos pendientes ni autoriza desarrollo o despliegue del producto.
+El historial F-001..F-012 se conserva. F-012 sigue blocked por verificación del hosting.
+Las autorizaciones históricas se consultan en feedback; no activan trabajo en este encargo.
 
-Este harness organiza trabajo de desarrollo sobre la copia real de Kanboard.
-No se instala en Hostinger ni añade un servicio a la aplicación. Está formado
-por Markdown, registros JSON y un verificador PowerShell. No hay agentes
-autónomos persistentes, CI del harness ni orquestador configurados.
-
-## Entorno y uso
-Entorno comprobado: Windows, PowerShell, Git, PHP CLI 8.3.27 y Composer 2.8.12.
-GD, controladores PDO y PHPUnit faltan en la línea base; véase
-[testing](context/testing.md). No instalar dependencias para leer el harness.
-
-Desde la raíz `C:\Proyectos\kanboard`:
+## Arranque
+Desde `C:\Proyectos\kanboard`:
 
 ```powershell
 git status --short
@@ -28,68 +17,65 @@ Get-Content harness/current-task.md -Encoding UTF8
 powershell -NoProfile -File harness/scripts/Test-Harness.ps1
 ```
 
-El archivo de entrada es `AGENTS.md`. No se requiere adaptador adicional en
-este entorno. Los prompts son instrucciones que un agente puede aplicar
-secuencialmente; no son ejecutables ni equivalen a revisores independientes.
+Leer decisiones y evidencia pertinentes. La existencia de archivos no acredita ejecución
+ni resuelve un bloqueo. No arrancar PHP para inspeccionar: puede migrar núcleo y plugins.
+No volcar `data/config.php`; contiene configuración privada. Los perfiles aislados y
+sus precondiciones están en [testing](context/testing.md). El perfil local que usa
+MariaDB del usuario nunca es destino de suites destructivas.
 
-## Elegir y ejecutar una feature
-1. Revisar alcance vigente en [proyecto](context/project.md) y feedback.
-2. Revisar cambios ajenos y bloqueo/dependencias de la feature. No limpiar Git.
-3. Seleccionar una sola feature autorizada; cambiarla a `in_progress` y poner
-   su ID en `activeFeatureId`. Las dependencias deben estar `validated`.
-4. Consultar `prompt-map.json` y solo el contexto necesario. Definir criterios,
-   archivos permitidos, pruebas y recuperación antes de implementar.
-5. Ejecutar, observar y revisar diff. Registrar comandos, códigos de salida,
-   resultado, limitaciones y fecha en evidencia, sin secretos.
-6. Actualizar feature/subtareas y casos, luego checkpoint. `done` no cierra el
-   ciclo; `validated` exige aceptación comprobada. Si se suspende una feature
-   `done` para otra, registrar consentimiento en `suspensionApproval` como ruta
-   a feedback real. No inventarlo.
-7. Validar el harness y entregar resultado. Si no hay siguiente feature autorizada,
-   informar propuesta y detener el desarrollo del producto.
+## Trabajo autorizado
+1. Distinguir inspección, documentación de requisitos, implementación y despliegue.
+   Si el usuario comparte ideas sin pedir agregarlas, no crear features, casos ni tareas.
+   Si solicita documentarlas, registrar alcance y criterios sin iniciar su implementación.
+2. Elegir una feature autorizada con dependencias validated. Verificar la evidencia.
+3. Consultar `changes` de [prompt-map.json](prompt-map.json) y sus `specialties`
+   por superficie afectada. Los especialistas son prompts aplicados por el ejecutor;
+   no son agentes instalados. Declarar consulta o delegación real.
+4. Definir cambio mínimo, criterios, riesgos, pruebas y recuperación. Usar la
+   [plantilla](templates/change.md) si faltan esos datos, sin duplicar el estado.
+5. Ejecutar y observar pruebas pertinentes; revisar diff y seguridad. Guardar comandos,
+   destino sintético, resultado, limitaciones y fecha ISO con zona en evidence/.
+6. El leader actualiza estado y checkpoint. done queda pendiente de verificación;
+   validated exige criterios comprobados. Otra feature requiere cierre, bloqueo real
+   o suspensión aprobada de la anterior done. Máximo tres intentos sin progreso.
+7. Entregar resultado, archivos, comprobaciones, bloqueos y siguiente acción.
 
-Una feature bloqueada conserva `blockers` y `nextAction`; `activeFeatureId` vuelve
-a null si no existe trabajo activo. Se puede retomar al verificar la condición,
-sin borrar historia. Tras tres intentos sin progreso sobre la misma causa,
-documentar bloqueo e intentos. Nunca reducir criterios para aprobar.
+## Especialidades y carga mínima
+| Superficie | Prompts | Contexto |
+| --- | --- | --- |
+| PHP y refactorización | dev, architect | engineering, architecture |
+| MySQL/MariaDB | db | database, performance |
+| API JSON-RPC | api, security, testing | api-mcp, security |
+| MCP y conexión de clientes | mcp, api, security, testing | api-mcp |
+| Seguridad y pentesting controlado | security, pentesting | security, pentesting |
+| QA, regresión y aceptación | testing, validator | testing |
+| UI/UX y accesibilidad | ui-ux | ui-brand |
+| Rendimiento | performance, db, testing | performance |
+| Entrega/upstream | release, architect | deployment, upstream |
 
-## Contratos de archivos
-- `feature-list.json`: estado único, IDs F-001...F-012 y subtareas estables;
-  `targetVersion: null` hasta acordar versión propia, distinta de la base upstream.
-- `prompt-map.json`: rutas existentes de prompts/contextos/código y IDs de casos;
-  no contiene estados de ejecución. Las rutas futuras del plugin se describen
-  como propuestas en contextos, nunca como código existente en el mapa.
-- `current-task.md`: feature/checkpoint, resultado, archivos, pruebas, bloqueo y
-  siguiente paso; remite al estado canónico.
-- `feedback/`: decisiones fechadas con historia conservada.
-- `test-cases/cases.json`: casos del producto; no incluye implementaciones falsas.
-- `test-cases/harness-scenarios.json`: evaluaciones reales y pendientes del harness.
-- `evidence/`: resúmenes depurados; artefactos grandes se referencian fuera de aquí.
+Rutas exactas y disparadores están en prompt-map.json. Una especialidad disponible
+no es una feature ni autoriza pruebas externas. Las herramientas ya existentes se
+describen con sus efectos en testing; no se añaden servicios al producto.
 
-## Validación disponible
-`Test-Harness.ps1` comprueba estructura, campos, estados, referencias, DAG,
-actividad, evidencias declaradas, contratos de prompts y enlaces Markdown locales.
-Solo lee archivos y no carga PHP ni conecta a una base. Código de salida 0 indica
-coherencia estática; 1 indica problemas. No demuestra que una afirmación escrita
-sea verdadera ni ejecuta los casos del producto. Revisar evidencia humana.
-
+## Validación del harness
 ```powershell
 powershell -NoProfile -File harness/scripts/Test-Harness.ps1
 powershell -NoProfile -File harness/scripts/Test-HarnessScenarios.ps1
 ```
+El primero verifica estructura, estados, DAG, referencias, contratos de prompts y
+enrutamiento de especialidades. El segundo prueba aceptaciones/rechazos con fixtures
+temporales y recuperación de un candidato inválido. Ninguno inicia Kanboard, prueba
+la API del producto, certifica seguridad o demuestra usabilidad.
 
-El segundo comando prueba rechazos del validador con fixtures temporales aislados
-y los elimina dentro de un directorio verificado. No simula agentes ni funciones
-de Kanboard. Las suites PHP siguen bloqueadas hasta preparar el entorno.
+Los resultados históricos de producto están en evidence/ y cases.json; no se
+declaran repetidos en esta revisión. Los escenarios originales mantienen sus resultados
+fechados; no son un segundo estado de las features.
 
-Entrega comprobada: 12 features, 23 casos, 9 prompts y 18 fixtures del validador.
-Inventario: AGENTS.md; 4 archivos de coordinación en harness/; 9 contextos;
-9 prompts; 2 registros de casos/escenarios; 2 scripts; 2 evidencias y 2 decisiones.
-Resultados y checklist en [evidencia de validación](evidence/2026-11-11-harness-validation.md).
+## Mantenimiento y recuperación
+[Política local](context/harness-maintenance.md): candidato separado, versión previa,
+criterios fijos, comparación, comprobación de concurrencia, activación y reversión.
+La revisión no exige Drive para operar el producto. Feedback conserva decisiones;
+current-task resume el punto de reanudación. No hay servicio autónomo en segundo plano,
+CI nueva ni memoria entre sesiones comprobada por escribir estos archivos.
 
-## Alcance de esta entrega
-Generar el harness fue autorizado; las 12 features funcionales no fueron ejecutadas.
-F-001 conserva la inspección comprobada y el bloqueo de ejecución. El diagnóstico
-del Dashboard sigue reportado, sin reproducción. El despliegue permanece separado.
-El harness está diseñado para permanecer en desarrollo: el empaquetado actual
-todavía necesita exclusiones específicas antes de producir una entrega desplegable.
+Resultado de esta revisión: [evidencia](evidence/2026-11-14-harness-upgrade.md).

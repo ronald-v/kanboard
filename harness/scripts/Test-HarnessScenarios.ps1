@@ -45,7 +45,7 @@ function New-Fixture([string]$Name) {
     $pm = Get-Content -LiteralPath (Join-Path $fixture 'harness/prompt-map.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $refs = @('composer.json','LICENSE','app/Model/TaskModel.php','app/Controller/DashboardController.php','tests/units.sqlite.xml')
     foreach ($f in $fl.features) { $refs += @($f.relatedFiles) }
-    foreach ($m in $pm.changes) { $refs += @($m.codeZones) }
+    foreach ($m in @($pm.changes) + @($pm.specialties)) { $refs += @($m.codeZones) }
     foreach ($file in Get-ChildItem -LiteralPath (Join-Path $script:source 'harness') -Recurse -File -Filter '*.md') {
         $body = Get-Content -LiteralPath $file.FullName -Raw -Encoding UTF8
         foreach ($match in [regex]::Matches($body, '\]\(([^)]+)\)')) {
@@ -144,6 +144,57 @@ try {
         $j.cases[1].status='blocked'; $j.cases[1].observedResult='Synthetic failed check, not a real PHPUnit result.'
         Write-JsonFile $p $j
     } 0 'PASS:'
+
+    Test-Fixture 'missing-specialty' { param($f)
+        $p=Join-Path $f 'harness/prompt-map.json'
+        $j=Get-Content -LiteralPath $p -Raw -Encoding UTF8 | ConvertFrom-Json
+        $j.specialties=@($j.specialties | Where-Object { $_.id -ne 'SPEC-MCP' }); Write-JsonFile $p $j
+    } 1 'Missing specialty: SPEC-MCP'
+    Test-Fixture 'specialty-unknown-role' { param($f)
+        $p=Join-Path $f 'harness/prompt-map.json'
+        $j=Get-Content -LiteralPath $p -Raw -Encoding UTF8 | ConvertFrom-Json
+        $j.specialties[0].responsible='invented'; Write-JsonFile $p $j
+    } 1 'unknown specialty role'
+    Test-Fixture 'specialty-duplicate' { param($f)
+        $p=Join-Path $f 'harness/prompt-map.json'
+        $j=Get-Content -LiteralPath $p -Raw -Encoding UTF8 | ConvertFrom-Json
+        $j.specialties[1].id=$j.specialties[0].id; Write-JsonFile $p $j
+    } 1 'Duplicate specialty'
+    Test-Fixture 'specialty-broken-context' { param($f)
+        $p=Join-Path $f 'harness/prompt-map.json'
+        $j=Get-Content -LiteralPath $p -Raw -Encoding UTF8 | ConvertFrom-Json
+        $j.specialties[0].context=@('harness/context/missing.md'); Write-JsonFile $p $j
+    } 1 'missing path'
+    Test-Fixture 'specialty-not-backlog' { param($f)
+        $p=Join-Path $f 'harness/prompt-map.json'
+        $j=Get-Content -LiteralPath $p -Raw -Encoding UTF8 | ConvertFrom-Json
+        $j.specialties[0] | Add-Member -NotePropertyName status -NotePropertyValue planned
+        Write-JsonFile $p $j
+    } 1 'specialty must not contain status'
+    Test-Fixture 'specialty-empty-trigger' { param($f)
+        $p=Join-Path $f 'harness/prompt-map.json'
+        $j=Get-Content -LiteralPath $p -Raw -Encoding UTF8 | ConvertFrom-Json
+        $j.specialties[0].triggers=@(''); Write-JsonFile $p $j
+    } 1 'empty trigger'
+    Test-Fixture 'specialty-unregistered-prompt' { param($f)
+        $p=Join-Path $f 'harness/prompt-map.json'
+        $j=Get-Content -LiteralPath $p -Raw -Encoding UTF8 | ConvertFrom-Json
+        $j.specialties[0].prompts += 'harness/README.md'; Write-JsonFile $p $j
+    } 1 'unregistered prompt'
+
+    # Reject a broken candidate, then restore and verify the unchanged base.
+    $recovery = New-Fixture 'candidate-recovery'
+    $routePath = Join-Path $recovery 'harness/prompt-map.json'
+    $originalBytes = [IO.File]::ReadAllBytes($routePath)
+    $baseHash = (Get-FileHash -LiteralPath $routePath -Algorithm SHA256).Hash
+    $j=Get-Content -LiteralPath $routePath -Raw -Encoding UTF8 | ConvertFrom-Json
+    $j.specialties[0].context=@('harness/context/missing.md'); Write-JsonFile $routePath $j
+    $bad = Run-Check $recovery
+    [IO.File]::WriteAllBytes($routePath, $originalBytes)
+    $restored = Run-Check $recovery
+    $ok = $bad.Code -eq 1 -and $bad.Output.Contains('missing path') -and $restored.Code -eq 0 -and
+        (Get-FileHash -LiteralPath $routePath -Algorithm SHA256).Hash -eq $baseHash
+    $results.Add([pscustomobject]@{Name='candidate-recovery';Passed=$ok;Expected=0;Actual=$restored.Code})
 
     # Real temporary Git repository with one synthetic tracked user change.
     $dirty = New-Fixture 'preserve-dirty-git'

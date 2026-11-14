@@ -62,7 +62,7 @@ $required = @('AGENTS.md','harness/README.md','harness/current-task.md','harness
     'harness/prompt-map.json','harness/test-cases/cases.json','harness/test-cases/harness-scenarios.json')
 foreach ($path in $required) { Check-Path $path 'Required' }
 foreach ($dir in @('prompts','context','feedback','test-cases','evidence','scripts')) { Check-Path "harness/$dir" 'Directory' }
-foreach ($ctx in @('project','architecture','upstream','database','time-billing','ui-brand','security','testing','deployment')) {
+foreach ($ctx in @('project','architecture','upstream','database','time-billing','ui-brand','security','testing','deployment','engineering','api-mcp','performance','pentesting','harness-maintenance')) {
     Check-Path "harness/context/$ctx.md" 'Context'
 }
 if (Test-Path -LiteralPath (Join-Path $script:root 'harness/features-list.json')) { Add-Issue 'Duplicate canonical state: features-list.json' }
@@ -71,7 +71,7 @@ if (Test-Path -LiteralPath $agentPath) {
     $agents = Get-Content -LiteralPath $agentPath -Raw -Encoding UTF8
     if ($agents.Length -gt 7600) { Add-Issue 'AGENTS.md exceeds 7600 characters' }
 }
-$roles = @('leader','architect','dev','db','ui-ux','security','testing','validator','release')
+$roles = @('leader','architect','dev','db','ui-ux','security','testing','validator','release','api','mcp','performance','pentesting')
 foreach ($role in $roles) {
     $relative = "harness/prompts/$role.md"
     Check-Path $relative 'Prompt'
@@ -209,6 +209,33 @@ if ($null -ne $fl -and $null -ne $pm -and $null -ne $tc -and $null -ne $hs) {
         }
     }
     foreach ($id in $script:features.Keys) { if (-not $mapped.ContainsKey($id)) { Add-Issue "$id missing prompt map" } }
+    # Domain routing is a capability catalog, never a second backlog.
+    Check-Fields $pm @('specialties') 'Prompt map'
+    Check-Array $pm.specialties 'specialties' $true
+    $specialtyIds = @{}
+    foreach ($m in $pm.specialties) {
+        Check-Fields $m @('id','triggers','responsible','prompts','context','codeZones') 'Specialty'
+        if ($m.id -notmatch '^SPEC-[A-Z]+$') { Add-Issue "Invalid specialty ID: $($m.id)" }
+        if ($specialtyIds.ContainsKey([string]$m.id)) { Add-Issue "Duplicate specialty: $($m.id)" }
+        $specialtyIds[[string]$m.id] = $true
+        foreach ($key in @('status','features','testCases','acceptanceCriteria')) {
+            if ($m.PSObject.Properties.Name -contains $key) { Add-Issue "$($m.id) specialty must not contain $key" }
+        }
+        if ($roles -notcontains $m.responsible) { Add-Issue "$($m.id) unknown specialty role" }
+        if ($m.prompts -notcontains "harness/prompts/$($m.responsible).md") { Add-Issue "$($m.id) missing responsible prompt" }
+        foreach ($key in @('triggers','prompts','context','codeZones')) { Check-Array $m.$key "$($m.id) $key" $true }
+        foreach ($trigger in $m.triggers) { if (-not (Has-Text $trigger)) { Add-Issue "$($m.id) empty trigger" } }
+        foreach ($key in @('prompts','context','codeZones')) {
+            foreach ($p in $m.$key) { Check-Path $p $m.id }
+        }
+        foreach ($p in $m.prompts) {
+            $role = [IO.Path]::GetFileNameWithoutExtension([string]$p)
+            if ($roles -notcontains $role -or $p -cne "harness/prompts/$role.md") { Add-Issue "$($m.id) unregistered prompt: $p" }
+        }
+    }
+    foreach ($id in @('SPEC-PHP','SPEC-MYSQL','SPEC-API','SPEC-MCP','SPEC-PENTEST','SPEC-PERFORMANCE','SPEC-UI','SPEC-SIMPLIFY','SPEC-QA')) {
+        if (-not $specialtyIds.ContainsKey($id)) { Add-Issue "Missing specialty: $id" }
+    }
     Check-Fields $hs @('scenarios') 'Harness scenarios'
     Check-Array $hs.scenarios 'scenarios' $true
     $scenarioIds = @{}
@@ -248,5 +275,5 @@ if ($script:issues.Count -gt 0) {
     Write-Output ("Harness validation failed: {0} issue(s)." -f $script:issues.Count)
     exit 1
 }
-Write-Output ("PASS: {0} features, {1} cases, {2} prompts, 10 scenarios; static consistency only." -f @($fl.features).Count, @($tc.cases).Count, $roles.Count)
+Write-Output ("PASS: {0} features, {1} cases, {2} prompts, {3} scenarios; static consistency only." -f @($fl.features).Count, @($tc.cases).Count, $roles.Count, @($hs.scenarios).Count)
 exit 0

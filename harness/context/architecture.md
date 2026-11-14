@@ -39,8 +39,9 @@ La cobertura de todas las entradas deberá demostrarse en F-007, no suponerse.
 
 Límites: overrides completos pueden divergir de upstream; hook de cálculo no añade
 idempotencia; ACL por proyecto no autoriza automáticamente clientes/bolsas compartidas.
-No existe plugin propio todavía; plugins/.gitignore ignora todo salvo sí mismo.
-F-005 añadirá una excepción limitada para versionar el plugin acordado.
+El plugin propio ya está versionado mediante la excepción acotada de plugins/.gitignore.
+Las hipótesis de diseño anteriores son históricas: usar código y evidencia F-005..F-011
+para determinar el comportamiento actual, no repetir una implementación entregada.
 
 ## Excepción de núcleo
 Registrar feature, archivos, causa comprobada, alternativas descartadas, cambio

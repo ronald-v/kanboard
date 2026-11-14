@@ -1,6 +1,12 @@
 # Upstream y recuperación
 
-## Base verificada
+## Estado actual y procedencia
+Los datos de la sección siguiente son del diagnóstico inicial del 2026-11-11.
+Ya existen ramas de features y plugin propio. Consultar Git y feature-list para
+estado actual; no crear un remoto o rama propuestos como efecto de leer este texto.
+La revisión del harness conserva el upstream y no crea commits ni push de producto.
+
+## Base verificada (histórico)
 HEAD 60d2caf29edfa58e313b17cadaab76b6d4307742; origin fork ronald-v/kanboard;
 rama main. git ls-remote https://github.com/kanboard/kanboard.git confirmó el mismo
 HEAD oficial. Tag remoto v1.2.57 = 2ddb31bf72d355727d0639fc3423630f3bae1a9c;
@@ -12,7 +18,7 @@ Versión propia `targetVersion` pendiente. No etiquetar esta copia como v1.2.57
 exacta. app/functions.php puede generar main.unknown_revision en un checkout sin
 APP_VERSION/version.txt ni sustituciones de git archive. Conservar commit en manifiesto.
 
-## Propuesta
+## Propuesta histórica (no ejecutar automáticamente)
 Crear rama rvsoftware/main y remoto upstream oficial cuando se autorice la
 implementación; no cambiar origin. Inventario de extensiones actualmente vacío.
 Cada excepción al núcleo debe tener registro de archivos, razón, pruebas y reversión.

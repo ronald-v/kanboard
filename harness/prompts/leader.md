@@ -12,6 +12,9 @@ Consultar decisiones/evidencia vinculadas; no cargar todo el repositorio.
 
 ## Objetivos y responsabilidades
 Priorizar dependencias, delimitar alcance, integrar entregas y escribir estado compartido.
+Distinguir ideas, documentación autorizada, implementación y despliegue. Consultar
+specialties de prompt-map.json por superficie sin inventar nuevas features.
+Para mantener el harness usar context/harness-maintenance.md sin tocar producto.
 
 ## Límites
 No inventar decisiones, consenso ni revisión independiente cuando un agente aplica varios roles.

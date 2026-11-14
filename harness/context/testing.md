@@ -67,15 +67,16 @@ HTTP de integración: servidores 18005 con plugin y 18006 sin él, luego
 MySQL no es necesario para esta línea base; sí se requiere validación en el motor
 objetivo antes de una entrega que lo use. Resultados reales en evidence/.
 
-## Línea base
+## Línea base histórica del 2026-11-11
 Ver [evidencia](../evidence/2026-11-11-baseline.md). PHP 8.3.27, Composer 2.8.12.
 composer validate retorna 0 con advertencias por versiones exactas; check-platform-reqs
 --lock retorna 2 por GD ausente. PDO::getAvailableDrivers devuelve []. PHPUnit no
 está instalado: comando de pruebas retorna 1 antes de ejecutar casos.
 13 archivos seleccionados pasaron php -l en diagnóstico; no es una suite funcional.
 
-## Comandos
-Desde raíz; indicar siempre ejecutado/no ejecutado y destino.
+## Comandos del diagnóstico inicial (histórico)
+No son disponibilidad actual ni instrucciones para usar vendor/bin sobre una base real.
+Usar los runners aislados descritos arriba. Desde raíz, registrar destino y resultado nuevo.
 
 | Comando | Estado / requisito |
 | --- | --- |
@@ -106,7 +107,7 @@ independientes: un test secuencial no la demuestra. Comparar plugin deshabilitad
 en una copia limpia cuando ayude a aislar un fallo. No conectar a bases reales.
 Ejecutar pruebas relevantes una vez y repetir solo por cambios o fallos nuevos.
 
-## Dashboard: protocolo pendiente
+## Dashboard: protocolo histórico del incidente excluido por DEC-007
 Registrar versión/URL sin secretos, usuario/rol sintético, ruta y datos previos.
 Pasos: login, pulsar Dashboard desde origen reportado, observar URL, estado HTTP,
 redirecciones y respuesta; revisar consola y logs pertinentes depurados.

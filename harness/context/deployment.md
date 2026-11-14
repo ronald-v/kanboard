@@ -30,9 +30,10 @@ por esta entrega. Producción requiere alcance y autorización vigentes.
 4. Artefacto reproducible con código, plugin, assets, vendor/libs necesarios y
    licencias; manifiesto con commit/versiones y checksum. No incluir AGENTS.md,
    harness/, .git, tests/, evidencias, configs locales, dumps ni backups.
-5. Revisar .gitattributes y Makefile: git archive actual NO excluye todavía el
-   harness ni AGENTS.md. Antes de release añadir exclusiones explícitas y verificar
-   contenido real del ZIP; no declarar seguro el empaquetado existente.
+5. .gitattributes ya excluye harness/AGENTS.md y recursos privados desde F-012.
+   Build-Release.py comprueba el contenido del ZIP y genera manifiesto; las pruebas
+   de recuperación local están en evidencia F-012. Revalidar el artefacto exacto
+   antes de cada entrega; las exclusiones por sí solas no prueban seguridad HTTP.
 6. Proteger configuración, datos y copias mediante reglas del servidor real o
    ubicación no pública compatible; no confiar en .gitignore. data/.htaccess e IIS
    son defensas presentes, no prueba del servidor de Hostinger.

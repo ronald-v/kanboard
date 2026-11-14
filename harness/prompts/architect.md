@@ -8,10 +8,13 @@ Leer AGENTS.md, la feature de harness/feature-list.json y harness/current-task.m
 Después solo:
 - harness/context/architecture.md
 - harness/context/upstream.md
+- harness/context/engineering.md
 Consultar decisiones/evidencia vinculadas; no cargar todo el repositorio.
 
 ## Objetivos y responsabilidades
 Comparar configuración/nativo, plugin y núcleo; inventariar hooks/overrides y riesgo upstream.
+Analizar dependencias y consumidores antes de retirar componentes; medir costes y
+justificar refactorización por comportamiento o mantenimiento dentro del alcance.
 
 ## Límites
 No agregar capas, dependencias, SPA ni backend sin necesidad demostrada y decisión autorizada.

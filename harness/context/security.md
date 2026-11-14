@@ -13,6 +13,14 @@ API tiene autorización propia en app/Api/Authorization. Usar mecanismos existen
 según entrada; no asumir que todo método nuevo queda protegido automáticamente.
 Response conserva CSP; plantillas deben escapar contenido. No reemplazar autenticación.
 
+## Capacidades nativas para evaluar, no reemplazar por suposición
+Existen app/Auth/TotpAuth.php y tests/units/Auth/TotpAuthTest.php; config.default.php
+declara TOTP_ISSUER y umbrales BRUTEFORCE_CAPTCHA/LOCKDOWN/DURATION. Esto acredita
+presencia de implementación, no una política activa ni protección suficiente en
+el entorno. Antes de extender autenticación revisar cobertura, sesiones, recuperación,
+alcance en API y pruebas reales. Una base abierta permite inspección; no demuestra
+por sí sola que el login sea vulnerable. Guía dinámica en pentesting.md.
+
 ## Revisión por feature
 - Autorización por objeto real y acción, incluido acceso directo, API y exportación.
 - Reglas separadas para horas ajenas, tarifas, bolsas compartidas, correcciones y cierre.

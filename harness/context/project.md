@@ -13,7 +13,14 @@
 - No se confirmó portal de clientes, facturación fiscal, impuestos, pagos o
   integración contable. Permanecen fuera del alcance inicial.
 
-## Base y herramientas comprobadas
+## Situación posterior al diagnóstico
+F-001..F-011 están validated en el registro canónico; F-012 permanece blocked.
+Existen plugins/RvSoftware, runtimes aislados y configuración local privada.
+La rama/HEAD se verifican con Git en cada sesión: los valores siguientes son
+exclusivamente la línea base del 2026-11-11. Entorno y límites actuales en testing.
+La revisión del harness del 2026-11-14 no inicia producto ni registra ideas pendientes.
+
+## Base y herramientas comprobadas (histórico 2026-11-11)
 Ruta `C:\Proyectos\kanboard`, rama `main`, origin `https://github.com/ronald-v/kanboard.git`.
 HEAD `60d2caf29edfa58e313b17cadaab76b6d4307742`, coincide con main oficial al inspeccionar.
 Dos commits después de v1.2.57; sin tag en HEAD. Git completo, sin cambios iniciales.
@@ -31,7 +38,8 @@ Licencia [MIT](../../LICENSE). No había AGENTS.md ni harness. Plugins vacíos s
 | Automatización | Verificador PowerShell local | No CI del harness ni orquestación configurada |
 
 ## Matriz de reutilización
-Nativo significa inspeccionado en código, no validado funcionalmente en este equipo.
+Matriz histórica del diagnóstico inicial. Nativo significaba inspeccionado en código;
+para implementación y pruebas posteriores consultar feature-list y evidencia vinculada.
 
 | Necesidad | Soporte/evidencia | Limitación | Estrategia | Validación |
 | --- | --- | --- | --- | --- |
@@ -49,8 +57,9 @@ Nativo significa inspeccionado en código, no validado funcionalmente en este eq
 | Marca/UI | app/Core/Template.php; app/Template/layout.php; app/Template/config/application.php | CSS no resuelve navegación ni seguridad | Configuración, hooks y overrides | TC-F-004-01 |
 
 ## Pendientes y fuentes
-URL/versión/rol/error del Dashboard; entorno Hostinger; reglas comerciales; versión
-propia; diseño UI aprobado. Ninguno impide mantener el harness. Evidencia local:
+Pendientes actuales en feature-list y checkpoint. Dashboard externo excluido por
+DEC-007, reglas decididas/excluidas por DEC-008 y diseño aprobado/continuidad por
+DEC-010/015. No reabrirlos por las limitaciones históricas de esta matriz. Evidencia local:
 [línea base](../evidence/2026-11-11-baseline.md). Fuentes externas consultadas durante
 el diagnóstico: repositorio oficial y documentación enlazada en los contextos.
 Documentación externa puede corresponder a otra revisión: manda la base local.

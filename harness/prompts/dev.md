@@ -8,6 +8,7 @@ Leer AGENTS.md, la feature de harness/feature-list.json y harness/current-task.m
 Después solo:
 - harness/context/architecture.md
 - harness/context/testing.md
+- harness/context/engineering.md
 Consultar decisiones/evidencia vinculadas; no cargar todo el repositorio.
 
 ## Objetivos y responsabilidades
