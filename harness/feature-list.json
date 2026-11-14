@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-12T22:36:02.955049-05:00",
+    "updatedAt": "2026-11-12T22:41:37.303548-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -545,7 +545,7 @@
         {
             "id": "F-009",
             "name": "Clientes y bolsas",
-            "status": "planned",
+            "status": "validated",
             "targetVersion": null,
             "description": "Clientes y bolsas. Reutilizar capacidad nativa antes de extender.",
             "dependsOn": [
@@ -560,22 +560,26 @@
                 {
                     "id": "F-009-S1",
                     "name": "Precisar alcance, reutilización y aceptación",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "db",
                     "agentNotes": "Rol de prompt, no agente independiente.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f009-bolsas.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Leer contexto y decisiones pertinentes."
+                    "nextAction": "Conservar evidencia comprobada."
                 },
                 {
                     "id": "F-009-S2",
                     "name": "Realizar entregable y verificar criterios",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "db",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f009-bolsas.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Implementar entidades/migraciones tras BR-01/02/08."
+                    "nextAction": "Conservar evidencia comprobada."
                 }
             ],
             "relatedPrompts": [
@@ -596,10 +600,12 @@
                 "TC-F-009-01",
                 "TC-F-009-02"
             ],
-            "evidence": [],
+            "evidence": [
+                "harness/evidence/2026-11-12-f009-bolsas.md"
+            ],
             "blockers": [],
-            "nextAction": "Implementar entidades/migraciones tras BR-01/02/08.",
-            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "nextAction": "Conservar evidencia y continuar siguiente feature con dependencias validadas.",
+            "notes": "24 tests/133 aserciones y UI/API/concurrencia comprueban clientes, bolsas, ampliación, archivo, vigencia y permisos; SQLite, límites en evidencia.",
             "suspensionApproval": null
         },
         {

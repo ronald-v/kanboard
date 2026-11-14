@@ -32,11 +32,12 @@ class Plugin extends Base
         }
         $this->applicationAccessMap->add('RvTimeController', '*', Role::APP_USER);
         $this->applicationAccessMap->add('RvReviewController', '*', Role::APP_USER);
+        $this->applicationAccessMap->add('RvBagController', '*', Role::APP_USER);
     }
 
     public function getClasses()
     {
-        return array('Plugin\\RvSoftware\\Model' => array('RvDashboardModel', 'RvTimeModel', 'RvPrivacyModel'));
+        return array('Plugin\\RvSoftware\\Model' => array('RvDashboardModel', 'RvTimeModel', 'RvPrivacyModel', 'RvBagModel'));
     }
 
     public function getHelpers()

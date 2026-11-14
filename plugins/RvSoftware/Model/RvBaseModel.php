@@ -26,7 +26,7 @@ class RvBaseModel extends Base
         $this->sql("UPDATE $table SET revision=revision+1 WHERE $column=?", array($id));
     }
 
-    public function atomic($userId, callable $operation, $taskId = 0)
+    public function atomic($userId, callable $operation, $taskId = 0, $projectId = 0)
     {
         $pdo = $this->db->getConnection();
         $own = ! $pdo->inTransaction();
@@ -35,6 +35,7 @@ class RvBaseModel extends Base
         try {
             if ($userId > 0) { $this->lockRow('rv_time_locks', 'user_id', $userId); }
             if ($taskId > 0) { $this->lockRow('rv_task_time_locks', 'task_id', $taskId); }
+            if ($projectId > 0) { $this->lockRow('rv_project_locks', 'project_id', $projectId); }
             $result = $operation();
             if ($own) { $pdo->commit(); } else { $pdo->exec('RELEASE SAVEPOINT '.$savepoint); }
             return $result;

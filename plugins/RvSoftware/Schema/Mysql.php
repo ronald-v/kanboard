@@ -2,7 +2,7 @@
 
 namespace Kanboard\Plugin\RvSoftware\Schema;
 
-const VERSION = 4;
+const VERSION = 5;
 
 function version_1($pdo)
 {
@@ -24,4 +24,10 @@ function version_4($pdo)
 {
     require_once __DIR__.'/ReviewSchema.php';
     createReviewSchema($pdo);
+}
+
+function version_5($pdo)
+{
+    require_once __DIR__.'/BagSchema.php';
+    createBagSchema($pdo);
 }

@@ -348,10 +348,12 @@
       "command": null,
       "expectedResult": "Cantidad/vigencia auditables y autorizadas",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "24 tests/133 aserciones y UI/API/concurrencia comprueban clientes, bolsas, ampliación, archivo, vigencia y permisos; SQLite, límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f009-bolsas.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-009-02",
@@ -369,10 +371,12 @@
       "command": null,
       "expectedResult": "Saldo común conciliable sin filtrar proyecto ajeno",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Si compartir no se aprueba, registrar exclusión; no marcar como ejecutado."
+      "status": "validated",
+      "observedResult": "24 tests/133 aserciones y UI/API/concurrencia comprueban clientes, bolsas, ampliación, archivo, vigencia y permisos; SQLite, límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f009-bolsas.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-010-01",

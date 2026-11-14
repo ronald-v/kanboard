@@ -4,6 +4,35 @@ namespace Kanboard\Plugin\RvSoftware\Api;
 
 class RvTimeProcedure extends \Kanboard\Api\Procedure\BaseProcedure
 {
+    public function rvAssignClient($project_id, $name, $operation_key, $client_id = 0)
+    {
+        return $this->rvBagModel->assignClient($project_id,$name,$client_id,$operation_key);
+    }
+
+    public function rvCreateBag($project_id,$name,$seconds,$operation_key,$valid_from = null,$valid_until = null)
+    {
+        return $this->rvBagModel->createBag($project_id,$name,$seconds,$valid_from,$valid_until,$operation_key);
+    }
+
+    public function rvGetBags($project_id)
+    {
+        return $this->rvBagModel->bags($project_id);
+    }
+
+    public function rvGetBagEntries($bag_id)
+    {
+        return $this->rvBagModel->entries($bag_id);
+    }
+
+    public function rvExtendBag($bag_id,$seconds,$reason,$operation_key)
+    {
+        return $this->rvBagModel->amend($bag_id,$seconds,$reason,$operation_key);
+    }
+
+    public function rvArchiveBag($bag_id,$reason,$operation_key)
+    {
+        return $this->rvBagModel->amend($bag_id,0,$reason,$operation_key,true);
+    }
     public function rvCreateTime($subtask_id, $start, $end, $note, $operation_key)
     {
         return $this->rvTimeModel->manual($subtask_id, $start, $end, $note, $operation_key);
