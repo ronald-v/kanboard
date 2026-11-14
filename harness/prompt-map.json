@@ -1,0 +1,323 @@
+{
+  "schemaVersion": "1.0",
+  "changes": [
+    {
+      "id": "MAP-F-001",
+      "changeType": "Línea base y entorno",
+      "responsible": "architect",
+      "prompts": [
+        "harness/prompts/architect.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/project.md",
+        "harness/context/testing.md",
+        "harness/context/upstream.md"
+      ],
+      "features": [
+        "F-001"
+      ],
+      "codeZones": [
+        "composer.json",
+        "composer.lock",
+        "tests/units.sqlite.xml"
+      ],
+      "testCases": [
+        "TC-F-001-01",
+        "TC-F-001-02",
+        "TC-F-001-03"
+      ]
+    },
+    {
+      "id": "MAP-F-002",
+      "changeType": "Diagnóstico y corrección del Dashboard",
+      "responsible": "dev",
+      "prompts": [
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/architecture.md",
+        "harness/context/testing.md",
+        "harness/context/security.md"
+      ],
+      "features": [
+        "F-002"
+      ],
+      "codeZones": [
+        "app/Controller/DashboardController.php",
+        "app/Pagination/DashboardPagination.php"
+      ],
+      "testCases": [
+        "TC-F-002-01"
+      ]
+    },
+    {
+      "id": "MAP-F-003",
+      "changeType": "Capacidades y contrato comercial",
+      "responsible": "leader",
+      "prompts": [
+        "harness/prompts/leader.md",
+        "harness/prompts/architect.md",
+        "harness/prompts/db.md"
+      ],
+      "context": [
+        "harness/context/project.md",
+        "harness/context/time-billing.md",
+        "harness/context/database.md"
+      ],
+      "features": [
+        "F-003"
+      ],
+      "codeZones": [
+        "app/Model/SubtaskTimeTrackingModel.php",
+        "app/Model/CurrencyModel.php"
+      ],
+      "testCases": [
+        "TC-F-003-01"
+      ]
+    },
+    {
+      "id": "MAP-F-004",
+      "changeType": "Navegación y sistema visual",
+      "responsible": "ui-ux",
+      "prompts": [
+        "harness/prompts/ui-ux.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/ui-brand.md",
+        "harness/context/architecture.md",
+        "harness/context/security.md"
+      ],
+      "features": [
+        "F-004"
+      ],
+      "codeZones": [
+        "app/Template/layout.php",
+        "app/Template/header/title.php"
+      ],
+      "testCases": [
+        "TC-F-004-01"
+      ]
+    },
+    {
+      "id": "MAP-F-005",
+      "changeType": "Extensión propia y compatibilidad",
+      "responsible": "architect",
+      "prompts": [
+        "harness/prompts/architect.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/db.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/architecture.md",
+        "harness/context/upstream.md",
+        "harness/context/database.md"
+      ],
+      "features": [
+        "F-005"
+      ],
+      "codeZones": [
+        "app/Core/Plugin/Loader.php",
+        "app/Core/Plugin/SchemaHandler.php",
+        "plugins/.gitignore"
+      ],
+      "testCases": [
+        "TC-F-005-01"
+      ]
+    },
+    {
+      "id": "MAP-F-006",
+      "changeType": "Proyectos y tablero simplificados",
+      "responsible": "ui-ux",
+      "prompts": [
+        "harness/prompts/ui-ux.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/ui-brand.md",
+        "harness/context/architecture.md",
+        "harness/context/security.md"
+      ],
+      "features": [
+        "F-006"
+      ],
+      "codeZones": [
+        "app/Template/board",
+        "app/Model/TaskModel.php"
+      ],
+      "testCases": [
+        "TC-F-006-01"
+      ]
+    },
+    {
+      "id": "MAP-F-007",
+      "changeType": "Sesiones e integridad del tiempo",
+      "responsible": "db",
+      "prompts": [
+        "harness/prompts/db.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/time-billing.md",
+        "harness/context/database.md",
+        "harness/context/testing.md"
+      ],
+      "features": [
+        "F-007"
+      ],
+      "codeZones": [
+        "app/Model/SubtaskTimeTrackingModel.php",
+        "app/Controller/SubtaskStatusController.php",
+        "app/Api/Procedure/SubtaskTimeTrackingProcedure.php"
+      ],
+      "testCases": [
+        "TC-F-007-01",
+        "TC-F-007-02",
+        "TC-F-007-03",
+        "TC-F-007-04"
+      ]
+    },
+    {
+      "id": "MAP-F-008",
+      "changeType": "Clasificación facturable y permisos",
+      "responsible": "dev",
+      "prompts": [
+        "harness/prompts/dev.md",
+        "harness/prompts/security.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/time-billing.md",
+        "harness/context/security.md",
+        "harness/context/database.md"
+      ],
+      "features": [
+        "F-008"
+      ],
+      "codeZones": [
+        "app/ServiceProvider/AuthenticationProvider.php",
+        "app/Api/Authorization/SubtaskAuthorization.php"
+      ],
+      "testCases": [
+        "TC-F-008-01",
+        "TC-F-008-02"
+      ]
+    },
+    {
+      "id": "MAP-F-009",
+      "changeType": "Clientes y bolsas",
+      "responsible": "db",
+      "prompts": [
+        "harness/prompts/db.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/time-billing.md",
+        "harness/context/database.md",
+        "harness/context/security.md"
+      ],
+      "features": [
+        "F-009"
+      ],
+      "codeZones": [
+        "app/Model/ProjectModel.php",
+        "app/Core/Plugin/SchemaHandler.php"
+      ],
+      "testCases": [
+        "TC-F-009-01",
+        "TC-F-009-02"
+      ]
+    },
+    {
+      "id": "MAP-F-010",
+      "changeType": "Consumos, ajustes y reconciliación",
+      "responsible": "db",
+      "prompts": [
+        "harness/prompts/db.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/time-billing.md",
+        "harness/context/database.md",
+        "harness/context/security.md"
+      ],
+      "features": [
+        "F-010"
+      ],
+      "codeZones": [
+        "app/Model/SubtaskTimeTrackingModel.php"
+      ],
+      "testCases": [
+        "TC-F-010-01",
+        "TC-F-010-02",
+        "TC-F-010-03"
+      ]
+    },
+    {
+      "id": "MAP-F-011",
+      "changeType": "Reportes y exportaciones",
+      "responsible": "dev",
+      "prompts": [
+        "harness/prompts/dev.md",
+        "harness/prompts/db.md",
+        "harness/prompts/security.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/time-billing.md",
+        "harness/context/database.md",
+        "harness/context/security.md"
+      ],
+      "features": [
+        "F-011"
+      ],
+      "codeZones": [
+        "app/Export/SubtaskExport.php",
+        "app/Analytic/EstimatedTimeComparisonAnalytic.php"
+      ],
+      "testCases": [
+        "TC-F-011-01",
+        "TC-F-011-02"
+      ]
+    },
+    {
+      "id": "MAP-F-012",
+      "changeType": "Validación integrada y despliegue PHP",
+      "responsible": "release",
+      "prompts": [
+        "harness/prompts/release.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/security.md",
+        "harness/prompts/validator.md"
+      ],
+      "context": [
+        "harness/context/deployment.md",
+        "harness/context/upstream.md",
+        "harness/context/testing.md",
+        "harness/context/security.md"
+      ],
+      "features": [
+        "F-012"
+      ],
+      "codeZones": [
+        "Makefile",
+        ".gitattributes",
+        "data/.htaccess"
+      ],
+      "testCases": [
+        "TC-F-012-01",
+        "TC-F-012-02"
+      ]
+    }
+  ]
+}
