@@ -28,6 +28,16 @@ Este comando instala las dependencias fijadas en `composer.lock` en `.runtime/ve
 
 ## Conectar MariaDB
 
+Para ejecutar **tu configuración de MariaDB** guardada en `data/config.php`, usa:
+
+```powershell
+powershell -NoProfile -File harness/scripts/Start-LocalServer.ps1
+```
+
+Abre http://127.0.0.1:18001. Este lanzador carga tu archivo, habilita las extensiones PHP necesarias por proceso y conserva `DEBUG` y `PLUGIN_INSTALLER` como los definiste. No necesita `-Plugin`: Kanboard carga el plugin desde `plugins/RvSoftware`. El primer acceso puede crear o migrar las tablas de la base configurada. El servidor queda limitado a loopback; deténlo con `Ctrl+C`.
+
+`Start-IsolatedServer.ps1 -Plugin` sigue siendo exclusivamente para SQLite sintético y rechaza configuraciones locales. Si aparece `Refusing to boot with an unreviewed config`, cambia al comando MariaDB anterior; activar `DEBUG` no elimina ese bloqueo.
+
 Kanboard no lee un archivo `.env` por sí solo. Puedes configurar variables en el entorno del proceso PHP o utilizar el archivo nativo `data/config.php`. Para esta segunda opción, copia [config.mariadb.example.php](config.mariadb.example.php) a `data/config.php` y reemplaza el host, puerto, nombre, usuario y contraseña por los de la base creada en Hostinger. MariaDB usa `DB_DRIVER=mysql` y requiere la extensión PHP `pdo_mysql`. Los valores del ejemplo son marcadores, no credenciales reales.
 
 ```powershell

@@ -1,5 +1,16 @@
 # Pruebas y comandos reales
 
+## Desarrollo con la configuración MariaDB del usuario
+
+`Start-LocalServer.ps1` carga `data/config.php`/`config.php` nativos y arranca en
+127.0.0.1:18001. Respeta DEBUG/PLUGIN_INSTALLER; no utiliza el perfil SQLite.
+Validate-LocalConfig.php comprueba definiciones sin arrancar la aplicación ni
+mostrar credenciales. El proceso habilita PDO MySQL/extensiones y elimina el
+límite de ejecución para migraciones remotas lentas en este servidor local.
+DATABASE_URL se elimina de ese proceso para respetar el archivo elegido.
+El primer acceso puede crear/migrar la base configurada; no usarlo para suites
+destructivas ni confundirlo con los datos sintéticos de Start-IsolatedServer.
+
 ## Perfil aislado del destino PHP 8.5 / MariaDB 11.8.9
 
 `python harness/scripts/Initialize-Compatibility.py` descarga ZIP portables
