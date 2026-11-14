@@ -11,6 +11,6 @@ class RvTaskProjectMoveModel extends \Kanboard\Model\TaskProjectMoveModel
             return false;
         }
         return parent::moveToProject($task_id, $project_id, $swimlane_id, $column_id, $category_id, $owner_id);
-        }, $task_id);
+        }, $task_id, 0, false);
     }
 }

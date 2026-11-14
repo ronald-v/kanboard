@@ -6,6 +6,7 @@ use Kanboard\Core\Base;
 use Kanboard\Core\Security\Role;
 use DomainException;
 use Throwable;
+use PDOException;
 
 class RvBaseModel extends Base
 {
@@ -26,26 +27,44 @@ class RvBaseModel extends Base
         $this->sql("UPDATE $table SET revision=revision+1 WHERE $column=?", array($id));
     }
 
-    public function atomic($userId, callable $operation, $taskId = 0, $projectId = 0)
+    public function atomic($userId, callable $operation, $taskId = 0, $projectId = 0, $retrySafe = true)
     {
         $pdo = $this->db->getConnection();
         $own = ! $pdo->inTransaction();
-        $savepoint = 'rv_'.bin2hex(random_bytes(6));
-        if ($own) { $pdo->beginTransaction(); } else { $pdo->exec('SAVEPOINT '.$savepoint); }
-        try {
-            if ($userId > 0) { $this->lockRow('rv_time_locks', 'user_id', $userId); }
-            if ($taskId > 0) { $this->lockRow('rv_task_time_locks', 'task_id', $taskId); }
-            if ($projectId > 0) { $this->lockRow('rv_project_locks', 'project_id', $projectId); }
-            $result = $operation();
-            if ($own) { $pdo->commit(); } else { $pdo->exec('RELEASE SAVEPOINT '.$savepoint); }
-            return $result;
-        } catch (Throwable $error) {
-            if ($own && $pdo->inTransaction()) { $pdo->rollBack(); }
-            elseif (! $own && $pdo->inTransaction()) {
-                $pdo->exec('ROLLBACK TO SAVEPOINT '.$savepoint);
-                $pdo->exec('RELEASE SAVEPOINT '.$savepoint);
+        for ($attempt = 1; ; $attempt++) {
+            $savepoint = 'rv_'.bin2hex(random_bytes(6));
+            if ($own) { $pdo->beginTransaction(); } else { $pdo->exec('SAVEPOINT '.$savepoint); }
+            try {
+                if ($userId > 0) { $this->lockRow('rv_time_locks', 'user_id', $userId); }
+                if ($taskId > 0) {
+                    if (DB_DRIVER === 'mysql') {
+                        // The mutex FK otherwise takes a shared parent-row lock
+                        // while waiting for the mutex. A concurrent projection
+                        // update then needs that same task exclusively: lock the
+                        // parent first to avoid that lock upgrade cycle.
+                        $this->sql('SELECT id FROM tasks WHERE id=? FOR UPDATE',array($taskId));
+                    }
+                    $this->lockRow('rv_task_time_locks', 'task_id', $taskId);
+                }
+                if ($projectId > 0) { $this->lockRow('rv_project_locks', 'project_id', $projectId); }
+                $result = $operation();
+                if ($own) { $pdo->commit(); } else { $pdo->exec('RELEASE SAVEPOINT '.$savepoint); }
+                return $result;
+            } catch (Throwable $error) {
+                if ($own && $pdo->inTransaction()) { $pdo->rollBack(); }
+                elseif (! $own && $pdo->inTransaction()) {
+                    $pdo->exec('ROLLBACK TO SAVEPOINT '.$savepoint);
+                    $pdo->exec('RELEASE SAVEPOINT '.$savepoint);
+                }
+                // Retry only a transaction we own, after complete rollback, and
+                // only DB-only operations. Nested callers and operations with
+                // native event/queue effects must be retried by their caller.
+                if ($own && $retrySafe && $attempt < 3 && $error instanceof PDOException && ((string)$error->getCode() === '40001' || ($error->errorInfo[1] ?? null) === 1213)) {
+                    usleep($attempt * 30000);
+                    continue;
+                }
+                throw $error;
             }
-            throw $error;
         }
     }
 

@@ -29,6 +29,49 @@ class RvSoftwareLedgerTest extends RvSoftwareBase
         return $this->container['rvTimeModel']->manual($this->subtask,$this->end-$seconds,$this->end,'Synthetic','ledger-record');
     }
 
+    public function testDeadlockRetryRollsBackBeforeReapplying()
+    {
+        $c = $this->container; $attempts = 0;
+        $c['rvTimeModel']->atomic(1,function () use ($c,&$attempts) {
+            $attempts++;
+            $c['rvLedgerModel']->adjust($this->bag,300,'Synthetic retry','deadlock-adjust');
+            if ($attempts === 1) { throw new \PDOException('Synthetic deadlock',40001); }
+        });
+        $this->assertEquals(2,$attempts);
+        $this->assertCount(2,$c['rvBagModel']->entries($this->bag));
+        $this->assertEquals(2100,$c['rvBagModel']->bags($this->project)[0]['balance_seconds']);
+    }
+
+    public function testNestedDeadlockIsNotRetriedOrCommitted()
+    {
+        $c = $this->container; $attempts = 0; $pdo = $c['db']->getConnection();
+        $pdo->beginTransaction();
+        try {
+            $c['rvTimeModel']->atomic(1,function () use (&$attempts) { $attempts++; throw new \PDOException('Synthetic nested deadlock',40001); });
+            $this->fail('Deadlock swallowed');
+        } catch (\PDOException $e) {
+            $this->assertEquals(1,$attempts);
+            $this->assertTrue($pdo->inTransaction());
+        } finally { if ($pdo->inTransaction()) { $pdo->rollBack(); } }
+    }
+
+    public function testDeadlockRetryStopsAtThreeAttemptsWithoutCommittedWrites()
+    {
+        $c = $this->container; $attempts = 0;
+        try {
+            $c['rvTimeModel']->atomic(1,function () use ($c,&$attempts) {
+                $attempts++;
+                $c['rvLedgerModel']->adjust($this->bag,300,'Must roll back','deadlock-limit');
+                throw new \PDOException('Persistent synthetic deadlock',40001);
+            });
+            $this->fail('Persistent deadlock swallowed');
+        } catch (\PDOException $e) {
+            $this->assertEquals(3,$attempts);
+            $this->assertCount(1,$c['rvBagModel']->entries($this->bag));
+            $this->assertEquals(1800,$c['rvBagModel']->bags($this->project)[0]['balance_seconds']);
+        }
+    }
+
     public function testApprovalCompensationAndBalanceReconcile()
     {
         $c = $this->container; $m = $c['rvTimeModel'];

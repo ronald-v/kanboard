@@ -26,7 +26,7 @@ def login(username="admin", password="admin", base=BASE):
 
 class API:
     def __init__(self, username="jsonrpc", password=None, base=BASE):
-        assert base in (BASE, "http://127.0.0.1:18007/"), "Only isolated loopback servers allowed"
+        assert base in (BASE, "http://127.0.0.1:18007/", "http://127.0.0.1:18008/"), "Only isolated loopback servers allowed"
         if password is None:
             password = query("SELECT value FROM settings WHERE option='api_token'")[0]["value"]
         self.base = base

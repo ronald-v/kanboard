@@ -1,5 +1,33 @@
 # Pruebas y comandos reales
 
+## Perfil aislado del destino PHP 8.5 / MariaDB 11.8.9
+
+`python harness/scripts/Initialize-Compatibility.py` descarga ZIP portables
+oficiales bajo .runtime/compatibility, verifica SHA256 y crea únicamente un
+datadir sintético. No instala servicios Windows ni cambia PHP global.
+`powershell -NoProfile -File harness/scripts/Start-CompatibilityDb.ps1` inicia
+MariaDB en 127.0.0.1:13318, con binary log y credenciales exclusivamente sintéticas.
+Initialize-CompatibilityDb.php verifica versión, puerto y datadir antes de crear
+los tres schemas fijos; la cuenta de pruebas solo tiene permisos sobre ellos.
+
+```powershell
+powershell -NoProfile -File harness/scripts/Invoke-CompatibilityTests.ps1
+powershell -NoProfile -File harness/scripts/Invoke-CompatibilityTests.ps1 -Native -Sqlite
+powershell -NoProfile -File harness/scripts/Start-CompatibilityServer.ps1 -Port 18015
+# En otro proceso dedicado:
+powershell -NoProfile -File harness/scripts/Start-CompatibilityServer.ps1 -Port 18017
+python harness/scripts/Test-CompatibilityHttp.py
+# En un proceso que haga dot-source del perfil CompatibilityEnvironment.ps1:
+python harness/scripts/Test-CompatibilityRecovery.py .runtime/releases/ARTEFACTO.zip
+```
+
+El runner respeta DB_PORT en el fixture nativo y genera XML exclusivo, sin
+sobrescribir los originales. El modo plugin usa MariaDB; -Native -Sqlite usa el
+PHP 8.5 portable con SQLite en memoria y plugin deshabilitado. La recuperación
+usa mariadb-dump/import sobre un schema reservado diferente, archivos fuera del
+document root y PHP/HTTP del ZIP extraído. No apuntar estos scripts al hosting.
+Requisitos de desarrollo Composer siguen en .runtime/vendor, no vendor productivo.
+
 ## Entorno aislado autorizado en DEC-003
 La línea base siguiente conserva el diagnóstico histórico. Desde F-001 se usan
 extensiones GD/PDO SQLite/ZIP/LDAP por proceso; no se cambia php.ini global ni vendor/.

@@ -1,5 +1,12 @@
 # Persistencia, migraciones e integridad
 
+Actualización 2026-11-13: el destino informado es MariaDB 11.8.9-MariaDB-log;
+se utiliza DB_DRIVER=mysql y PDO nativo. Migración y dominio comprobados con
+PHP 8.5.12 en instancia portable aislada, incluidos binary log, concurrencia,
+rollback y restauración lógica. [Evidencia](../evidence/2026-11-13-f012-compatibilidad.md).
+Esto no acredita conexión ni reglas del hosting real. Las descripciones de
+inspección inicial siguientes conservan el contexto histórico.
+
 ## Existente comprobado
 PicoDB/PDO: app/ServiceProvider/DatabaseProvider.php; libs/picodb.
 SQLite predeterminado, archivo data/db.sqlite; no base local creada en esta entrega.
