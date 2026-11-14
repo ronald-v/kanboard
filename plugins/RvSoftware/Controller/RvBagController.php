@@ -17,9 +17,11 @@ class RvBagController extends BaseController
         try {
             if ($projectId) {
                 $client = $this->rvBagModel->client($projectId);
-                $bags = $this->rvBagModel->bags($projectId);
-                $differences = $this->rvLedgerModel->reconcile($projectId)['differences'];
-                foreach ($bags as &$bag) { $bag['entries'] = $this->rvBagModel->entries($bag['id']); }
+                $reconciliation = $this->rvLedgerModel->reconcile($projectId);
+                $bags = $reconciliation['bags'];
+                $differences = $reconciliation['differences'];
+                $entries = $bags ? $this->rvBagModel->entriesByProject($projectId) : array();
+                foreach ($bags as &$bag) { $bag['entries'] = $entries[$bag['id']] ?? array(); }
                 unset($bag);
             }
         } catch (DomainException $e) { $this->response->text('Acceso denegado',403); return; }

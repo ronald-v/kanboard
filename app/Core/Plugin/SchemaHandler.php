@@ -69,6 +69,13 @@ class SchemaHandler extends \Kanboard\Core\Base
         $lastVersion = constant('\Kanboard\Plugin\\'.$pluginName.'\Schema\VERSION');
         $currentVersion = $this->getSchemaVersion($pluginName);
 
+        // A normal request only needs the fresh version check. In particular,
+        // do not open a transaction, toggle FK checks, or rewrite that version.
+        // A newer database must never be silently downgraded by older code.
+        if ($currentVersion >= $lastVersion) {
+            return;
+        }
+
         try {
             $this->db->startTransaction();
             $this->db->getDriver()->disableForeignKeys();

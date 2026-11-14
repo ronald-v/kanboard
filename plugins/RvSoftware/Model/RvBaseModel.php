@@ -81,6 +81,33 @@ class RvBaseModel extends Base
         return $user && $user['role'] === Role::APP_ADMIN ? Role::PROJECT_MANAGER : $this->projectUserRoleModel->getUserRole($projectId, $userId);
     }
 
+    public function projectRoles(array $projectIds, $userId)
+    {
+        if (! $projectIds) { return array(); }
+        $user = $this->userModel->getById($userId);
+        if ($user && $user['role'] === Role::APP_ADMIN) {
+            return array_fill_keys($projectIds, Role::PROJECT_MANAGER);
+        }
+        $placeholders = implode(',', array_fill(0, count($projectIds), '?'));
+        $params = array_merge(array($userId), $projectIds);
+        $direct = $this->sql('SELECT project_id,role FROM project_has_users WHERE user_id=? AND project_id IN ('.$placeholders.')', $params)->fetchAll(\PDO::FETCH_KEY_PAIR);
+        $rows = $this->sql('SELECT g.project_id,g.role FROM project_has_groups g JOIN group_has_users m ON m.group_id=g.group_id WHERE m.user_id=? AND g.project_id IN ('.$placeholders.')', $params)->fetchAll(\PDO::FETCH_ASSOC);
+        $groups = array();
+        foreach ($rows as $row) { $groups[$row['project_id']][] = $row['role']; }
+        $roles = array();
+        foreach ($projectIds as $id) {
+            $roles[$id] = ! empty($direct[$id]) ? $direct[$id] : $this->projectAccessMap->getHighestRole($groups[$id] ?? array());
+            // Preserve native tie/order behavior for custom group roles.
+            foreach ($groups[$id] ?? array() as $role) {
+                if (empty($direct[$id]) && $this->role->isCustomProjectRole($role)) {
+                    $roles[$id] = $this->projectUserRoleModel->getUserRole($id, $userId);
+                    break;
+                }
+            }
+        }
+        return $roles;
+    }
+
     public function writableSubtask($subtaskId, $userId)
     {
         if (filter_var($subtaskId, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1))) === false || filter_var($userId, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1))) === false) {

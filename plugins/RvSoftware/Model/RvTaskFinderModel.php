@@ -26,7 +26,9 @@ class RvTaskFinderModel extends \Kanboard\Model\TaskFinderModel
 
     public function getAll($project_id, $status_id = \Kanboard\Model\TaskModel::STATUS_OPEN)
     {
-        return array_map(function ($row) { return $this->rvPrivacyModel->task($row); }, parent::getAll($project_id, $status_id));
+        $query = $this->db->table(\Kanboard\Model\TaskModel::TABLE)
+            ->eq('tasks.project_id', $project_id)->eq('tasks.is_active', $status_id)->asc('tasks.id');
+        return $this->rvPrivacyModel->decorate($query, 'task')->findAll();
     }
 
     public function getById($task_id)

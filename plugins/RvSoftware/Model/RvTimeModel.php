@@ -172,8 +172,8 @@ class RvTimeModel extends RvBaseModel
         $userId = $this->actor();
         $projects = $this->userSession->isAdmin() ? $this->db->table('projects')->findAll() : $this->db->table('projects')->in('id', $this->projectPermissionModel->getProjectIds($userId) ?: array(-1))->findAll();
         $ids = array();
-        foreach ($projects as $project) {
-            if (in_array($this->role($project['id'], $userId), array('project-member', 'project-manager'), true)) { $ids[] = $project['id']; }
+        foreach ($this->projectRoles(array_column($projects, 'id'), $userId) as $id=>$role) {
+            if (in_array($role, array('project-member', 'project-manager'), true)) { $ids[] = $id; }
         }
         if (! $ids) { return array(); }
         return $this->db->table('subtasks')->columns('subtasks.*', 'tasks.title AS task_title', 'projects.name AS project_name')

@@ -477,6 +477,40 @@
       "testCases": [
         "TC-F-018-01"
       ]
+    },
+    {
+      "id": "MAP-F-019",
+      "changeType": "Latencia de navegaci?n y CRUD con MariaDB remota",
+      "responsible": "performance",
+      "prompts": [
+        "harness/prompts/performance.md",
+        "harness/prompts/db.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/performance.md",
+        "harness/context/database.md",
+        "harness/context/testing.md",
+        "harness/context/architecture.md",
+        "harness/context/engineering.md",
+        "harness/context/security.md"
+      ],
+      "features": [
+        "F-019"
+      ],
+      "codeZones": [
+        "app/Core/Plugin",
+        "app/ServiceProvider",
+        "plugins/RvSoftware",
+        "harness/scripts",
+        "tests/units"
+      ],
+      "testCases": [
+        "TC-F-019-01",
+        "TC-F-019-02"
+      ]
     }
   ],
   "specialties": [

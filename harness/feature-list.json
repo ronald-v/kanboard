@@ -8,8 +8,8 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-14T13:31:52-05:00",
-    "activeFeatureId": null,
+    "updatedAt": "2026-11-14T14:06:14-05:00",
+    "activeFeatureId": "F-019",
     "features": [
         {
             "id": "F-001",
@@ -1134,6 +1134,61 @@
             "blockers": [],
             "nextAction": "Protocolo OAuth/PKCE, 15 herramientas CRUD, negativos, concurrencia y ZIP restaurado pasan; aceptación Hostinger/ChatGPT separada pendiente.",
             "notes": "Plan y decisiones aprobados en esta conversación. No autoriza producción.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-019",
+            "name": "Reducir la espera de navegaci?n y CRUD al menos un 50 %",
+            "description": "Plan aprobado por el usuario: diagn?stico local con MariaDB remota, correcciones m?nimas y comparaci?n por flujo; DEC-029.",
+            "status": "in_progress",
+            "targetVersion": null,
+            "dependsOn": [
+                "F-013"
+            ],
+            "acceptanceCriteria": [
+                "Reducir >=50 % mediana y p95 por flujo de navegaci?n, apertura de formularios, creaci?n y edici?n de proyectos, tareas, subtareas y usuarios en condiciones equivalentes.",
+                "Medici?n sint?tica de uno y diez clientes contra un solo servidor; >=100 muestras por flujo, primera carga separada.",
+                "Conservar migraciones pendientes, permisos, MFA, CSRF y persistencia; sin carga ni CRUD de prueba sobre la base actual.",
+                "Separar evidencia sint?tica de aceptaci?n por uso real; no validar sin muestras reales suficientes."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-019-S1",
+                    "name": "Medir, optimizar y verificar navegaci?n y CRUD",
+                    "status": "in_progress",
+                    "assignedAgent": "performance",
+                    "agentNotes": "Mismo ejecutor; consulta de roles, sin delegaci?n.",
+                    "evidence": [],
+                    "blockers": [],
+                    "nextAction": "Fijar l?nea base aislada, medir costes y aplicar cambios m?nimos."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/performance.md",
+                "harness/prompts/db.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/performance.md",
+                "harness/context/database.md",
+                "harness/context/testing.md",
+                "harness/context/architecture.md",
+                "harness/context/engineering.md",
+                "harness/context/security.md"
+            ],
+            "relatedFiles": [
+                "app/Core/Plugin/SchemaHandler.php"
+            ],
+            "testCases": [
+                "TC-F-019-01",
+                "TC-F-019-02"
+            ],
+            "evidence": [],
+            "blockers": [],
+            "nextAction": "Medir l?nea base y verificar migraciones/permisos sin conectar suites a la base real.",
+            "notes": "Autorizaci?n vigente: Please implement the plan. Sin despliegue ni cambios de destino/base real.",
             "suspensionApproval": null
         }
     ]

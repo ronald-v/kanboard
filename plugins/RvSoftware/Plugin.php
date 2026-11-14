@@ -12,6 +12,7 @@ class Plugin extends Base
 
     public function initialize()
     {
+        $this->helper->register('rvUserListing', '\\Kanboard\\Plugin\\RvSoftware\\Helper\\UserHelper');
         $this->container['authValidator'] = function ($c) { return new Validator\AuthValidator($c); };
         $this->container['rvSecurityModel'] = function ($c) { return new Model\RvSecurityModel($c); };
         $this->container['rvAccessModel'] = function ($c) { return new Model\RvAccessModel($c); };
@@ -45,11 +46,21 @@ class Plugin extends Base
         $this->template->setTemplateOverride('config/api', 'RvSoftware:config/api');
         $this->template->setTemplateOverride('header/user_dropdown', 'RvSoftware:layout/user_dropdown');
         $this->template->setTemplateOverride('user_view/sidebar', 'RvSoftware:layout/user_sidebar');
+        $this->template->setTemplateOverride('user_list/listing', 'RvSoftware:user/listing');
+        $this->template->setTemplateOverride('user_list/user_details', 'RvSoftware:user/details');
         $this->template->setTemplateOverride('project/sidebar', 'RvSoftware:layout/project_sidebar');
         $this->template->setTemplateOverride('task/sidebar', 'RvSoftware:layout/task_sidebar');
         $this->template->setTemplateOverride('task_creation/show', 'RvSoftware:task/create');
         $this->hook->on('template:layout:top', array('template' => 'RvSoftware:layout/sidebar'));
         $this->container['subtaskTimeTrackingModel'] = function ($c) { return new Model\RvTrackingModel($c); };
+        // This stateless native service can already be resolved by legacy data
+        // setup before plugin initialization. Replace its definition explicitly.
+        unset($this->container['projectUserRoleModel']);
+        $this->container['projectUserRoleModel'] = function ($c) { return new Model\RvProjectUserRoleModel($c); };
+        unset($this->container['actionModel']);
+        $this->container['actionModel'] = function ($c) { return new Model\RvActionModel($c); };
+        unset($this->container['dashboardPagination']);
+        $this->container['dashboardPagination'] = function ($c) { return new Model\RvDashboardPagination($c); };
         $this->container['subtaskModel'] = function ($c) { return new Model\RvSubtaskModel($c); };
         $this->container['taskCreationModel'] = function ($c) { return new Model\RvTaskCreationModel($c); };
         $this->container['taskModificationModel'] = function ($c) { return new Model\RvTaskModificationModel($c); };

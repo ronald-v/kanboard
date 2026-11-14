@@ -7,6 +7,11 @@ Projecta (F-013..F-018), con pruebas aisladas y sin despliegue. El historial
 F-001..F-012 se conserva; F-012 sigue blocked por verificación del hosting.
 La revisión anterior del harness permanece como evidencia histórica.
 
+DEC-029 autoriza F-019: optimización de navegación/CRUD por flujo, con reducción
+objetivo >=50 % en mediana/p95, pruebas aisladas y contraste por uso normal. No
+autoriza carga o CRUD de prueba en la MariaDB del usuario ni despliegue. Protocolo
+y límites en [rendimiento](context/performance.md).
+
 ## Arranque
 Desde `C:\Proyectos\kanboard`:
 

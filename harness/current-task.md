@@ -1,3 +1,11 @@
+# F-019 ? Optimizaci?n autorizada ? 2026-11-14T14:06:14-05:00
+
+Feature activa F-019. Plan aprobado: reducir >=50 % mediana/p95 por flujo.
+Preparando medici?n sint?tica y correcci?n m?nima de migraciones repetidas.
+Sin carga/CRUD de prueba en la base real, sin despliegue. F-012/F-015 conservan bloqueos.
+
+---
+
 # Seguimiento de acceso · 2026-11-14T13:31:02-05:00
 
 Rama actual: feat/refactor. Corrección solicitada del login/alta MFA en F-015,

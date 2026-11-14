@@ -13,13 +13,22 @@ class RvReportModel extends RvBaseModel
         $actor = $this->actor();
         $ids = $this->userSession->isAdmin() ? array_column($this->db->table('projects')->columns('id')->findAll(),'id') : $this->projectPermissionModel->getProjectIds($actor);
         $projects = $this->db->table('projects')->in('id',$ids ?: array(-1))->asc('name')->findAll();
+        $roles = $this->projectRoles(array_column($projects, 'id'), $actor);
         $users = array($actor=>$this->userModel->getById($actor));
-        foreach ($this->rvTimeModel->visible() as $row) { if (! isset($users[$row['user_id']])) { $users[$row['user_id']] = $this->userModel->getById($row['user_id']); } }
+        $userIds = array_unique(array_column($this->rvTimeModel->visible(), 'user_id'));
+        foreach ($this->db->table('users')->in('id', $userIds ?: array(-1))->findAll() as $user) { $users[$user['id']] = $user; }
         $choices = array('project_id'=>array(),'user_id'=>array(),'client_id'=>array(),'bag_id'=>array());
         foreach ($projects as $project) {
             $choices['project_id'][$project['id']] = $project['name'];
-            if ($this->role($project['id'],$actor) === 'project-manager') {
-                foreach ($this->rvBagModel->bags($project['id']) as $bag) { $choices['bag_id'][$bag['id']] = $project['name'].' / '.$bag['name']; }
+        }
+        $leaders = array_keys(array_filter($roles, function ($role) { return $role === 'project-manager'; }));
+        $bags = $this->db->table('rv_bags')->in('project_id', $leaders ?: array(-1))->desc('id')->findAll();
+        $byProject = array();
+        foreach ($bags as $bag) { $byProject[$bag['project_id']][] = $bag; }
+        // Preserve the existing project/name order, with descending bags per project.
+        foreach ($projects as $project) {
+            foreach ($byProject[$project['id']] ?? array() as $bag) {
+                $choices['bag_id'][$bag['id']] = $project['name'].' / '.$bag['name'];
             }
         }
         foreach ($users as $user) { $choices['user_id'][$user['id']] = $user['username']; }
@@ -75,6 +84,7 @@ class RvReportModel extends RvBaseModel
             LEFT JOIN rv_project_clients pc ON pc.project_id=k.project_id LEFT JOIN rv_clients c ON c.id=pc.client_id
             LEFT JOIN rv_bags b ON b.id=m.bag_id WHERE '.implode(' AND ',$where).' ORDER BY t.`start`,t.id',$params)->fetchAll(PDO::FETCH_ASSOC);
         $totals = array('worked_seconds'=>0,'billable_seconds'=>0,'approved_seconds'=>0,'consumed_seconds'=>0,'unreconciled_sessions'=>0);
+        $roles = $this->projectRoles(array_unique(array_column($rows, 'project_id')), $actor);
         foreach ($rows as &$row) {
             $row['worked_seconds'] = max(0,min((int)$row['end'],$finish)-max((int)$row['start'],$begin));
             $row['billable_seconds'] = (int)$row['billable'] === 1 ? $row['worked_seconds'] : 0;
@@ -84,7 +94,7 @@ class RvReportModel extends RvBaseModel
             $row['consumed_seconds'] = $row['reconciled'] && $expected > 0 ? $row['worked_seconds'] : 0;
             if (! $row['reconciled']) { $totals['unreconciled_sessions']++; }
             foreach (array('worked_seconds','billable_seconds','approved_seconds','consumed_seconds') as $metric) { $totals[$metric] += $row[$metric]; }
-            if ($this->role($row['project_id'],$actor) !== 'project-manager') {
+            if (($roles[$row['project_id']] ?? '') !== 'project-manager') {
                 // Member reports expose own work; commercial client/bag details
                 // and balances remain leader-only (BR-08).
                 $row['client_name'] = null; $row['bag_name'] = null; $row['bag_id'] = null;

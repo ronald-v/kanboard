@@ -55,6 +55,15 @@ class RvBagModel extends RvBaseModel
         return $this->db->table('rv_bag_entries')->eq('bag_id', $bagId)->asc('id')->findAll();
     }
 
+    public function entriesByProject($projectId)
+    {
+        $this->authorize($projectId);
+        $rows = $this->sql('SELECT e.* FROM rv_bag_entries e JOIN rv_bags b ON b.id=e.bag_id WHERE b.project_id=? ORDER BY e.id', array($projectId))->fetchAll(PDO::FETCH_ASSOC);
+        $entries = array();
+        foreach ($rows as $row) { $entries[$row['bag_id']][] = $row; }
+        return $entries;
+    }
+
     public function commercialAudit($project, $action, $before, $after, $reason, $key, $hash)
     {
         $this->sql('INSERT INTO rv_commercial_audit(project_id,actor_id,action,reason,before_json,after_json,created_at,operation_key,request_hash) VALUES (?,?,?,?,?,?,?,?,?)', array($project,$this->actor(),$action,$reason,json_encode($before),json_encode($after),time(),$key,$hash));

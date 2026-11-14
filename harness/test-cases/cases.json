@@ -667,6 +667,44 @@
         "harness/evidence/2026-11-14-projecta-integracion.md"
       ],
       "limitations": "Alcance y limitaciones reales descritos en evidencia; mismo ejecutor."
+    },
+    {
+      "id": "TC-F-019-01",
+      "featureId": "F-019",
+      "objective": "Migraci?n pendiente y esquema actualizado sin escrituras innecesarias",
+      "preconditions": [
+        "Destino sint?tico verificado y configuraci?n privada excluida."
+      ],
+      "syntheticData": "MariaDB loopback aislada; proyectos, tareas, subtareas y usuarios sint?ticos.",
+      "steps": [
+        "Ejecutar antes/despu?s y verificar resultados y efectos."
+      ],
+      "command": null,
+      "expectedResult": "Migraci?n pendiente y esquema actualizado sin escrituras innecesarias",
+      "verificationType": "Integraci?n, regresi?n y rendimiento",
+      "status": "planned",
+      "observedResult": "Pendiente de ejecuci?n.",
+      "evidence": [],
+      "limitations": "No ejecutar carga ni CRUD de prueba contra la base del usuario."
+    },
+    {
+      "id": "TC-F-019-02",
+      "featureId": "F-019",
+      "objective": "Comparaci?n por flujo extremo a extremo; sint?ticos separados del uso real",
+      "preconditions": [
+        "Destino sint?tico verificado y configuraci?n privada excluida."
+      ],
+      "syntheticData": "MariaDB loopback aislada; proyectos, tareas, subtareas y usuarios sint?ticos.",
+      "steps": [
+        "Ejecutar antes/despu?s y verificar resultados y efectos."
+      ],
+      "command": null,
+      "expectedResult": "Comparaci?n por flujo extremo a extremo; sint?ticos separados del uso real",
+      "verificationType": "Integraci?n, regresi?n y rendimiento",
+      "status": "planned",
+      "observedResult": "Pendiente de ejecuci?n.",
+      "evidence": [],
+      "limitations": "No ejecutar carga ni CRUD de prueba contra la base del usuario."
     }
   ]
 }
