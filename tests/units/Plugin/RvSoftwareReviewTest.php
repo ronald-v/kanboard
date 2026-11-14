@@ -15,6 +15,7 @@ class RvSoftwareReviewTest extends RvSoftwareBase
     private $first;
     private $second;
     private $end;
+    private $bag;
 
     protected function setUp(): void
     {
@@ -28,6 +29,9 @@ class RvSoftwareReviewTest extends RvSoftwareBase
         $this->task = $c['taskCreationModel']->create(array('title' => 'Review task','reference' => 'REF', 'project_id' => $this->project));
         $this->subtask = $c['subtaskModel']->create(array('title' => 'Review source','task_id' => $this->task));
         $this->end = time() - 60;
+        $this->asUser($this->leader);
+        $c['rvBagModel']->assignClient($this->project,'Client',0,'review-client');
+        $this->bag = $c['rvBagModel']->createBag($this->project,'Bag',36000,null,null,'review-bag');
         $this->asUser($this->member);
         $this->first = $c['rvTimeModel']->manual($this->subtask, $this->end - 3600, $this->end, 'Member', 'member-time');
         $this->asUser($this->peer);
@@ -46,8 +50,8 @@ class RvSoftwareReviewTest extends RvSoftwareBase
         $this->asUser($this->leader);
         $m->review($this->first, true, false, 'Classify', 'classify-time');
         $this->assertSame('pending', $m->session($this->first)['status']);
-        $m->review($this->first, true, true, 'Approve', 'approve-time');
-        $m->review($this->first, true, true, 'Approve', 'approve-time');
+        $m->review($this->first, true, true, 'Approve', 'approve-time',$this->bag);
+        $m->review($this->first, true, true, 'Approve', 'approve-time',$this->bag);
         $m->review($this->second, false, true, 'Internal', 'approve-peer');
         $this->assertEquals(5400, array_sum(array_column($m->visible(), 'duration_seconds')));
         $this->assertEquals(3600, $c['db']->table('rv_time_meta')->eq('billable', 1)->sum('duration_seconds'));

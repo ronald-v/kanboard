@@ -9,7 +9,7 @@ class RvTimeModel extends RvBaseModel
 {
     public function session($id)
     {
-        return $this->sql('SELECT t.*, m.duration_seconds, m.source, m.note, m.version,m.status,m.billable,m.approved_by,m.approved_at,m.approved_project_id,m.rectified_at FROM subtask_time_tracking t JOIN rv_time_meta m ON m.session_id=t.id WHERE t.id=?', array($id))->fetch(PDO::FETCH_ASSOC);
+        return $this->sql('SELECT t.*, m.duration_seconds, m.source, m.note, m.version,m.status,m.billable,m.approved_by,m.approved_at,m.approved_project_id,m.rectified_at,m.bag_id FROM subtask_time_tracking t JOIN rv_time_meta m ON m.session_id=t.id WHERE t.id=?', array($id))->fetch(PDO::FETCH_ASSOC);
     }
 
     public function audit($id, $action, $before, $after, $reason, $key, $hash = '')
@@ -195,7 +195,7 @@ class RvTimeModel extends RvBaseModel
                 $params = array_merge($params, $leaders ?: array(-1));
             }
         }
-        return $this->sql('SELECT t.*,m.duration_seconds,m.note,m.source,m.status,m.billable,m.approved_by,m.approved_at,m.rectified_at,s.task_id,s.title AS subtask_title,k.title AS task_title,k.project_id FROM subtask_time_tracking t JOIN rv_time_meta m ON m.session_id=t.id JOIN subtasks s ON s.id=t.subtask_id JOIN tasks k ON k.id=s.task_id'.($where ? ' WHERE '.implode(' AND ', $where) : '').' ORDER BY t.id DESC', $params)->fetchAll(PDO::FETCH_ASSOC);
+        return $this->sql('SELECT t.*,m.duration_seconds,m.note,m.source,m.status,m.billable,m.approved_by,m.approved_at,m.rectified_at,m.bag_id,s.task_id,s.title AS subtask_title,k.title AS task_title,k.project_id FROM subtask_time_tracking t JOIN rv_time_meta m ON m.session_id=t.id JOIN subtasks s ON s.id=t.subtask_id JOIN tasks k ON k.id=s.task_id'.($where ? ' WHERE '.implode(' AND ', $where) : '').' ORDER BY t.id DESC', $params)->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function readable($id, $leader = false)
@@ -210,16 +210,16 @@ class RvTimeModel extends RvBaseModel
         return $row;
     }
 
-    public function review($id, $billable, $approve, $reason, $key)
+    public function review($id, $billable, $approve, $reason, $key, $bagId = null)
     {
         $actor = $this->actor();
         $row = $this->readable($id, true);
         if (! in_array($billable, array(true,false,0,1), true) || ! in_array($approve, array(true,false,0,1), true)) { throw new DomainException('La clasificación no es válida.'); }
         $reason = $this->text($reason);
         $key = $this->operationKey('review', $actor, $key);
-        $hash = hash('sha256', json_encode(array((int) $id,(int) $billable,(bool) $approve,$reason)));
+        $hash = hash('sha256', json_encode(array((int) $id,(int) $billable,(bool) $approve,$reason,$bagId ? (int)$bagId : null)));
         $taskId = $this->subtaskModel->getById($row['subtask_id'])['task_id'];
-        return $this->atomic($row['user_id'], function () use ($id,$billable,$approve,$reason,$key,$hash,$actor) {
+        return $this->atomic($row['user_id'], function () use ($id,$billable,$approve,$reason,$key,$hash,$actor,$bagId) {
             $before = $this->readable($id, true);
             $receipt = $this->db->table('rv_time_audit')->eq('operation_key', $key)->findOne();
             if ($receipt) {
@@ -229,12 +229,13 @@ class RvTimeModel extends RvBaseModel
             if ($before['status'] !== 'pending' || (int) $before['end'] === 0) { throw new DomainException('Solo se revisan sesiones cerradas pendientes.'); }
             $projectId = $this->subtaskModel->getProjectId($before['subtask_id']);
             $this->sql('UPDATE rv_time_meta SET billable=?,status=?,approved_by=?,approved_at=?,approved_project_id=?,version=version+1 WHERE session_id=?', array((int) $billable, $approve ? 'approved' : 'pending', $approve ? $actor : null, $approve ? time() : null, $approve ? $projectId : null, $id));
+            if ($approve) { $this->rvLedgerModel->apply($this->session($id),$bagId); }
             $this->audit($id, $approve ? 'approve' : 'classify', $before, $this->session($id), $reason ?: 'Revisión de trabajo', $key, $hash);
             return (int) $id;
-        }, $taskId);
+        }, $taskId, $this->subtaskModel->getProjectId($row['subtask_id']));
     }
 
-    public function rectify($id, $start, $end, $billable, $note, $reason, $key)
+    public function rectify($id, $start, $end, $billable, $note, $reason, $key, $bagId = null)
     {
         $actor = $this->actor();
         $row = $this->readable($id, true);
@@ -243,9 +244,9 @@ class RvTimeModel extends RvBaseModel
         $reason = $this->text($reason);
         if (! $reason || ! in_array($billable, array(true,false,0,1), true)) { throw new DomainException('Indica clasificación y motivo de rectificación.'); }
         $key = $this->operationKey('rectify', $actor, $key);
-        $hash = hash('sha256', json_encode(array((int) $id,(int) $start,(int) $end,(int) $billable,$note,$reason)));
+        $hash = hash('sha256', json_encode(array((int) $id,(int) $start,(int) $end,(int) $billable,$note,$reason,$bagId ? (int)$bagId : null)));
         $taskId = $this->subtaskModel->getById($row['subtask_id'])['task_id'];
-        return $this->atomic($row['user_id'], function () use ($id,$start,$end,$billable,$note,$reason,$key,$hash) {
+        return $this->atomic($row['user_id'], function () use ($id,$start,$end,$billable,$note,$reason,$key,$hash,$bagId) {
             $before = $this->readable($id, true);
             $receipt = $this->db->table('rv_time_audit')->eq('operation_key', $key)->findOne();
             if ($receipt) {
@@ -257,10 +258,11 @@ class RvTimeModel extends RvBaseModel
             $hours = round($seconds / 3600, 2);
             $this->sql('UPDATE subtask_time_tracking SET `start`=?,`end`=?,time_spent=? WHERE id=?', array($start,$end,$hours,$id));
             $this->sql('UPDATE rv_time_meta SET duration_seconds=?,billable=?,note=?,rectified_at=?,version=version+1 WHERE session_id=?', array($seconds,(int) $billable,$note,time(),$id));
+            $this->rvLedgerModel->apply($this->session($id),$bagId,true);
             $this->projectDelta($before['subtask_id'], $hours - (float) $before['time_spent']);
             $this->audit($id, 'rectify', $before, $this->session($id), $reason, $key, $hash);
             return (int) $id;
-        }, $taskId);
+        }, $taskId, $this->subtaskModel->getProjectId($row['subtask_id']));
     }
 
     public function history($id)

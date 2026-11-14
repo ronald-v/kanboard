@@ -4,6 +4,15 @@ namespace Kanboard\Plugin\RvSoftware\Api;
 
 class RvTimeProcedure extends \Kanboard\Api\Procedure\BaseProcedure
 {
+    public function rvAdjustBag($bag_id,$seconds,$reason,$operation_key)
+    {
+        return $this->rvLedgerModel->adjust($bag_id,$seconds,$reason,$operation_key);
+    }
+
+    public function rvReconcile($project_id)
+    {
+        return $this->rvLedgerModel->reconcile($project_id);
+    }
     public function rvAssignClient($project_id, $name, $operation_key, $client_id = 0)
     {
         return $this->rvBagModel->assignClient($project_id,$name,$client_id,$operation_key);
@@ -58,14 +67,14 @@ class RvTimeProcedure extends \Kanboard\Api\Procedure\BaseProcedure
         return $this->rvTimeModel->readable($session_id);
     }
 
-    public function rvReviewTime($session_id, $billable, $approve, $reason, $operation_key)
+    public function rvReviewTime($session_id, $billable, $approve, $reason, $operation_key, $bag_id = null)
     {
-        return $this->rvTimeModel->review($session_id, $billable, $approve, $reason, $operation_key);
+        return $this->rvTimeModel->review($session_id, $billable, $approve, $reason, $operation_key, $bag_id);
     }
 
-    public function rvRectifyTime($session_id, $start, $end, $billable, $note, $reason, $operation_key)
+    public function rvRectifyTime($session_id, $start, $end, $billable, $note, $reason, $operation_key, $bag_id = null)
     {
-        return $this->rvTimeModel->rectify($session_id, $start, $end, $billable, $note, $reason, $operation_key);
+        return $this->rvTimeModel->rectify($session_id, $start, $end, $billable, $note, $reason, $operation_key, $bag_id);
     }
 
     public function rvGetTimeAudit($session_id)

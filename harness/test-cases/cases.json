@@ -394,10 +394,12 @@
       "command": null,
       "expectedResult": "Un débito 3600 s; saldo 9 h",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "Aprobación/consumo atómicos, compensaciones, ajustes y reconciliación: 28 tests/156 aserciones y concurrencia dos procesos SQLite; regresiones pasan, límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f010-ledger.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-010-02",
@@ -416,10 +418,12 @@
       "command": null,
       "expectedResult": "Ajuste/rechazo según contrato, historia intacta y saldo coherente",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "Aprobación/consumo atómicos, compensaciones, ajustes y reconciliación: 28 tests/156 aserciones y concurrencia dos procesos SQLite; regresiones pasan, límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f010-ledger.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-010-03",
@@ -437,10 +441,12 @@
       "command": null,
       "expectedResult": "Aviso/bloqueo/excedente y vigencia según decisiones",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "Aprobación/consumo atómicos, compensaciones, ajustes y reconciliación: 28 tests/156 aserciones y concurrencia dos procesos SQLite; regresiones pasan, límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f010-ledger.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-011-01",

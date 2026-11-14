@@ -2,7 +2,7 @@
 
 namespace Kanboard\Plugin\RvSoftware\Schema;
 
-const VERSION = 5;
+const VERSION = 6;
 
 function version_1($pdo)
 {
@@ -31,4 +31,9 @@ function version_5($pdo)
 {
     require_once __DIR__.'/BagSchema.php';
     createBagSchema($pdo);
+}
+
+function version_6($pdo)
+{
+    $pdo->exec('ALTER TABLE rv_time_meta ADD COLUMN bag_id INT NULL REFERENCES rv_bags(id) ON DELETE RESTRICT');
 }

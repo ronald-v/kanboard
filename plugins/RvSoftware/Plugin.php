@@ -37,7 +37,7 @@ class Plugin extends Base
 
     public function getClasses()
     {
-        return array('Plugin\\RvSoftware\\Model' => array('RvDashboardModel', 'RvTimeModel', 'RvPrivacyModel', 'RvBagModel'));
+        return array('Plugin\\RvSoftware\\Model' => array('RvDashboardModel', 'RvTimeModel', 'RvPrivacyModel', 'RvBagModel', 'RvLedgerModel'));
     }
 
     public function getHelpers()
