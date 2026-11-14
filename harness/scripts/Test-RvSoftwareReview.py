@@ -28,13 +28,13 @@ def main():
     assert first in [int(r['id']) for r in rows] and second not in [int(r['id']) for r in rows]
     assert 'error' in member.call('rvGetTime', {'session_id': second}, True)
     assert 'error' in member.call('rvGetTimeAudit', {'session_id': second}, True)
-    leader.call('rvAssignClient', {'project_id': project, 'name': 'Review client', 'operation_key': 'review-client'})
-    bag = leader.call('rvCreateBag', {'project_id': project, 'name': 'Review bag', 'seconds': 36000, 'operation_key': 'review-bag'})
+    leader.call('rvAssignClient', {'project_id': project, 'name': 'Review client', 'operation_key': 'review-client-' + str(time.time_ns())})
+    bag = leader.call('rvCreateBag', {'project_id': project, 'name': 'Review bag', 'seconds': 36000, 'operation_key': 'review-bag-' + str(time.time_ns())})
     review = {'bag_id': bag, 'session_id': first, 'billable': True, 'approve': True, 'reason': 'Synthetic approval', 'operation_key': 'approve-' + str(time.time_ns())}
     assert 'error' in member.call('rvReviewTime', review, True)
     assert leader.call('rvReviewTime', review) == first
     assert leader.call('rvReviewTime', review) == first
-    assert 'error' in member.call('rvCorrectTime', {'session_id': first, 'start': end-60, 'end': end, 'note': '', 'reason': 'Denied', 'operation_key': 'denied-correction'}, True)
+    assert 'error' in member.call('rvCorrectTime', {'session_id': first, 'start': end-60, 'end': end, 'note': '', 'reason': 'Denied', 'operation_key': 'denied-correction-' + str(time.time_ns())}, True)
     for client, expected in ((member, 1), (peer, .5), (leader, 1.5)):
         assert float(client.call('getTask', {'task_id': task})['time_spent']) == expected
         assert float(client.call('getAllTasks', {'project_id': project, 'status_id': 1})[0]['time_spent']) == expected
@@ -64,7 +64,7 @@ def main():
     assert len(leader.call('rvGetTimeAudit', {'session_id': first})) == 3
     assert root.call('removeProjectUser', {'project_id': project, 'user_id': users['review-leader']})
     assert 'error' in leader.call('rvGetTime', {'session_id': first}, True)
-    assert 'error' in leader.call('rvReviewTime', {**review, 'session_id': second, 'operation_key': 'foreign-review'}, True)
+    assert 'error' in leader.call('rvReviewTime', {**review, 'session_id': second, 'operation_key': 'foreign-review-' + str(time.time_ns())}, True)
     print('PASS F-008: own/team/admin scope, native API projections, approval, rectification, audit, retries, revoked access, UI CSRF and member export denial.')
 
 

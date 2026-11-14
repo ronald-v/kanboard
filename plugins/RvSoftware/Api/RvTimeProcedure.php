@@ -4,6 +4,10 @@ namespace Kanboard\Plugin\RvSoftware\Api;
 
 class RvTimeProcedure extends \Kanboard\Api\Procedure\BaseProcedure
 {
+    public function rvTimeReport($from,$until,$filters = array())
+    {
+        return $this->rvReportModel->report($from,$until,$filters);
+    }
     public function rvAdjustBag($bag_id,$seconds,$reason,$operation_key)
     {
         return $this->rvLedgerModel->adjust($bag_id,$seconds,$reason,$operation_key);

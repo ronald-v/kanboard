@@ -1,11 +1,11 @@
 # Checkpoint
 
-Estado canónico: [feature-list.json](feature-list.json). F-001..F-010 validated;
-sin activa. Rama feat/010. DEC-019 y [evidencia](evidence/2026-11-12-f010-ledger.md).
+Estado canónico: [feature-list.json](feature-list.json). F-001..F-011 validated;
+sin activa. Rama feat/011. DEC-020 y [evidencia](evidence/2026-11-12-f011-reportes.md).
 
-Consumo al aprobar facturable, bolsa explícita, compensaciones, ajustes y
-reconciliación. Excedente permitido con aviso, vigencia por fecha trabajada.
-Schema 6. 28 tests/156 aserciones y concurrencia real de dos procesos SQLite pasan;
-regresiones F-006..F-009 pasan. MySQL/hosting pendientes; no despliegue ni nueva
-verificación visual. Próximo: commit/push dev feature 010 y feat/011, reportes
-por fecha trabajada Bogotá, totales exactos y CSV con permisos y escape.
+Reportes UI/API/CSV por fecha trabajada Bogotá, recorte exacto en medianoche,
+trabajado/facturable/aprobado/consumido separados, permisos y fórmulas CSV protegidos.
+32 tests/180 aserciones y HTTP reportes pasan; regresiones revisión/ledger pasan.
+MySQL/hosting y visual automatizado pendientes. Próximo: commit/push dev feature
+011, feat/012: flujo integrado, artefacto limpio, actualización y restauración
+sintéticas. Destino/versión productiva no acordados; no desplegar.

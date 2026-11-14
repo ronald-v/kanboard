@@ -464,10 +464,12 @@
       "command": null,
       "expectedResult": "Incluye trabajo febrero; sin doble conteo ni filtración",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "32 tests/180 aserciones y HTTP UI/API/CSV prueban fecha trabajada Bogotá, medianoche, precisión, conciliación, roles y neutralización de fórmulas; límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f011-reportes.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-011-02",
@@ -485,10 +487,12 @@
       "command": null,
       "expectedResult": "Sin flotantes monetarios; snapshot conserva importe",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Importes pendientes; emisión de facturas fuera del alcance."
+      "status": "validated",
+      "observedResult": "32 tests/180 aserciones y HTTP UI/API/CSV prueban fecha trabajada Bogotá, medianoche, precisión, conciliación, roles y neutralización de fórmulas; límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f011-reportes.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-012-01",

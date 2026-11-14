@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-12T22:47:13.067295-05:00",
+    "updatedAt": "2026-11-12T22:52:20.768473-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -679,7 +679,7 @@
         {
             "id": "F-011",
             "name": "Reportes y exportaciones",
-            "status": "planned",
+            "status": "validated",
             "targetVersion": null,
             "description": "Reportes y exportaciones. Reutilizar capacidad nativa antes de extender.",
             "dependsOn": [
@@ -694,22 +694,26 @@
                 {
                     "id": "F-011-S1",
                     "name": "Precisar alcance, reutilización y aceptación",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "dev",
                     "agentNotes": "Rol de prompt, no agente independiente.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f011-reportes.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Leer contexto y decisiones pertinentes."
+                    "nextAction": "Conservar evidencia comprobada."
                 },
                 {
                     "id": "F-011-S2",
                     "name": "Realizar entregable y verificar criterios",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "testing",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f011-reportes.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Reutilizar estimado/real y crear reporte comercial por sesiones."
+                    "nextAction": "Conservar evidencia comprobada."
                 }
             ],
             "relatedPrompts": [
@@ -731,10 +735,12 @@
                 "TC-F-011-01",
                 "TC-F-011-02"
             ],
-            "evidence": [],
+            "evidence": [
+                "harness/evidence/2026-11-12-f011-reportes.md"
+            ],
             "blockers": [],
-            "nextAction": "Reutilizar estimado/real y crear reporte comercial por sesiones.",
-            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "nextAction": "Conservar evidencia y continuar siguiente feature con dependencias validadas.",
+            "notes": "32 tests/180 aserciones y HTTP UI/API/CSV prueban fecha trabajada Bogotá, medianoche, precisión, conciliación, roles y neutralización de fórmulas; límites en evidencia.",
             "suspensionApproval": null
         },
         {
