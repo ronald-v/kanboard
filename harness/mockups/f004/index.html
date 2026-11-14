@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; object-src 'none'; base-uri 'none'">
+  <title>rvSoftware · Propuesta de interfaz</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="preview.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <div class="preview-bar">
+    <span><strong>Propuesta F-004</strong> · Datos de ejemplo</span>
+    <label>Estado <select id="preview-state"><option value="normal">Normal</option><option value="empty">Sin datos</option><option value="error">Error</option><option value="expired">Bolsa vencida</option></select></label>
+    <label>Vista <select id="preview-role"><option value="manager">Líder de proyecto</option><option value="member">Miembro</option><option value="admin">Administrador</option></select></label>
+  </div>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#inicio" aria-label="rvSoftware, inicio"><img src="assets/logo-oscuro.png" alt="rvSoftware" width="225" height="42"></a>
+      <span class="workspace">EQUIPO DE DESARROLLO</span>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav">Menú de navegación</button>
+      <nav id="main-nav" aria-label="Principal">
+        <a href="#inicio" aria-current="page"><span aria-hidden="true">◫</span> Inicio</a>
+        <a href="#proyectos"><span aria-hidden="true">▤</span> Proyectos</a>
+        <a href="#tiempo"><span aria-hidden="true">◷</span> Mi tiempo</a>
+        <a href="#clientes" data-team><span aria-hidden="true">◈</span> Clientes y bolsas</a>
+        <a href="#reportes"><span aria-hidden="true">▥</span> Reportes</a>
+      </nav>
+      <div class="sidebar-bottom">
+        <details><summary>Más herramientas</summary><a href="#herramientas">Calendario, actividad y exportaciones</a><a href="#herramientas">Configuración y funciones avanzadas</a></details>
+        <a href="#herramientas" data-admin hidden>Administración</a>
+        <div class="profile"><span class="avatar" aria-hidden="true">RS</span><span>Ronnie sintético<small id="role-label">Líder de proyecto</small></span></div>
+      </div>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <header class="topbar"><span class="breadcrumb">Mi espacio de trabajo</span><span class="timezone">America/Bogota</span></header>
+      <div class="page-content">
+        <div id="error-state" class="notice error" role="alert" hidden><strong>No pudimos cargar la información.</strong> Tus datos guardados se conservan. <button id="retry" type="button">Reintentar</button></div>
+
+        <section id="inicio" class="view" aria-labelledby="inicio-title">
+          <div class="page-heading"><div><p class="eyebrow">JUEVES, 12 DE NOVIEMBRE</p><h1 id="inicio-title">Tu trabajo, en un solo lugar.</h1><p class="muted">Prioriza lo que sigue y mantén tu tiempo al día.</p></div><button type="button" class="primary" data-open="task-dialog">+ Nueva tarea</button></div>
+          <div class="stats">
+            <article><p>Proyectos activos</p><strong data-metric="3">3</strong><small>En los que participas</small></article>
+            <article><p>Mis tareas pendientes</p><strong data-metric="12">12</strong><small id="task-hint"><span class="dot"></span> 2 próximas a vencer</small></article>
+            <article><p>Mi tiempo esta semana</p><strong data-metric="6 h 30 min">6 h 30 min</strong><small>Tiempo trabajado registrado</small></article>
+          </div>
+          <div class="content-grid">
+            <article class="panel task-panel"><div class="panel-heading"><div><h2>Mis próximas tareas</h2><p>Una vista breve para empezar.</p></div><a href="#proyectos">Ver proyectos →</a></div>
+              <div class="task-list" data-populated>
+                <div class="task-row"><span class="task-marker" aria-hidden="true"></span><div><a href="#proyectos">Revisar flujo de acceso</a><small>Portal interno · Desarrollo</small></div><span class="badge blue">En curso</span><span class="due">Hoy</span></div>
+                <div class="task-row"><span class="task-marker" aria-hidden="true"></span><div><a href="#proyectos">Preparar pruebas de entrega</a><small>Portal interno · Validación</small></div><span class="badge neutral">Por hacer</span><span class="due">Mañana</span></div>
+                <div class="task-row"><span class="task-marker" aria-hidden="true"></span><div><a href="#proyectos">Documentar el proceso del equipo</a><small>Operación interna · Documentación</small></div><span class="badge neutral">Por hacer</span><span class="due">16 nov</span></div>
+              </div>
+              <div class="empty-state" data-empty hidden><span aria-hidden="true">✓</span><h3>Todo listo para empezar</h3><p>Aún no tienes tareas asignadas.</p><button class="secondary" type="button" data-open="task-dialog">Crear una tarea</button></div>
+            </article>
+            <article class="panel time-card"><span class="eyebrow">MI TIEMPO</span><h2>Que tu trabajo quede registrado.</h2><p>Registra una sesión o consulta lo que has trabajado.</p><div class="timer-sample"><span class="dot"></span> Sin temporizador activo</div><a class="primary button-link" href="#tiempo">Registrar tiempo →</a><small>Trabajado y facturable se consultan por separado.</small></article>
+          </div>
+          <article class="panel projects-strip"><div class="panel-heading"><h2>Proyectos a mano</h2><a href="#proyectos">Ver todos →</a></div><div class="project-cards" data-populated><a href="#proyectos"><span class="project-symbol">P</span><strong>Portal interno</strong><small>6 tareas pendientes</small></a><a href="#proyectos"><span class="project-symbol teal">O</span><strong>Operación interna</strong><small>4 tareas pendientes</small></a><a href="#proyectos"><span class="project-symbol pale">S</span><strong>Soporte de equipo</strong><small>2 tareas pendientes</small></a></div><p class="empty-inline" data-empty hidden>Cuando participes en un proyecto, aparecerá aquí.</p></article>
+        </section>
+
+        <section id="proyectos" class="view" aria-labelledby="proyectos-title" hidden>
+          <div class="page-heading"><div><p class="eyebrow">PROYECTOS</p><h1 id="proyectos-title">Portal interno</h1><p class="muted">Un tablero claro, con las herramientas del equipo a mano.</p></div><button class="primary" type="button" data-open="task-dialog">+ Nueva tarea</button></div>
+          <div class="board-toolbar"><label>Vista <select><option>Tablero</option><option>Lista</option></select></label><label>Filtrar tareas <input type="search" placeholder="Buscar por título…"></label><details><summary>Más opciones del proyecto</summary><p>Actividad · Calendario · Miembros · Analíticas · Configuración</p></details></div>
+          <div class="board"><article><h2>Por hacer <span>2</span></h2><div class="board-card"><small>#24 · Validación</small><h3>Preparar pruebas de entrega</h3><p>Vence mañana</p></div><div class="board-card"><small>#25 · Documentación</small><h3>Actualizar guía de acceso</h3><p>Sin vencimiento</p></div></article><article><h2>En curso <span>1</span></h2><div class="board-card active-card"><small>#21 · Desarrollo</small><h3>Revisar flujo de acceso</h3><p>Vence hoy · Ronnie</p><a href="#tiempo">Registrar tiempo</a></div></article><article><h2>Terminado <span>1</span></h2><div class="board-card"><small>#18 · Desarrollo</small><h3>Preparar entorno local</h3><p>Completada</p></div></article></div>
+        </section>
+
+        <section id="tiempo" class="view" aria-labelledby="tiempo-title" hidden>
+          <div class="page-heading"><div><p class="eyebrow">MI TIEMPO</p><h1 id="tiempo-title">Cada sesión cuenta.</h1><p class="muted">Registra trabajo pendiente de revisión. El consumo se produce al aprobar trabajo facturable.</p></div></div>
+          <form id="time-form" class="panel form-panel"><h2>Registrar tiempo</h2><div class="form-grid"><label>Proyecto <select required><option value="">Selecciona un proyecto</option><option>Portal interno</option><option>Operación interna</option></select></label><label>Tarea / subtarea <select required><option value="">Selecciona una tarea</option><option>Revisar flujo de acceso / Desarrollo</option></select></label><label>Fecha trabajada <input type="date" value="2026-11-12" required></label><label>Duración (minutos) <input type="number" min="1" step="1" placeholder="Ej. 60" required></label><label class="full">Nota <textarea rows="3" placeholder="¿En qué trabajaste?"></textarea></label></div><p class="form-help">Se guardará como pendiente. Un líder o administrador revisará su clasificación.</p><button type="submit" class="primary">Guardar registro</button><p id="time-result" role="status" hidden>Registro de ejemplo añadido a pendientes.</p></form>
+          <article class="panel"><div class="panel-heading"><h2>Mis registros</h2><span class="badge neutral">Semana actual</span></div><div class="report-row"><strong>Revisar flujo de acceso</strong><span>12 nov · 60 min</span><span class="badge amber">Pendiente</span></div><div class="report-row"><strong>Preparar entorno local</strong><span>11 nov · 90 min</span><span class="badge green">Aprobado · No facturable</span></div></article>
+        </section>
+
+        <section id="clientes" class="view" aria-labelledby="clientes-title" hidden>
+          <div class="page-heading"><div><p class="eyebrow">CLIENTES Y BOLSAS</p><h1 id="clientes-title">Acuerdos claros. Saldos visibles.</h1><p class="muted">Cada proyecto tiene sus propias bolsas de horas.</p></div><div class="heading-actions"><button class="secondary" type="button" data-open="client-dialog">+ Nuevo cliente</button><button class="primary" type="button" data-open="bag-dialog">+ Nueva bolsa</button></div></div>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">CLIENTE DE EJEMPLO A</p><h2>Portal interno</h2></div><span id="bag-status" class="badge green">Vigente</span></div><div class="balance"><div><small>Horas contratadas</small><strong>10 h</strong></div><div><small>Consumo aprobado</small><strong>1 h</strong></div><div><small>Saldo disponible</small><strong>9 h</strong></div></div><p id="expiry-note" class="notice" hidden>La vigencia de esta bolsa terminó. Consulta su historial y revisa el acuerdo del proyecto.</p><div class="panel-footer"><span>Último movimiento: trabajo facturable aprobado · 60 min</span><a href="#reportes">Consultar movimientos →</a></div></article>
+        </section>
+
+        <section id="reportes" class="view" aria-labelledby="reportes-title" hidden>
+          <div class="page-heading"><div><p class="eyebrow">REPORTES</p><h1 id="reportes-title">Del registro al detalle.</h1><p class="muted">Horas por fecha trabajada · America/Bogota</p></div><button class="secondary" id="export-sample" type="button">Exportar CSV de ejemplo</button></div>
+          <form class="panel report-filters"><label>Desde <input type="date" value="2026-11-09"></label><label>Hasta <input type="date" value="2026-11-15"></label><label>Proyecto <select><option>Todos mis proyectos</option><option>Portal interno</option></select></label><button class="primary" type="button" id="apply-filters">Aplicar filtros</button></form><p id="filter-result" role="status" hidden>Filtros de ejemplo aplicados.</p>
+          <div class="stats"><article><p>Trabajado</p><strong>6 h 30 min</strong><small>Sesiones registradas</small></article><article><p>Facturable aprobado</p><strong>1 h</strong><small>Clasificación comercial</small></article><article data-team><p>Consumo de bolsa</p><strong>1 h</strong><small>Movimientos contabilizados</small></article></div><article class="panel"><h2>Detalle por sesión</h2><p>Consulta tarea, persona, fecha, duración, clasificación y estado. Los totales de tareas no se suman de nuevo a las sesiones.</p><div class="report-row"><strong>Revisar flujo de acceso</strong><span>12 nov · 60 min</span><span class="badge amber">Pendiente</span></div><p class="form-help">Reporte de horas. No representa una factura.</p></article>
+        </section>
+
+        <section id="herramientas" class="view" aria-labelledby="herramientas-title" hidden><p class="eyebrow">HERRAMIENTAS DEL EQUIPO</p><h1 id="herramientas-title">Las funciones de siempre, a mano.</h1><article class="panel"><h2>Accesos secundarios</h2><p>Calendario, actividad, analíticas, categorías, etiquetas, adjuntos, exportaciones y configuración seguirán disponibles según los permisos de cada usuario.</p><p>La navegación principal reúne los flujos de uso diario.</p></article></section>
+        <footer class="page-footer">rvSoftware <span>Trabajo organizado, tiempo visible.</span></footer>
+      </div>
+    </main>
+  </div>
+  <dialog id="task-dialog" aria-labelledby="task-title"><form method="dialog" id="task-form"><div class="dialog-heading"><h2 id="task-title">Nueva tarea</h2><button class="close" type="button" data-close aria-label="Cerrar formulario">×</button></div><label>Título <input name="title" required autofocus placeholder="¿Qué hay que hacer?"></label><div class="form-grid"><label>Proyecto <select required><option>Portal interno</option><option>Operación interna</option></select></label><label>Responsable <select><option>Sin asignar</option><option>Ronnie sintético</option></select></label></div><details class="advanced"><summary>Campos avanzados</summary><label>Descripción <textarea rows="3"></textarea></label><div class="form-grid"><label>Fecha de vencimiento <input type="date"></label><label>Estimación (horas) <input type="number" min="0" step="0.25"></label><label>Prioridad <input type="number" value="0"></label><label>Categoría <select><option>Sin categoría</option><option>Desarrollo</option></select></label></div><p class="form-help">Los demás campos nativos seguirán disponibles en el formulario completo.</p></details><div class="dialog-actions"><button type="button" class="secondary" data-close>Cancelar</button><button class="primary" type="submit">Crear tarea de ejemplo</button></div></form></dialog>
+  <dialog id="bag-dialog" aria-labelledby="bag-title"><form method="dialog"><div class="dialog-heading"><h2 id="bag-title">Nueva bolsa</h2><button type="button" class="close" data-close aria-label="Cerrar formulario">×</button></div><label>Proyecto <select required><option>Portal interno</option></select></label><label>Horas contratadas <input type="number" min="1" required></label><details class="advanced"><summary>Vigencia opcional</summary><div class="form-grid"><label>Desde <input type="date"></label><label>Hasta <input type="date"></label></div></details><p class="form-help">Sin renovación ni arrastre automático.</p><div class="dialog-actions"><button type="button" class="secondary" data-close>Cancelar</button><button class="primary" type="submit">Crear bolsa de ejemplo</button></div></form></dialog>
+  <div id="toast" role="status" hidden></div>
+  <dialog id="client-dialog" aria-labelledby="client-title"><form method="dialog"><div class="dialog-heading"><h2 id="client-title">Nuevo cliente</h2><button class="close" type="button" data-close aria-label="Cerrar formulario">×</button></div><label>Nombre del cliente <input required></label><label>Nota <textarea rows="3"></textarea></label><div class="dialog-actions"><button class="secondary" type="button" data-close>Cancelar</button><button class="primary" type="submit">Crear cliente de ejemplo</button></div></form></dialog>
+</body>
+</html>

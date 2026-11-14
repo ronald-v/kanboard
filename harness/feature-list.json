@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-12T04:37:44.669002-05:00",
+    "updatedAt": "2026-11-12T05:09:23.025138-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -206,7 +206,7 @@
         {
             "id": "F-004",
             "name": "Navegación y sistema visual",
-            "status": "planned",
+            "status": "validated",
             "targetVersion": null,
             "description": "Navegación y sistema visual. Reutilizar capacidad nativa antes de extender.",
             "dependsOn": [],
@@ -218,22 +218,30 @@
                 {
                     "id": "F-004-S1",
                     "name": "Precisar alcance, reutilización y aceptación",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "ui-ux",
                     "agentNotes": "Rol de prompt, no agente independiente.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f004-diseno.md",
+                        "harness/evidence/2026-11-12-f004-validacion-final.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Leer contexto y decisiones pertinentes."
+                    "nextAction": "Conservar diseño aprobado y evidencia de comprobaciones."
                 },
                 {
                     "id": "F-004-S2",
                     "name": "Realizar entregable y verificar criterios",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "ui-ux",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f004-diseno.md",
+                        "harness/evidence/2026-11-12-f004-aprobacion.md",
+                        "harness/evidence/2026-11-12-f004-chrome.md",
+                        "harness/evidence/2026-11-12-f004-validacion-final.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Preparar vista representativa con activos oficiales al autorizar F-004."
+                    "nextAction": "Conservar diseño aprobado y evidencia de comprobaciones."
                 }
             ],
             "relatedPrompts": [
@@ -252,10 +260,15 @@
             "testCases": [
                 "TC-F-004-01"
             ],
-            "evidence": [],
+            "evidence": [
+                "harness/evidence/2026-11-12-f004-diseno.md",
+                "harness/evidence/2026-11-12-f004-aprobacion.md",
+                "harness/evidence/2026-11-12-f004-chrome.md",
+                "harness/evidence/2026-11-12-f004-validacion-final.md"
+            ],
             "blockers": [],
-            "nextAction": "Preparar vista representativa con activos oficiales al autorizar F-004.",
-            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "nextAction": "Conservar propuesta aprobada; continuar F-005 y aplicar diseño en F-006.",
+            "notes": "Diseño aprobado DEC-010; protocolo manual confirmado por usuario DEC-012; controles estáticos correctos. Integración no ejecutó las interacciones.",
             "suspensionApproval": null
         },
         {
