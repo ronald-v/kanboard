@@ -5,10 +5,10 @@
 <?= $this->hook->render('template:auth:login-form:before') ?>
 <form method="post" action="<?= $this->url->href('AuthController','check') ?>">
 <?= $this->form->csrf() ?>
-<label for="form-username">Usuario</label><?= $this->form->text('username',$values,$errors,['required','autofocus','autocomplete="username"','autocapitalize="none"','spellcheck="false"']) ?>
-<label for="form-password">Contraseña</label><?= $this->form->password('password',[],$errors,['required','autocomplete="current-password"']) ?>
+<div class="rv-auth-field"><label for="form-username">Usuario</label><?= $this->form->text('username',$values,$errors,['required','autofocus','autocomplete="username"','autocapitalize="none"','spellcheck="false"']) ?></div>
+<div class="rv-auth-field"><label for="form-password">Contraseña</label><?= $this->form->password('password',[],$errors,['required','autocomplete="current-password"']) ?></div>
 <?php if (! empty($captcha)): ?><label for="form-captcha">Verificación de acceso</label><img src="<?= $this->url->href('CaptchaController','image') ?>" alt="Texto de verificación"><input id="form-captcha" name="captcha" required autocomplete="off"><?php endif ?>
-<button class="btn btn-blue" type="submit">Ingresar a Projecta <span aria-hidden="true">→</span></button>
+<button class="btn btn-blue" type="submit">Ingresar a Projecta</button>
 </form>
 <?php if ($this->app->config('password_reset')==1): ?><p class="rv-auth-link"><?= $this->url->link('¿Olvidaste tu contraseña?','PasswordResetController','create') ?></p><?php endif ?>
 <p class="rv-auth-security"><i class="fa fa-lock" aria-hidden="true"></i> Tu cuenta está protegida con verificación en dos pasos.</p>

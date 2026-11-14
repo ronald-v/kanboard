@@ -1,3 +1,18 @@
+# Seguimiento de acceso · 2026-11-14T13:31:02-05:00
+
+Rama actual: feat/refactor. Corrección solicitada del login/alta MFA en F-015,
+DEC-028: inputs iguales, asteriscos alineados con etiquetas, botón sin flecha,
+contenedor ajustado al viewport y alta MFA en columnas adaptables. Solo tres
+archivos de presentación del plugin, sin base ni configuración privada.
+Sintaxis y seis ramas HTML con helpers nativos pasan; consistencia del harness
+pasa. Chrome sigue fallando con timeoutMs: sin revisión visual ni medición de
+scroll ejecutada. F-015 queda blocked, sin feature activa; otras sin cambios.
+[Evidencia nueva](evidence/2026-11-14-f015-login-responsive.md).
+Siguiente: comprobar login/MFA en navegador y completar matriz visual de F-015.
+El paquete preview anterior no contiene esta corrección. Sin nuevo despliegue.
+
+---
+
 # Checkpoint
 
 Actualizaci?n: 2026-11-14T12:48:52-05:00. Rama feat/012, cambios sin commit/push.

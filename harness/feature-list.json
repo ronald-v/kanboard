@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-14T12:49:09.663070-05:00",
+    "updatedAt": "2026-11-14T13:31:52-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -940,12 +940,13 @@
                     "assignedAgent": "ui-ux",
                     "agentNotes": "Consulta de roles por el mismo ejecutor; sin delegación.",
                     "evidence": [
-                        "harness/evidence/2026-11-14-f015-ui.md"
+                        "harness/evidence/2026-11-14-f015-ui.md",
+                        "harness/evidence/2026-11-14-f015-login-responsive.md"
                     ],
                     "blockers": [
                         "Restablecer Chrome: integración falla al crear/navegar pestañas; completar revisión visual por vista, móvil, teclado y zoom."
                     ],
-                    "nextAction": "Restablecer Chrome: integración falla al crear/navegar pestañas; completar revisión visual por vista, móvil, teclado y zoom."
+                    "nextAction": "Revisar visualmente login y alta/verificación MFA en escritorio, móvil, alto reducido y zoom; completar la matriz visual pendiente de F-015 cuando Chrome funcione."
                 }
             ],
             "relatedPrompts": [
@@ -960,19 +961,23 @@
                 "harness/context/testing.md"
             ],
             "relatedFiles": [
-                "plugins/RvSoftware/Plugin.php"
+                "plugins/RvSoftware/Plugin.php",
+                "plugins/RvSoftware/Assets/projecta.css",
+                "plugins/RvSoftware/Template/auth/login.php",
+                "plugins/RvSoftware/Template/auth/mfa.php"
             ],
             "testCases": [
                 "TC-F-015-01"
             ],
             "evidence": [
-                "harness/evidence/2026-11-14-f015-ui.md"
+                "harness/evidence/2026-11-14-f015-ui.md",
+                "harness/evidence/2026-11-14-f015-login-responsive.md"
             ],
             "blockers": [
                 "Restablecer Chrome: integración falla al crear/navegar pestañas; completar revisión visual por vista, móvil, teclado y zoom."
             ],
-            "nextAction": "Restablecer Chrome: integración falla al crear/navegar pestañas; completar revisión visual por vista, móvil, teclado y zoom.",
-            "notes": "Plan y decisiones aprobados en esta conversación. No autoriza producción.",
+            "nextAction": "Revisar visualmente login y alta/verificación MFA en escritorio, móvil, alto reducido y zoom; completar la matriz visual pendiente de F-015 cuando Chrome funcione.",
+            "notes": "Plan y decisiones aprobados en esta conversación. No autoriza producción. DEC-028 autoriza corrección visual de login/alta MFA; sintaxis y seis ramas HTML verificadas. Revisión visual sigue bloqueada por timeoutMs de Chrome.",
             "suspensionApproval": null
         },
         {
