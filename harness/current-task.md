@@ -17,3 +17,11 @@ recuperación). HEAD público da HTTPS 200, Server hcdn, X-Powered-By PHP/8.3.36
 no prueba el runtime de la futura app. No acceso ni carga de código en Hostinger.
 Commit/push dev feature 012 con preparación actualizada; no marcar validated solo
 por versiones informadas o tests locales. Producción requiere autorización separada.
+
+
+Actualización local 2026-11-14: [DEC-024](feedback/2026-11-14-DEC-024-f012-arranque-local.md).
+Ronnie eligió la MariaDB de data/config.php. Usar Start-LocalServer.ps1; el perfil
+SQLite conserva su guarda. Login HTTP 200 verificado, esquema nativo 139/plugin 6,
+configuración del usuario intacta. Se corrigió el marcador de una migración
+interrumpida y el límite de ejecución del servidor local. [Evidencia](evidence/2026-11-14-f012-arranque-local.md).
+No usar suites destructivas sobre esa base. F-012 sigue pendiente del hosting efectivo.

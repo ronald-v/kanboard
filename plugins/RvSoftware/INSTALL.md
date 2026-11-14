@@ -24,6 +24,11 @@ de acceso del hosting. PostgreSQL y SQL Server no están habilitados para el plu
    DB_PORT, DB_NAME, DB_USERNAME y DB_PASSWORD mediante el entorno del proceso PHP.
    Nunca incluir secretos en el ZIP/Git ni exponer DATABASE_URL en diagnósticos.
    No mezclar DATABASE_URL con otra configuración sin revisar su precedencia.
+   Como alternativa al entorno PHP, copiar `config.mariadb.example.php` a
+   `data/config.php` y completar los datos de la base. El archivo real contiene
+   credenciales: protegerlo frente a HTTP y mantenerlo fuera de Git y respaldos
+   públicos. Si se usa `DATABASE_URL`, no combinarla con las mismas constantes
+   en el archivo, ya que se procesa antes de `data/config.php`.
 3. Mantener PLUGIN_INSTALLER=false, DEBUG=false y logs fuera del sitio. Usar
    HTTPS y los mecanismos nativos de autenticación. No añadir unsafe-inline/eval
    a la CSP para resolver cambios visuales. Configurar cron nativo si se necesita.
