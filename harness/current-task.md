@@ -1,27 +1,18 @@
 # Checkpoint
 
-Estado canónico: [feature-list.json](feature-list.json). F-001 validated;
-sin feature activa. Rama feat/001. Alcance ampliado en DEC-003.
+Estado canónico: [feature-list.json](feature-list.json). F-001 y F-002 validated;
+sin feature activa. Rama feat/002, encadenada desde feat/001.
 
-## Último resultado
-Entorno aislado reproducible, arranque HTTP y suite SQLite completados.
-Corregidos almacenamiento y saneamiento de rutas Windows con regresión.
-Evidencia: [F-001](evidence/2026-11-12-f001-entorno.md).
+## Resultado y archivos
+F-002 cerrada como exclusión expresa del incidente externo bajo DEC-007.
+Solo documentos y estado; no se afirma una corrección técnica del Dashboard.
+Evidencia: [exclusión](evidence/2026-11-12-f002-exclusion.md).
+F-001: 1240 tests/181101 aserciones, exit 0, un warning, HTTP sintético comprobado.
 
-## Archivos
-Scripts de preparación, tests, servidor y smoke HTTP en harness/scripts; README,
-testing, estado y casos. FileStorage, resolución de rutas en app/functions.php y
-regresiones. Vendor/libs/lock y PHP global sin cambios.
-
-## Verificaciones
-Composer install/check del lock: exit 0. Suite: 1240 tests/181101 aserciones,
-exit 0, 1 warning (también aviso Windows por which). FileStorage 13/24 y regresión
-de rutas/LDAP 22/50: exit 0. Login admin/miembro, proyecto vacío, Dashboard y rechazo
-de consulta ajena comprobados por HTTP. 18 fixtures harness sin fallos.
-Sin pruebas MySQL ni revisión independiente. Servidor detenido al cerrar.
+## Verificaciones y límites
+Test-Harness.ps1 y diff check ejecutados al cierre. Sin suite nueva porque no hay
+cambios funcionales. Incidente externo omitido por instrucción del usuario.
 
 ## Siguiente paso
-Crear feat/002 desde esta entrega. Usuario pide omitir el incidente externo del
-Dashboard y acepta BR-01..10 propuestas; registrar cada decisión en su feature.
-Luego F-003 y mockup F-004, con aprobación concreta antes de implementación.
-Sin autorización de despliegue productivo ni destino MySQL configurado.
+Crear feat/003 y cerrar contrato con BR-01..10 aceptadas por el usuario.
+Luego F-004 requiere mockup y aprobación concreta antes de implementar.
