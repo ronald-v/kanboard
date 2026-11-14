@@ -32,24 +32,29 @@ las entradas UI/API, protección de registros cerrados y política de eliminaci�
 Si hay límites del nativo, registrar decisión arquitectónica y alternativa; no
 rellenar historial ficticio para reconciliar. Ningún esquema se ha creado.
 
-## Contrato comercial pendiente
-Necesidad confirmada; alternativas sin elección aprobada:
+## Contrato comercial aprobado en DEC-008
+El usuario aceptó la propuesta BR-01..10 con «Me gusta, vamos con esas» el
+2026-11-12. Registro inmutable: [DEC-008](../feedback/2026-11-12-DEC-008-f003-contrato-comercial.md).
+Las alternativas históricas no elegidas quedan fuera de esta implementación.
 
 | ID | Decisión | Alternativas | Bloquea |
 | --- | --- | --- | --- |
-| BR-01 | Cliente/proyecto/bolsa | Un cliente por proyecto; bolsa por proyecto o compartida | F-009/F-010 |
-| BR-02 | Ciclo de bolsa | Horas fijas/ampliaciones; vigencia; vencimiento; renovación; arrastre o no | F-009/F-010 |
-| BR-03 | Momento de consumo | Registrado, aprobado u otro evento acordado | F-010 |
-| BR-04 | Agotamiento | Avisar, bloquear o permitir excedente | F-010 |
-| BR-05 | Clasificación/corrección | Autor, líder o administrador; alcance de cambios | F-007/F-008 |
-| BR-06 | Aprobación y cierre | Sin aprobación o flujo explícito; reapertura/rectificación | F-008/F-010 |
-| BR-07 | Tarifas | Cliente/proyecto/persona; moneda, vigencia y redondeo | Importes de F-011 |
-| BR-08 | Visibilidad | Horas propias/equipo; saldos; tarifas; reportes | F-008/F-009/F-011 |
-| BR-09 | Temporizadores | Uno por usuario o simultáneos; sesiones olvidadas y corrección manual | F-007 |
-| BR-10 | Fechas/reportes | America/Bogota propuesta; corte, retroactividad y límites | F-007/F-011 |
+| BR-01 | Cliente/proyecto/bolsa | Un cliente por proyecto; bolsas por proyecto, sin compartir entre proyectos | F-009/F-010 |
+| BR-02 | Ciclo de bolsa | Horas fijas ampliables; vigencia opcional; sin renovación ni arrastre automático | F-009/F-010 |
+| BR-03 | Momento de consumo | Al aprobar trabajo facturable; registrar trabajo no consume por sí solo | F-010 |
+| BR-04 | Agotamiento | Avisar y permitir excedente; saldo puede ser negativo | F-010 |
+| BR-05 | Clasificación/corrección | Autor registra/corrige pendiente; líder o administrador clasifica y aprueba | F-007/F-008 |
+| BR-06 | Aprobación y cierre | Rectificación de aprobado por líder/administrador, con auditoría | F-008/F-010 |
+| BR-07 | Tarifas | Solo reportes de horas; importes y tarifas excluidos inicialmente | F-011 |
+| BR-08 | Visibilidad | Miembro: propias horas; líder: horas y saldos de sus proyectos; administrador: todo | F-008/F-009/F-011 |
+| BR-09 | Temporizadores | Uno por usuario; sesiones olvidadas se corrigen manualmente | F-007 |
+| BR-10 | Fechas/reportes | America/Bogota; filtros por fecha trabajada; corrección auditada sin cierre mensual automático | F-007/F-011 |
 
-No presuponer que todo trabajo es facturable. Registrar decisión y actor en feedback
-antes de calcular. Una regla bloquea su feature, no la inspección ni diseño independiente.
+No presuponer que todo trabajo es facturable. Se distinguen pendiente, aprobado y
+rectificado sin borrar historia; aprobación no significa facturado. No introducir
+tarifas, facturas, impuestos, pagos, portal de cliente, renovación automática ni
+bolsas compartidas. Detalles comerciales no cubiertos requieren decisión expresa
+en la feature que los necesite; no inferir autorización de la autonomía técnica.
 
 ## Invariantes técnicas
 Operaciones atómicas, reintentos idempotentes, claves de origen únicas, auditoría de

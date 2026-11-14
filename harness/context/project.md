@@ -6,8 +6,10 @@
 - Problemas reportados: UI compleja y fallo de Dashboard en otra instalación.
 - Hostinger permite sitios PHP/HTML; configuración técnica y destino no verificados.
 - Activos oficiales entregados; inventario en [marca](ui-brand.md).
-- Autorización vigente: crear y validar este harness autónomamente. No implementar
-  funcionalidades ni desplegar en esta entrega. Registro en feedback DEC-001.
+- Autorización vigente ampliada por DEC-003: implementar las features secuencialmente,
+  con rama, validación, commit y push por feature. DEC-001 describe el alcance inicial.
+  Despliegue productivo separado. Incidente externo Dashboard excluido por DEC-007;
+  reglas BR-01..10 aceptadas en DEC-008.
 - No se confirmó portal de clientes, facturación fiscal, impuestos, pagos o
   integración contable. Permanecen fuera del alcance inicial.
 
