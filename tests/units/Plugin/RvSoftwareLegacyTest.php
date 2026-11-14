@@ -17,7 +17,7 @@ class RvSoftwareLegacyTest extends Base
         $task = $c['taskCreationModel']->create(array('title' => 'Old task', 'project_id' => $project));
         $subtask = $c['subtaskModel']->create(array('title' => 'Old subtask', 'task_id' => $task, 'time_spent' => 2));
         $c['db']->table('tasks')->eq('id', $task)->update(array('time_spent' => 4));
-        foreach (array('subtaskModel','subtaskTimeTrackingModel','taskCreationModel','taskModificationModel') as $key) { unset($c[$key]); }
+        foreach (array('subtaskModel','subtaskTimeTrackingModel','taskCreationModel','taskModificationModel','taskFinderModel','taskProjectMoveModel') as $key) { unset($c[$key]); }
         $loader = new Loader($c);
         $loader->initializePlugin('RvSoftware');
         $this->assertArrayHasKey('RvSoftware', $loader->getPlugins());

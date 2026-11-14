@@ -25,15 +25,18 @@ class Plugin extends Base
         $this->container['subtaskModel'] = function ($c) { return new Model\RvSubtaskModel($c); };
         $this->container['taskCreationModel'] = function ($c) { return new Model\RvTaskCreationModel($c); };
         $this->container['taskModificationModel'] = function ($c) { return new Model\RvTaskModificationModel($c); };
+        $this->container['taskFinderModel'] = function ($c) { return new Model\RvTaskFinderModel($c); };
+        $this->container['taskProjectMoveModel'] = function ($c) { return new Model\RvTaskProjectMoveModel($c); };
         if (isset($this->container['api'])) {
             $this->api->getProcedureHandler()->withObject(new Api\RvTimeProcedure($this->container));
         }
         $this->applicationAccessMap->add('RvTimeController', '*', Role::APP_USER);
+        $this->applicationAccessMap->add('RvReviewController', '*', Role::APP_USER);
     }
 
     public function getClasses()
     {
-        return array('Plugin\\RvSoftware\\Model' => array('RvDashboardModel', 'RvTimeModel'));
+        return array('Plugin\\RvSoftware\\Model' => array('RvDashboardModel', 'RvTimeModel', 'RvPrivacyModel'));
     }
 
     public function getHelpers()

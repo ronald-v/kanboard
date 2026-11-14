@@ -1,22 +1,20 @@
 # Checkpoint
 
-Estado canónico: [feature-list.json](feature-list.json). F-001..F-007 validated;
-sin feature activa. Rama feat/007 desde d66983e38.
+Estado canónico: [feature-list.json](feature-list.json). F-001..F-008 validated;
+sin feature activa. Rama feat/008.
 
 ## Resultado
-Sesiones nativas únicas con segundos exactos, manual/temporizador/corrección,
-auditoría, claves de retry, mutex por usuario/tarea y proyecciones compatibles.
-Acumulados históricos opacos preservados, sin sesiones inventadas. Schema plugin 3.
-Sin core/vendor ni DB real. DEC-016; [evidencia](evidence/2026-11-12-f007-sesiones.md).
+Clasificación, aprobación y rectificación auditadas. Miembro ve sus horas;
+líder las de sus proyectos, administrador todo. Proyecciones nativas protegidas.
+Schema 4, sin core/vendor ni DB real. DEC-017;
+[evidencia](evidence/2026-11-12-f008-revision.md).
 
 ## Verificaciones y límites
-16 tests/79 aserciones exit 0; integración HTTP/UI/API y concurrencia en dos
-procesos PHP/PDO independientes exit 0; regresión F-006 exit 0. Savepoints,
-rollback, FK restrict, precisión y snapshots probados. SQLite ejecutado, MySQL
-solo inspección/lint. Sin capturas de Chrome; continuar sin aprobaciones visuales
-según DEC-015. No afirmar auditoría WCAG ni revisión independiente.
+20 tests/113 aserciones exit 0; HTTP/UI/API F-008, regresiones F-006/F-007 y
+concurrencia en dos procesos exit 0. SQLite ejecutado, MySQL pendiente. Sin
+capturas de Chrome; continuar sin aprobaciones visuales según DEC-015.
 
 ## Siguiente paso
-Commit/push dev feature 007 y crear feat/008. Añadir clasificación/aprobación y
-alcance por rol a sesiones, preservar correcciones aprobadas con auditoría.
+Commit/push dev feature 008 y crear feat/009. Clientes y bolsas por proyecto,
+horas ampliables, vigencia opcional y visibilidad por líder/administrador.
 Servidores sintéticos 18005/18007 plugin y 18006 nativo activos. Producción separada.
