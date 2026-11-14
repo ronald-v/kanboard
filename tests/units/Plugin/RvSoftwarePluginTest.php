@@ -12,9 +12,9 @@ class RvSoftwarePluginTest extends RvSoftwareBase
         $plugin = $this->loader->getPlugins()['RvSoftware'];
         $this->assertEquals('0.1.0', $plugin->getPluginVersion());
         $schema = new SchemaHandler($this->container);
-        $this->assertEquals(1, $schema->getSchemaVersion('RvSoftware'));
+        $this->assertEquals(\Kanboard\Plugin\RvSoftware\Schema\VERSION, $schema->getSchemaVersion('RvSoftware'));
         $schema->loadSchema('RvSoftware');
-        $this->assertEquals(1, $schema->getSchemaVersion('RvSoftware'));
+        $this->assertEquals(\Kanboard\Plugin\RvSoftware\Schema\VERSION, $schema->getSchemaVersion('RvSoftware'));
         $this->assertEquals(1, $this->container['db']->table('plugin_schema_versions')->eq('plugin', 'rvsoftware')->count());
     }
 

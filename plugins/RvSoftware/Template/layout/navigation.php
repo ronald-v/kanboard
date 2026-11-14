@@ -1,7 +1,7 @@
 <nav class="rv-nav" aria-label="Navegación principal">
     <?= $this->url->link('Inicio', 'RvHomeController', 'show', array('plugin' => 'RvSoftware')) ?>
     <?= $this->url->link('Proyectos', 'RvHomeController', 'projects', array('plugin' => 'RvSoftware')) ?>
-    <?= $this->url->link('Mi tiempo', 'UserViewController', 'timesheet', array('user_id' => $this->user->getId())) ?>
+    <?= $this->url->link('Mi tiempo', 'RvTimeController', 'show', array('plugin' => 'RvSoftware')) ?>
     <?= $this->hook->render('template:rvsoftware:navigation') ?>
     <details class="rv-tools"><summary>Más herramientas</summary>
         <?= $this->url->link('Dashboard completo', 'DashboardController', 'show') ?>

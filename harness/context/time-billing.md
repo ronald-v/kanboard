@@ -19,7 +19,13 @@ updateSubtaskTimeSpent pasa false para eventos; no basar un ledger solo en liste
 Fuentes: app/Model/SubtaskTimeTrackingModel.php, app/Model/SubtaskModel.php,
 app/Core/DateParser.php, tests/units/Model/SubtaskTimeTrackingModelTest.php.
 
-## Fuente de verdad propuesta
+## Fuente de verdad adoptada en F-007
+DEC-016 implementa el detalle nativo único, segundos exactos referenciados,
+auditoría y proyecciones con línea base histórica opaca. Se sustituyen por DI los
+servicios de seguimiento y escritura de acumulados; formularios y API manuales
+propios requieren fechas explícitas. [Evidencia F-007](../evidence/2026-11-12-f007-sesiones.md).
+
+## Diseño y límites de la fuente
 Reutilizar subtask_time_tracking como detalle del trabajo; duración nueva en segundos
 enteros derivados de sus timestamps. Mantener horas nativas como proyección compatible
 con conversión explícita. No introducir una segunda tabla de sesiones autónoma.

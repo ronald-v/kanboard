@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-12T21:57:37.515861-05:00",
+    "updatedAt": "2026-11-12T22:21:02.965373-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -409,7 +409,7 @@
         {
             "id": "F-007",
             "name": "Sesiones e integridad del tiempo",
-            "status": "planned",
+            "status": "validated",
             "targetVersion": null,
             "description": "Sesiones e integridad del tiempo. Reutilizar capacidad nativa antes de extender.",
             "dependsOn": [
@@ -424,22 +424,26 @@
                 {
                     "id": "F-007-S1",
                     "name": "Precisar alcance, reutilización y aceptación",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "db",
                     "agentNotes": "Rol de prompt, no agente independiente.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f007-sesiones.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Leer contexto y decisiones pertinentes."
+                    "nextAction": "Conservar evidencia comprobada."
                 },
                 {
                     "id": "F-007-S2",
                     "name": "Realizar entregable y verificar criterios",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "testing",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f007-sesiones.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Cerrar reglas de timers/manuales y adaptar servicio nativo."
+                    "nextAction": "Conservar evidencia comprobada."
                 }
             ],
             "relatedPrompts": [
@@ -464,10 +468,12 @@
                 "TC-F-007-03",
                 "TC-F-007-04"
             ],
-            "evidence": [],
+            "evidence": [
+                "harness/evidence/2026-11-12-f007-sesiones.md"
+            ],
             "blockers": [],
-            "nextAction": "Cerrar reglas de timers/manuales y adaptar servicio nativo.",
-            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "nextAction": "Conservar evidencia y continuar siguiente feature con dependencias validadas.",
+            "notes": "16 tests/79 aserciones y concurrencia HTTP/UI/API de dos procesos pasan: segundos exactos, snapshots históricos, retries, corrección, persistencia, rollback y protección de historia. SQLite; límites en evidencia.",
             "suspensionApproval": null
         },
         {

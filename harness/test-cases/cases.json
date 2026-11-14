@@ -207,10 +207,12 @@
       "command": null,
       "expectedResult": "5400 s nuevos; 1.5 h proyectadas; histórico tratado por contrato",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "16 tests/79 aserciones y concurrencia HTTP/UI/API de dos procesos pasan: segundos exactos, snapshots históricos, retries, corrección, persistencia, rollback y protección de historia. SQLite; límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f007-sesiones.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-007-02",
@@ -229,10 +231,12 @@
       "command": null,
       "expectedResult": "Persistencia y simultaneidad según regla, sin duplicar",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "16 tests/79 aserciones y concurrencia HTTP/UI/API de dos procesos pasan: segundos exactos, snapshots históricos, retries, corrección, persistencia, rollback y protección de historia. SQLite; límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f007-sesiones.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-007-03",
@@ -250,10 +254,12 @@
       "command": null,
       "expectedResult": "Una operación efectiva por clave; cero duplicados",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "16 tests/79 aserciones y concurrencia HTTP/UI/API de dos procesos pasan: segundos exactos, snapshots históricos, retries, corrección, persistencia, rollback y protección de historia. SQLite; límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f007-sesiones.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-007-04",
@@ -271,10 +277,12 @@
       "command": null,
       "expectedResult": "Segundos conservados, conversión explícita y rechazo/corte según contrato",
       "verificationType": "integration",
-      "status": "blocked",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "Precondiciones/reglas pendientes; no es prueba aprobada."
+      "status": "validated",
+      "observedResult": "16 tests/79 aserciones y concurrencia HTTP/UI/API de dos procesos pasan: segundos exactos, snapshots históricos, retries, corrección, persistencia, rollback y protección de historia. SQLite; límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f007-sesiones.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-008-01",

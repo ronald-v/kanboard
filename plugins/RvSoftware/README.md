@@ -11,6 +11,13 @@ nueva a datos reales sin revisar migraciones de núcleo y plugin.
 
 Ruta sin rewrite: `?controller=RvHomeController&action=show&plugin=RvSoftware`.
 Requiere sesión; conserva autenticación y autorización nativas. No altera CSP.
+Desde F-007, Mi tiempo registra sesiones exactas con nota, fecha, duración,
+temporizador único, correcciones auditadas y claves de reintento. API de usuario:
+rvCreateTime, rvCorrectTime y rvGetMyTime. El API nativo de timers usa el mismo
+servicio. Los acumulados no se editan directamente: registrar una sesión fechada.
+Esquema actual 3: metadata/auditoría/FK restrict, snapshots históricos opacos y
+mutex por usuario/tarea. SQLite probado; MySQL pendiente de ejecución. El plugin
+solo habilita sus servicios para SQLite/MySQL, no para otros motores.
 Esquema inicial 1 sin DDL: versión en plugin_schema_versions nativo, sin tablas
 de negocio prematuras. MySQL solo incluye baseline sin DDL; se verifica en motor
 objetivo antes de una entrega que lo utilice. El loader migra antes de initialize.
