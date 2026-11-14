@@ -24,6 +24,24 @@ function New-Fixture([string]$Name) {
     Copy-Item -LiteralPath (Join-Path $script:source 'harness') -Destination $fixture -Recurse
     Copy-Item -LiteralPath (Join-Path $script:source 'AGENTS.md') -Destination $fixture
     $fl = Read-Features $fixture
+    # Each scenario starts from a known synthetic state, independent of progress
+    # in the real backlog (e.g. F-001 may already be validated there).
+    $fl.activeFeatureId = $null
+    foreach ($feature in $fl.features) {
+        $feature.status = 'planned'
+        $feature.blockers = @()
+        $feature.suspensionApproval = $null
+        foreach ($subtask in $feature.subtasks) {
+            $subtask.status = 'planned'
+            $subtask.blockers = @()
+        }
+    }
+    $fl.features[0].status = 'blocked'
+    $fl.features[0].blockers = @('Synthetic missing test environment')
+    $fl.features[0].subtasks[0].status = 'validated'
+    $fl.features[0].subtasks[1].status = 'blocked'
+    $fl.features[0].subtasks[1].blockers = @('Synthetic missing test environment')
+    Save-Features $fixture $fl
     $pm = Get-Content -LiteralPath (Join-Path $fixture 'harness/prompt-map.json') -Raw -Encoding UTF8 | ConvertFrom-Json
     $refs = @('composer.json','LICENSE','app/Model/TaskModel.php','app/Controller/DashboardController.php','tests/units.sqlite.xml')
     foreach ($f in $fl.features) { $refs += @($f.relatedFiles) }

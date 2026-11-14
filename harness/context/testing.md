@@ -1,5 +1,29 @@
 # Pruebas y comandos reales
 
+## Entorno aislado autorizado en DEC-003
+La línea base siguiente conserva el diagnóstico histórico. Desde F-001 se usan
+extensiones GD/PDO SQLite/ZIP/LDAP por proceso; no se cambia php.ini global ni vendor/.
+Dependencias exactas del lock en `.runtime/vendor` (ignorado por Git).
+Ejecutar cada script en un proceso PowerShell dedicado; el helper cambia el
+entorno de ese proceso y rechaza config.php/data/config.php no revisados.
+
+```powershell
+powershell -NoProfile -File harness/scripts/Initialize-TestEnvironment.ps1
+powershell -NoProfile -File harness/scripts/Invoke-UnitTests.ps1
+powershell -NoProfile -File harness/scripts/Invoke-UnitTests.ps1 -Filter DashboardPaginationTest
+powershell -NoProfile -File harness/scripts/Start-IsolatedServer.ps1
+# En otra consola, mientras el servidor está activo:
+python harness/scripts/Test-IsolatedHttp.py
+```
+
+El servidor escucha exclusivamente en 127.0.0.1:18001; usa
+`.runtime/data/db.sqlite`, adjuntos/caché y directorio de plugins vacíos aislados.
+No reutiliza DATABASE_URL ni DB_DRIVER heredados; detener con Ctrl+C. Solo datos
+sintéticos, admin/admin del esquema nuevo. El smoke no registra cookies ni tokens.
+El test runner fuerza la configuración SQLite :memory: y el autoload aislado.
+MySQL no es necesario para esta línea base; sí se requiere validación en el motor
+objetivo antes de una entrega que lo use. Resultados reales en evidence/.
+
 ## Línea base
 Ver [evidencia](../evidence/2026-11-11-baseline.md). PHP 8.3.27, Composer 2.8.12.
 composer validate retorna 0 con advertencias por versiones exactas; check-platform-reqs

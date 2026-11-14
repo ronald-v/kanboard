@@ -188,10 +188,10 @@ class FunctionTest extends Base
 
         // Test relative path (should be converted to absolute)
         $currentDir = getcwd();
-        $this->assertEquals($currentDir . '/test/file.txt', sanitize_path('test/file.txt'));
+        $this->assertEquals($currentDir . DIRECTORY_SEPARATOR . 'test' . DIRECTORY_SEPARATOR . 'file.txt', sanitize_path('test/file.txt'));
 
         // Test relative path with parent navigation
-        $expectedPath = dirname($currentDir) . '/file.txt';
+        $expectedPath = dirname($currentDir) . DIRECTORY_SEPARATOR . 'file.txt';
         $this->assertEquals($expectedPath, sanitize_path('../file.txt'));
 
         // Test path with trailing slash removal
@@ -199,6 +199,8 @@ class FunctionTest extends Base
 
         // Test complex Windows-style path
         $this->assertEquals('C:\\Users\\John\\Documents\\file.txt', sanitize_path('C:\\Users\\John\\..\\John\\Documents\\file.txt'));
+        $this->assertEquals('C:\\Users\\John\\file.txt', sanitize_path('C:/Users/John/../John/file.txt'));
+        $this->assertEquals('C:\\Users\\file.txt', sanitize_path('C:\\Users/John/../file.txt'));
 
         // Test path with only dots and slashes
         $this->assertEquals('/', sanitize_path('/.././../'));

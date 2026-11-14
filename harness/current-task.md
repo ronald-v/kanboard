@@ -1,29 +1,27 @@
 # Checkpoint
 
-Feature de referencia: F-001. Estado canónico: [feature-list.json](feature-list.json).
-Sin feature activa del producto. F-001 bloqueada en preparación/ejecución del entorno;
-su inspección ya tiene evidencia. F-002 sigue reportada, pendiente de reproducción.
+Estado canónico: [feature-list.json](feature-list.json). F-001 validated;
+sin feature activa. Rama feat/001. Alcance ampliado en DEC-003.
 
 ## Último resultado
-Harness creado bajo DEC-001 y entregado según DEC-002: validación estática exitosa
-y 18 fixtures del validador sin fallos. Evidencia en
-[validación](evidence/2026-11-11-harness-validation.md). No funcionalidades implementadas.
+Entorno aislado reproducible, arranque HTTP y suite SQLite completados.
+Corregidos almacenamiento y saneamiento de rutas Windows con regresión.
+Evidencia: [F-001](evidence/2026-11-12-f001-entorno.md).
 
-## Archivos afectados
-AGENTS.md y harness/ únicamente: prompts, contextos, JSON, casos, scripts y evidencias.
-No cambios de código PHP, assets del producto, dependencia, configuración o datos.
+## Archivos
+Scripts de preparación, tests, servidor y smoke HTTP en harness/scripts; README,
+testing, estado y casos. FileStorage, resolución de rutas en app/functions.php y
+regresiones. Vendor/libs/lock y PHP global sin cambios.
 
-## Comprobaciones
-Línea base en evidence/2026-11-11-baseline.md; Composer válido, plataforma falla por
-GD, drivers PDO vacíos, PHPUnit ausente. Las suites de aplicación no se ejecutaron.
-Test-Harness.ps1: exit 0; 12 features, 23 casos, 9 prompts y 10 escenarios.
-Test-HarnessScenarios.ps1: exit 0; 18 fixtures. Ambos scripts sin errores de parser.
-Estos resultados no equivalen a pruebas funcionales ni revisión independiente.
+## Verificaciones
+Composer install/check del lock: exit 0. Suite: 1240 tests/181101 aserciones,
+exit 0, 1 warning (también aviso Windows por which). FileStorage 13/24 y regresión
+de rutas/LDAP 22/50: exit 0. Login admin/miembro, proyecto vacío, Dashboard y rechazo
+de consulta ajena comprobados por HTTP. 18 fixtures harness sin fallos.
+Sin pruebas MySQL ni revisión independiente. Servidor detenido al cerrar.
 
-## Bloqueos y próximo paso
-Para F-001: alcance de preparación del entorno, GD, driver de prueba y dependencias
-de desarrollo antes de iniciar la aplicación con datos sintéticos. No instalar
-automáticamente como efecto de generar el harness. F-002 necesita URL/versión/rol,
-pasos y error de la instalación afectada. Reglas comerciales pendientes en time-billing.
-Tras entregar este harness, proponer F-001; no empezar features del producto sin
-alcance suficiente. No repetir comandos fallidos hasta cambiar su condición.
+## Siguiente paso
+Crear feat/002 desde esta entrega. Usuario pide omitir el incidente externo del
+Dashboard y acepta BR-01..10 propuestas; registrar cada decisión en su feature.
+Luego F-003 y mockup F-004, con aprobación concreta antes de implementación.
+Sin autorización de despliegue productivo ni destino MySQL configurado.

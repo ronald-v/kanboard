@@ -1,5 +1,13 @@
 # Harness de Kanboard rvSoftware
 
+Actualización de alcance: [DEC-003](feedback/2026-11-12-DEC-003-desarrollo-secuencial.md)
+autoriza implementar secuencialmente F-001..F-012, ramas `feat/001`..`feat/012`,
+commits `dev feature 001`..`dev feature 012` y push al origin existente.
+Decisiones comerciales, diseño y producción mantienen sus condiciones explícitas.
+El estado actual siempre está en feature-list.json; los párrafos de entrega
+original siguientes describen el diagnóstico histórico. Preparación aislada y
+comandos reproducibles en [testing](context/testing.md).
+
 Este harness organiza trabajo de desarrollo sobre la copia real de Kanboard.
 No se instala en Hostinger ni añade un servicio a la aplicación. Está formado
 por Markdown, registros JSON y un verificador PowerShell. No hay agentes

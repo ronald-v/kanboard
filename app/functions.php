@@ -311,13 +311,18 @@ function sanitize_path(string $path): string|false
         return false;
     }
 
+    // Resolve relative paths before detecting the drive of the working directory.
+    if (! preg_match('/^[a-zA-Z]:[\/\\\\]/', $path) && substr($path, 0, 1) !== '/') {
+        $path = getcwd() . DIRECTORY_SEPARATOR . $path;
+    }
+
     $dirSeparator = '/';
 
     // Get Windows drive letter (C:/ or C:\)
     $driveLetter = '';
     if (preg_match('/^([a-zA-Z]:)([\/\\\].*)$/', $path, $matches)) {
         $driveLetter = $matches[1];
-        $path = $matches[2];
+        $path = str_replace('/', '\\', $matches[2]);
         $dirSeparator = '\\';
     }
 

@@ -152,7 +152,7 @@ class FileStorage implements ObjectStorageInterface
 
     private function createFolder(string $key)
     {
-        $folder = strpos($key, DIRECTORY_SEPARATOR) !== false ? $this->baseDir.DIRECTORY_SEPARATOR.dirname($key) : $this->baseDir;
+        $folder = dirname($this->getSanitizedFilePath($key));
 
         if (! is_dir($folder) && ! mkdir($folder, 0o755, true)) {
             throw new ObjectStorageException('Unable to create folder: '.$folder);
@@ -176,7 +176,7 @@ class FileStorage implements ObjectStorageInterface
 
     public function getSanitizedFilePath(string $key): string
     {
-        $filename = $this->baseDir.DIRECTORY_SEPARATOR.$key;
+        $filename = $this->baseDir.DIRECTORY_SEPARATOR.str_replace('/', DIRECTORY_SEPARATOR, $key);
         $sanitizedKey = sanitize_path($filename);
 
         if ($sanitizedKey === false) {
@@ -190,7 +190,7 @@ class FileStorage implements ObjectStorageInterface
 
     private function validateBasePath(string $filePath)
     {
-        if (strpos($filePath, $this->baseDir) !== 0) {
+        if (strpos($filePath, rtrim($this->baseDir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR) !== 0) {
             throw new ObjectStorageException('File '.$filePath.' is not in base directory: '.$this->baseDir);
         }
     }
