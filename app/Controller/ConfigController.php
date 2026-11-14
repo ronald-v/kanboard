@@ -32,7 +32,12 @@ class ConfigController extends BaseController
      */
     public function save()
     {
+        if (isset($this->container['rvPolicyModel'])) {
+            if (! $this->request->isPost()) { throw new \Kanboard\Core\Controller\AccessForbiddenException(); }
+            $this->checkCSRFForm();
+        }
         $values =  $this->request->getValues();
+        if (isset($this->container['rvPolicyModel'])) { $this->rvPolicyModel->validateSettings($values); }
         $redirect = $this->request->getStringParam('redirect', 'application');
 
         switch ($redirect) {

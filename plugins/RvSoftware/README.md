@@ -1,12 +1,13 @@
 # RvSoftware
 
-Plugin MIT para Kanboard. Versión interna 0.1.0, comprobada sobre el commit
+Plugin MIT para Kanboard. Versión interna 0.2.0 (Projecta), sobre el commit
 60d2caf29edfa58e313b17cadaab76b6d4307742 (posterior a v1.2.57).
 El rango declarado >=1.2.57 permite al loader realizar su comprobación nativa;
 no demuestra compatibilidad con toda versión futura. Probar antes de actualizar.
 
-Copiar esta carpeta completa en plugins/RvSoftware. Requiere stack nativo PHP,
-PDO y base de Kanboard; no añade servicios ni dependencias. No conectar una copia
+Esta entrega usa el conjunto de aplicación Projecta: plugin, cambios mínimos del
+núcleo, config/projecta.php y adaptador mcp/. No instalar solo esta carpeta sobre
+un núcleo distinto. Requiere PHP/PDO; MCP añade dependencias PHP aisladas. No conectar una copia
 nueva a datos reales sin revisar migraciones de núcleo y plugin.
 
 Ruta sin rewrite: `?controller=RvHomeController&action=show&plugin=RvSoftware`.
@@ -15,8 +16,10 @@ Desde F-007, Mi tiempo registra sesiones exactas con nota, fecha, duración,
 temporizador único, correcciones auditadas y claves de reintento. API de usuario:
 rvCreateTime, rvCorrectTime y rvGetMyTime. El API nativo de timers usa el mismo
 servicio. Los acumulados no se editan directamente: registrar una sesión fechada.
-Esquema actual 6: metadata/auditoría/FK restrict, snapshots históricos opacos,
+Esquema actual 9: metadata/auditoría/FK restrict, snapshots históricos opacos,
 clasificación/aprobación, clientes/bolsas, ledger y mutex por usuario/tarea/proyecto.
+Versiones 7..9 incorporan MFA cifrado, límites/auditoría, tokens individuales,
+reservas de idempotencia y concesiones OAuth. [Configuración Projecta](PROJECTA.md).
 SQLite y MariaDB 11.8.9 probados localmente; PHP 8.5.12 incluido en el ensayo. El plugin
 solo habilita sus servicios para SQLite/MySQL, no para otros motores.
 Esquema inicial 1 sin DDL; las versiones 2..6 incorporan el dominio. MySQL tiene

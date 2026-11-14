@@ -32,6 +32,11 @@ class AuthenticationMiddleware extends Base implements MiddlewareInterface
         $this->dispatcher->dispatch(new Event, 'app.bootstrap');
         session_set('scope', 'API');
 
+        if (isset($this->container['rvApiModel'])) {
+            $this->container['rvApiModel']->authenticate($username,$password);
+            return;
+        }
+
         if ($this->isUserAuthenticated($username, $password)) {
             $this->userSession->initialize($this->userCacheDecorator->getByUsername($username));
         } elseif (! $this->isAppAuthenticated($username, $password)) {

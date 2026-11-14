@@ -9,7 +9,7 @@ class RvHomeController extends BaseController
     public function show()
     {
         $this->response->html($this->helper->layout->app('RvSoftware:home/index', array(
-            'title' => 'rvSoftware',
+            'title' => 'Projecta',
             'overview' => $this->rvDashboardModel->overview($this->userSession->getId()),
         )));
     }

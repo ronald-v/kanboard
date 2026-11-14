@@ -18,6 +18,9 @@
     # RewriteBase /
 
     RewriteEngine On
+    RewriteRule ^\.well-known/oauth-authorization-server$ mcp/oauth.php?action=metadata [L,QSA]
+    RewriteRule ^\.well-known/oauth-protected-resource(?:/mcp/?)?$ mcp/oauth.php?action=resource [L,QSA]
+    RewriteRule ^mcp/?$ mcp/index.php [L,QSA]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [QSA,L]
     

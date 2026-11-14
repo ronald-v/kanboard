@@ -19,7 +19,27 @@ class RvPrivacyModel extends RvBaseModel
             return array_column($this->db->table('projects')->columns('id')->findAll(), 'id');
         }
         $id = $this->userSession->getId();
-        return array_values(array_filter($this->projectPermissionModel->getProjectIds($id), function ($projectId) use ($id) { return $this->role($projectId, $id) === 'project-manager'; }));
+        // Match native precedence: a direct role overrides all group roles.
+        // One fresh query avoids 2+2N round trips, without caching permissions.
+        $rows = $this->sql(
+            "SELECT p.id, u.role AS direct_role, EXISTS (
+                SELECT 1 FROM project_has_groups cg JOIN group_has_users cm ON cm.group_id=cg.group_id
+                WHERE cg.project_id=p.id AND cm.user_id=? AND cg.role NOT IN ('project-manager','project-member','project-viewer')
+             ) AS custom_roles FROM projects p LEFT JOIN project_has_users u ON u.project_id=p.id AND u.user_id=?
+             WHERE u.role='project-manager' OR ((u.user_id IS NULL OR u.role='') AND EXISTS (
+                SELECT 1 FROM project_has_groups g JOIN group_has_users m ON m.group_id=g.group_id
+                WHERE g.project_id=p.id AND m.user_id=? AND g.role='project-manager'))",
+            array($id, $id, $id)
+        )->fetchAll(\PDO::FETCH_ASSOC);
+        $leaders = array();
+        foreach ($rows as $row) {
+            // Custom roles can tie with manager in the native hierarchy. Resolve
+            // those uncommon cases through the original authorization model.
+            if ($row['direct_role'] === 'project-manager' || ! $row['custom_roles'] || $this->role($row['id'], $id) === 'project-manager') {
+                $leaders[] = (int) $row['id'];
+            }
+        }
+        return $leaders;
     }
 
     public function task(array $row)

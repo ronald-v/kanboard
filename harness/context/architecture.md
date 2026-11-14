@@ -1,5 +1,14 @@
 # Arquitectura y extensión
 
+## Actualización Projecta 0.2.0
+DEC-026 autoriza MFA obligatorio, política de funciones, API individual y MCP PHP.
+El plugin usa esquema 9 y dependencias MCP fijadas en mcp/composer.lock. Hay
+excepciones mínimas del núcleo para cerrar accesos y preservar historia;
+justificación en [DEC-027](../feedback/2026-11-14-DEC-027-integracion-projecta.md).
+No se modifican vendor/ ni libs/, ni se añade un servicio o base de datos.
+El artefacto completo requiere núcleo, configuración pública, plugin y MCP;
+copiar solo el plugin no entrega esta versión. Los párrafos históricos se conservan.
+
 ## Existente
 PHP >=8.1, Composer, Pimple, PicoDB/PDO. MVC con plantillas PHP; no SPA.
 Controladores app/Controller; modelos app/Model; plantillas app/Template;

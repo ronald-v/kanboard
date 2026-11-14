@@ -17,6 +17,10 @@ class PostAuthenticationMiddleware extends BaseMiddleware
      */
     public function execute()
     {
+        if (isset($this->container['rvAccessModel'])) {
+            if ($this->container['rvAccessModel']->guard()) { $this->next(); }
+            return;
+        }
         $controller = strtolower($this->router->getController());
         $action = strtolower($this->router->getAction());
         $ignore = ($controller === 'twofactorcontroller' && in_array($action, array('code', 'check'))) || ($controller === 'authcontroller' && $action === 'logout');

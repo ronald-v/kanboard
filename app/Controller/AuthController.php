@@ -45,6 +45,10 @@ class AuthController extends BaseController
      */
     public function check()
     {
+        if (isset($this->container['rvAccessModel'])) {
+            if (! $this->request->isPost()) { throw new \Kanboard\Core\Controller\AccessForbiddenException(); }
+            $this->checkCSRFForm();
+        }
         $values = $this->request->getValues();
 
         if (REMEMBER_ME_AUTH) {

@@ -26,6 +26,12 @@ class ResetTwoFactorCommand extends BaseCommand
             return 1;
         }
 
+        if (isset($this->container['rvSecurityModel'])) {
+            $this->rvSecurityModel->resetFactor($userId);
+            $output->writeln('<info>Projecta: factor reiniciado; alta MFA obligatoria en el próximo acceso.</info>');
+            return 0;
+        }
+
         if (!$this->userModel->update(array('id' => $userId, 'twofactor_activated' => 0, 'twofactor_secret' => ''))) {
             $output->writeln('<error>Unable to update user profile</error>');
             return 1;

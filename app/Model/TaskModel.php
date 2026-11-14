@@ -90,6 +90,14 @@ class TaskModel extends Base
      */
     public function remove($task_id)
     {
+        if (isset($this->container['rvDeletionModel'])) {
+            return $this->rvDeletionModel->remove('tasks',$task_id,function () use ($task_id) { return $this->removeRecord($task_id); });
+        }
+        return $this->removeRecord($task_id);
+    }
+
+    protected function removeRecord($task_id)
+    {
         if (!$this->taskFinderModel->exists($task_id)) {
             return false;
         }

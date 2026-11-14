@@ -10,7 +10,7 @@ class RvSoftwarePluginTest extends RvSoftwareBase
     public function testLoadVersionAndIdempotentSchema()
     {
         $plugin = $this->loader->getPlugins()['RvSoftware'];
-        $this->assertEquals('0.1.0', $plugin->getPluginVersion());
+        $this->assertEquals('0.2.0', $plugin->getPluginVersion());
         $schema = new SchemaHandler($this->container);
         $this->assertEquals(\Kanboard\Plugin\RvSoftware\Schema\VERSION, $schema->getSchemaVersion('RvSoftware'));
         $schema->loadSchema('RvSoftware');

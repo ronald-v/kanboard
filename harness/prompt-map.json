@@ -321,6 +321,162 @@
         "TC-F-012-01",
         "TC-F-012-02"
       ]
+    },
+    {
+      "id": "MAP-F-013",
+      "changeType": "Rendimiento medido",
+      "responsible": "performance",
+      "prompts": [
+        "harness/prompts/performance.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/performance.md",
+        "harness/context/database.md",
+        "harness/context/testing.md"
+      ],
+      "features": [
+        "F-013"
+      ],
+      "codeZones": [
+        "plugins/RvSoftware",
+        "app"
+      ],
+      "testCases": [
+        "TC-F-013-01"
+      ]
+    },
+    {
+      "id": "MAP-F-014",
+      "changeType": "Acceso Projecta y MFA obligatorio",
+      "responsible": "security",
+      "prompts": [
+        "harness/prompts/security.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md"
+      ],
+      "context": [
+        "harness/context/security.md",
+        "harness/context/architecture.md",
+        "harness/context/testing.md"
+      ],
+      "features": [
+        "F-014"
+      ],
+      "codeZones": [
+        "plugins/RvSoftware",
+        "app"
+      ],
+      "testCases": [
+        "TC-F-014-01"
+      ]
+    },
+    {
+      "id": "MAP-F-015",
+      "changeType": "Identidad Projecta y UI completa",
+      "responsible": "ui-ux",
+      "prompts": [
+        "harness/prompts/ui-ux.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/ui-brand.md",
+        "harness/context/architecture.md",
+        "harness/context/testing.md"
+      ],
+      "features": [
+        "F-015"
+      ],
+      "codeZones": [
+        "plugins/RvSoftware",
+        "app"
+      ],
+      "testCases": [
+        "TC-F-015-01"
+      ]
+    },
+    {
+      "id": "MAP-F-016",
+      "changeType": "Recorte controlado y SMTP preparado",
+      "responsible": "architect",
+      "prompts": [
+        "harness/prompts/architect.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/engineering.md",
+        "harness/context/architecture.md",
+        "harness/context/testing.md"
+      ],
+      "features": [
+        "F-016"
+      ],
+      "codeZones": [
+        "plugins/RvSoftware",
+        "app"
+      ],
+      "testCases": [
+        "TC-F-016-01"
+      ]
+    },
+    {
+      "id": "MAP-F-017",
+      "changeType": "API individual y CRUD seguro",
+      "responsible": "api",
+      "prompts": [
+        "harness/prompts/api.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/api-mcp.md",
+        "harness/context/security.md",
+        "harness/context/testing.md"
+      ],
+      "features": [
+        "F-017"
+      ],
+      "codeZones": [
+        "plugins/RvSoftware",
+        "app"
+      ],
+      "testCases": [
+        "TC-F-017-01"
+      ]
+    },
+    {
+      "id": "MAP-F-018",
+      "changeType": "MCP remoto Projecta",
+      "responsible": "mcp",
+      "prompts": [
+        "harness/prompts/mcp.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/security.md"
+      ],
+      "context": [
+        "harness/context/api-mcp.md",
+        "harness/context/security.md",
+        "harness/context/architecture.md",
+        "harness/context/testing.md"
+      ],
+      "features": [
+        "F-018"
+      ],
+      "codeZones": [
+        "plugins/RvSoftware",
+        "app"
+      ],
+      "testCases": [
+        "TC-F-018-01"
+      ]
     }
   ],
   "specialties": [

@@ -543,6 +543,130 @@
         "harness/evidence/2026-11-13-f012-compatibilidad.md"
       ],
       "limitations": "Ensayo local Windows/CLI/servidor PHP integrado; faltan PHP/SAPI/extensiones efectivos, reglas del servidor y recuperación en staging de Hostinger. Sin despliegue ni revisión independiente."
+    },
+    {
+      "id": "TC-F-013-01",
+      "featureId": "F-013",
+      "objective": "Rendimiento medido",
+      "preconditions": [
+        "Entorno aislado y datos sintéticos."
+      ],
+      "syntheticData": "Usuarios y objetos sintéticos; sin base del usuario.",
+      "steps": [
+        "Ejecutar verificaciones de aceptación y revisar efectos."
+      ],
+      "command": null,
+      "expectedResult": "p95 lecturas <=800 ms y escrituras <=1500 ms con 10 usuarios, 100 proyectos y 10000 tareas; evidencia antes/después.",
+      "verificationType": "Integración y verificación funcional",
+      "status": "validated",
+      "observedResult": "Benchmark CLI antes/después y HTTP final con 10 trabajadores cumplen p95 acordado; no acredita red/base remota ni hosting.",
+      "evidence": [
+        "harness/evidence/2026-11-14-projecta-integracion.md"
+      ],
+      "limitations": "Alcance y limitaciones reales descritos en evidencia; mismo ejecutor."
+    },
+    {
+      "id": "TC-F-014-01",
+      "featureId": "F-014",
+      "objective": "Acceso Projecta y MFA obligatorio",
+      "preconditions": [
+        "Entorno aislado y datos sintéticos."
+      ],
+      "syntheticData": "Usuarios y objetos sintéticos; sin base del usuario.",
+      "steps": [
+        "Ejecutar verificaciones de aceptación y revisar efectos."
+      ],
+      "command": null,
+      "expectedResult": "Alta TOTP obligatoria, recuperación, límites atómicos y sesiones restringidas; negativos comprobados.",
+      "verificationType": "Integración y verificación funcional",
+      "status": "validated",
+      "observedResult": "MFA, recuperación, límites y sesión pasan regresión SQLite/MariaDB y HTTP; guardar clave estable antes de migrar un entorno real.",
+      "evidence": [
+        "harness/evidence/2026-11-14-projecta-integracion.md"
+      ],
+      "limitations": "Alcance y limitaciones reales descritos en evidencia; mismo ejecutor."
+    },
+    {
+      "id": "TC-F-015-01",
+      "featureId": "F-015",
+      "objective": "Identidad Projecta y UI completa",
+      "preconditions": [
+        "Entorno aislado y datos sintéticos."
+      ],
+      "syntheticData": "Usuarios y objetos sintéticos; sin base del usuario.",
+      "steps": [
+        "Ejecutar verificaciones de aceptación y revisar efectos."
+      ],
+      "command": null,
+      "expectedResult": "Nombre/iconos Projecta, cabecera azul, proyecto seleccionado visible y revisión por vista retenida.",
+      "verificationType": "Integración y verificación funcional",
+      "status": "planned",
+      "observedResult": null,
+      "evidence": [],
+      "limitations": "No ejecutado todavía; hosting/cliente real se verifican por separado."
+    },
+    {
+      "id": "TC-F-016-01",
+      "featureId": "F-016",
+      "objective": "Recorte controlado y SMTP preparado",
+      "preconditions": [
+        "Entorno aislado y datos sintéticos."
+      ],
+      "syntheticData": "Usuarios y objetos sintéticos; sin base del usuario.",
+      "steps": [
+        "Ejecutar verificaciones de aceptación y revisar efectos."
+      ],
+      "command": null,
+      "expectedResult": "Funciones innecesarias inaccesibles; SMTP por entorno sin secretos versionados ni envíos reales.",
+      "verificationType": "Integración y verificación funcional",
+      "status": "validated",
+      "observedResult": "Política de servidor y SMTP preparado pasan; MIME recibido por TLS sintético. SMTP real requiere configuración y envío autorizados.",
+      "evidence": [
+        "harness/evidence/2026-11-14-projecta-integracion.md"
+      ],
+      "limitations": "Alcance y limitaciones reales descritos en evidencia; mismo ejecutor."
+    },
+    {
+      "id": "TC-F-017-01",
+      "featureId": "F-017",
+      "objective": "API individual y CRUD seguro",
+      "preconditions": [
+        "Entorno aislado y datos sintéticos."
+      ],
+      "syntheticData": "Usuarios y objetos sintéticos; sin base del usuario.",
+      "steps": [
+        "Ejecutar verificaciones de aceptación y revisar efectos."
+      ],
+      "command": null,
+      "expectedResult": "CRUD y permisos por objeto probados; tokens globales/contraseña deshabilitados; historia protegida.",
+      "verificationType": "Integración y verificación funcional",
+      "status": "validated",
+      "observedResult": "API CRUD, roles/scopes, negativos e historia protegida pasan HTTP y suites finales SQLite/MariaDB; verificar HTTPS/reglas en staging.",
+      "evidence": [
+        "harness/evidence/2026-11-14-projecta-integracion.md"
+      ],
+      "limitations": "Alcance y limitaciones reales descritos en evidencia; mismo ejecutor."
+    },
+    {
+      "id": "TC-F-018-01",
+      "featureId": "F-018",
+      "objective": "MCP remoto Projecta",
+      "preconditions": [
+        "Entorno aislado y datos sintéticos."
+      ],
+      "syntheticData": "Usuarios y objetos sintéticos; sin base del usuario.",
+      "steps": [
+        "Ejecutar verificaciones de aceptación y revisar efectos."
+      ],
+      "command": null,
+      "expectedResult": "OAuth/PKCE y CRUD por protocolo probados; paquete remoto; validación ChatGPT separada si Plus/Pro no permite escritura.",
+      "verificationType": "Integración y verificación funcional",
+      "status": "validated",
+      "observedResult": "Protocolo OAuth/PKCE, 15 herramientas CRUD, negativos, concurrencia y ZIP restaurado pasan; aceptación Hostinger/ChatGPT separada pendiente.",
+      "evidence": [
+        "harness/evidence/2026-11-14-projecta-integracion.md"
+      ],
+      "limitations": "Alcance y limitaciones reales descritos en evidencia; mismo ejecutor."
     }
   ]
 }

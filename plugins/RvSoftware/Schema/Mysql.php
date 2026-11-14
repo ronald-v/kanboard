@@ -2,7 +2,7 @@
 
 namespace Kanboard\Plugin\RvSoftware\Schema;
 
-const VERSION = 6;
+const VERSION = 9;
 
 function version_1($pdo)
 {
@@ -36,4 +36,22 @@ function version_6($pdo)
 {
     $pdo->exec('ALTER TABLE rv_time_meta ADD COLUMN bag_id INT NULL');
     $pdo->exec('ALTER TABLE rv_time_meta ADD CONSTRAINT rv_time_meta_bag FOREIGN KEY(bag_id) REFERENCES rv_bags(id) ON DELETE RESTRICT');
+}
+
+function version_7($pdo)
+{
+    require_once __DIR__.'/SecuritySchema.php';
+    createSecuritySchema($pdo);
+}
+
+function version_8($pdo)
+{
+    require_once __DIR__.'/ApiSchema.php';
+    createApiSchema($pdo);
+}
+
+function version_9($pdo)
+{
+    require_once __DIR__.'/OAuthSchema.php';
+    createOAuthSchema($pdo);
 }

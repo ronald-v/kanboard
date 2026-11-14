@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-14T08:46:53.075233-05:00",
+    "updatedAt": "2026-11-14T12:49:09.663070-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -819,6 +819,316 @@
             ],
             "nextAction": "Verificar con el artefacto en staging de projecta.rvsoftware.site PHP efectivo, extensiones, protección HTTP y recuperación; producción requiere su autorización separada.",
             "notes": "DEC-022: destino PHP 8.5/MariaDB 11.8.9-MariaDB-log recibido. Compatibilidad local ensayada: 36 tests/203 aserciones del plugin, suite nativa PHP 8.5, concurrencia HTTP y restauración real del ZIP en MariaDB pasan. Pendiente entorno efectivo de Hostinger; sin despliegue. DEC-024: usuario eligió MariaDB de config local; nuevo lanzador y login HTTP 200 comprobados, esquema nativo 139/plugin 6. Hosting/SAPI pendiente.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-013",
+            "name": "Rendimiento medido",
+            "description": "Rendimiento medido. Autorización explícita: DEC-026.",
+            "status": "validated",
+            "targetVersion": null,
+            "dependsOn": [],
+            "acceptanceCriteria": [
+                "p95 lecturas <=800 ms y escrituras <=1500 ms con 10 usuarios, 100 proyectos y 10000 tareas; evidencia antes/después."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-013-S1",
+                    "name": "Rendimiento medido",
+                    "status": "validated",
+                    "assignedAgent": "performance",
+                    "agentNotes": "Consulta de roles por el mismo ejecutor; sin delegación.",
+                    "evidence": [
+                        "harness/evidence/2026-11-14-f013-performance.md",
+                        "harness/evidence/2026-11-14-projecta-integracion.md"
+                    ],
+                    "blockers": [],
+                    "nextAction": "Benchmark CLI antes/después y HTTP final con 10 trabajadores cumplen p95 acordado; no acredita red/base remota ni hosting."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/performance.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/performance.md",
+                "harness/context/database.md",
+                "harness/context/testing.md"
+            ],
+            "relatedFiles": [
+                "plugins/RvSoftware/Plugin.php"
+            ],
+            "testCases": [
+                "TC-F-013-01"
+            ],
+            "evidence": [
+                "harness/evidence/2026-11-14-f013-performance.md",
+                "harness/evidence/2026-11-14-projecta-integracion.md"
+            ],
+            "blockers": [],
+            "nextAction": "Benchmark CLI antes/después y HTTP final con 10 trabajadores cumplen p95 acordado; no acredita red/base remota ni hosting.",
+            "notes": "Plan y decisiones aprobados en esta conversación. No autoriza producción.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-014",
+            "name": "Acceso Projecta y MFA obligatorio",
+            "description": "Acceso Projecta y MFA obligatorio. Autorización explícita: DEC-026.",
+            "status": "validated",
+            "targetVersion": null,
+            "dependsOn": [],
+            "acceptanceCriteria": [
+                "Alta TOTP obligatoria, recuperación, límites atómicos y sesiones restringidas; negativos comprobados."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-014-S1",
+                    "name": "Acceso Projecta y MFA obligatorio",
+                    "status": "validated",
+                    "assignedAgent": "security",
+                    "agentNotes": "Consulta de roles por el mismo ejecutor; sin delegación.",
+                    "evidence": [
+                        "harness/evidence/2026-11-14-f014-security.md",
+                        "harness/evidence/2026-11-14-projecta-integracion.md"
+                    ],
+                    "blockers": [],
+                    "nextAction": "MFA, recuperación, límites y sesión pasan regresión SQLite/MariaDB y HTTP; guardar clave estable antes de migrar un entorno real."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/security.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md"
+            ],
+            "relatedContext": [
+                "harness/context/security.md",
+                "harness/context/architecture.md",
+                "harness/context/testing.md"
+            ],
+            "relatedFiles": [
+                "plugins/RvSoftware/Plugin.php"
+            ],
+            "testCases": [
+                "TC-F-014-01"
+            ],
+            "evidence": [
+                "harness/evidence/2026-11-14-f014-security.md",
+                "harness/evidence/2026-11-14-projecta-integracion.md"
+            ],
+            "blockers": [],
+            "nextAction": "MFA, recuperación, límites y sesión pasan regresión SQLite/MariaDB y HTTP; guardar clave estable antes de migrar un entorno real.",
+            "notes": "Plan y decisiones aprobados en esta conversación. No autoriza producción.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-015",
+            "name": "Identidad Projecta y UI completa",
+            "description": "Identidad Projecta y UI completa. Autorización explícita: DEC-026.",
+            "status": "blocked",
+            "targetVersion": null,
+            "dependsOn": [],
+            "acceptanceCriteria": [
+                "Nombre/iconos Projecta, cabecera azul, proyecto seleccionado visible y revisión por vista retenida."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-015-S1",
+                    "name": "Identidad Projecta y UI completa",
+                    "status": "blocked",
+                    "assignedAgent": "ui-ux",
+                    "agentNotes": "Consulta de roles por el mismo ejecutor; sin delegación.",
+                    "evidence": [
+                        "harness/evidence/2026-11-14-f015-ui.md"
+                    ],
+                    "blockers": [
+                        "Restablecer Chrome: integración falla al crear/navegar pestañas; completar revisión visual por vista, móvil, teclado y zoom."
+                    ],
+                    "nextAction": "Restablecer Chrome: integración falla al crear/navegar pestañas; completar revisión visual por vista, móvil, teclado y zoom."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/ui-ux.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/ui-brand.md",
+                "harness/context/architecture.md",
+                "harness/context/testing.md"
+            ],
+            "relatedFiles": [
+                "plugins/RvSoftware/Plugin.php"
+            ],
+            "testCases": [
+                "TC-F-015-01"
+            ],
+            "evidence": [
+                "harness/evidence/2026-11-14-f015-ui.md"
+            ],
+            "blockers": [
+                "Restablecer Chrome: integración falla al crear/navegar pestañas; completar revisión visual por vista, móvil, teclado y zoom."
+            ],
+            "nextAction": "Restablecer Chrome: integración falla al crear/navegar pestañas; completar revisión visual por vista, móvil, teclado y zoom.",
+            "notes": "Plan y decisiones aprobados en esta conversación. No autoriza producción.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-016",
+            "name": "Recorte controlado y SMTP preparado",
+            "description": "Recorte controlado y SMTP preparado. Autorización explícita: DEC-026.",
+            "status": "validated",
+            "targetVersion": null,
+            "dependsOn": [],
+            "acceptanceCriteria": [
+                "Funciones innecesarias inaccesibles; SMTP por entorno sin secretos versionados ni envíos reales."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-016-S1",
+                    "name": "Recorte controlado y SMTP preparado",
+                    "status": "validated",
+                    "assignedAgent": "architect",
+                    "agentNotes": "Consulta de roles por el mismo ejecutor; sin delegación.",
+                    "evidence": [
+                        "harness/evidence/2026-11-14-f016-cleanup-smtp.md",
+                        "harness/evidence/2026-11-14-projecta-integracion.md"
+                    ],
+                    "blockers": [],
+                    "nextAction": "Política de servidor y SMTP preparado pasan; MIME recibido por TLS sintético. SMTP real requiere configuración y envío autorizados."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/architect.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/engineering.md",
+                "harness/context/architecture.md",
+                "harness/context/testing.md"
+            ],
+            "relatedFiles": [
+                "plugins/RvSoftware/Plugin.php"
+            ],
+            "testCases": [
+                "TC-F-016-01"
+            ],
+            "evidence": [
+                "harness/evidence/2026-11-14-f016-cleanup-smtp.md",
+                "harness/evidence/2026-11-14-projecta-integracion.md"
+            ],
+            "blockers": [],
+            "nextAction": "Política de servidor y SMTP preparado pasan; MIME recibido por TLS sintético. SMTP real requiere configuración y envío autorizados.",
+            "notes": "Plan y decisiones aprobados en esta conversación. No autoriza producción.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-017",
+            "name": "API individual y CRUD seguro",
+            "description": "API individual y CRUD seguro. Autorización explícita: DEC-026.",
+            "status": "validated",
+            "targetVersion": null,
+            "dependsOn": [
+                "F-014"
+            ],
+            "acceptanceCriteria": [
+                "CRUD y permisos por objeto probados; tokens globales/contraseña deshabilitados; historia protegida."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-017-S1",
+                    "name": "API individual y CRUD seguro",
+                    "status": "validated",
+                    "assignedAgent": "api",
+                    "agentNotes": "Consulta de roles por el mismo ejecutor; sin delegación.",
+                    "evidence": [
+                        "harness/evidence/2026-11-14-f017-api.md",
+                        "harness/evidence/2026-11-14-projecta-integracion.md"
+                    ],
+                    "blockers": [],
+                    "nextAction": "API CRUD, roles/scopes, negativos e historia protegida pasan HTTP y suites finales SQLite/MariaDB; verificar HTTPS/reglas en staging."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/api.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/api-mcp.md",
+                "harness/context/security.md",
+                "harness/context/testing.md"
+            ],
+            "relatedFiles": [
+                "plugins/RvSoftware/Plugin.php"
+            ],
+            "testCases": [
+                "TC-F-017-01"
+            ],
+            "evidence": [
+                "harness/evidence/2026-11-14-f017-api.md",
+                "harness/evidence/2026-11-14-projecta-integracion.md"
+            ],
+            "blockers": [],
+            "nextAction": "API CRUD, roles/scopes, negativos e historia protegida pasan HTTP y suites finales SQLite/MariaDB; verificar HTTPS/reglas en staging.",
+            "notes": "Plan y decisiones aprobados en esta conversación. No autoriza producción.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-018",
+            "name": "MCP remoto Projecta",
+            "description": "MCP remoto Projecta. Autorización explícita: DEC-026.",
+            "status": "validated",
+            "targetVersion": null,
+            "dependsOn": [
+                "F-017"
+            ],
+            "acceptanceCriteria": [
+                "OAuth/PKCE y CRUD por protocolo probados; paquete remoto; validación ChatGPT separada si Plus/Pro no permite escritura."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-018-S1",
+                    "name": "MCP remoto Projecta",
+                    "status": "validated",
+                    "assignedAgent": "mcp",
+                    "agentNotes": "Consulta de roles por el mismo ejecutor; sin delegación.",
+                    "evidence": [
+                        "harness/evidence/2026-11-14-projecta-integracion.md"
+                    ],
+                    "blockers": [],
+                    "nextAction": "Protocolo OAuth/PKCE, 15 herramientas CRUD, negativos, concurrencia y ZIP restaurado pasan; aceptación Hostinger/ChatGPT separada pendiente."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/mcp.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/security.md"
+            ],
+            "relatedContext": [
+                "harness/context/api-mcp.md",
+                "harness/context/security.md",
+                "harness/context/architecture.md",
+                "harness/context/testing.md"
+            ],
+            "relatedFiles": [
+                "plugins/RvSoftware/Plugin.php"
+            ],
+            "testCases": [
+                "TC-F-018-01"
+            ],
+            "evidence": [
+                "harness/evidence/2026-11-14-projecta-integracion.md"
+            ],
+            "blockers": [],
+            "nextAction": "Protocolo OAuth/PKCE, 15 herramientas CRUD, negativos, concurrencia y ZIP restaurado pasan; aceptación Hostinger/ChatGPT separada pendiente.",
+            "notes": "Plan y decisiones aprobados en esta conversación. No autoriza producción.",
             "suspensionApproval": null
         }
     ]

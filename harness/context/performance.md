@@ -1,6 +1,11 @@
 # Rendimiento: medir antes de optimizar
 
-No hay una causa ni un presupuesto de latencia establecido por esta guía.
+DEC-026 fijó para F-013 p95 de lectura ≤800 ms y escritura ≤1500 ms, con 10
+trabajadores, 100 proyectos y 10000 tareas sintéticas. La consulta N+1 de liderazgo
+se redujo a una consulta conjunta para roles nativos, con resolución nativa de
+casos personalizados. [Mediciones y límites](../evidence/2026-11-14-projecta-integracion.md).
+No se midió la red/base remota del usuario ni Hostinger. El protocolo siguiente
+se mantiene para cambios futuros; no atribuye cualquier lentitud a la misma causa.
 Para una feature autorizada registrar ruta/operación, runtime/SAPI, motor, proximidad
 de DB, tamaño de fixture, rol, plugin y caché. Aislar datos antes de instrumentar.
 No cambiar timeouts para declarar una mejora de velocidad.

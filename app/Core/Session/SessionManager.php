@@ -99,13 +99,13 @@ class SessionManager extends Base
     private function configure()
     {
         // Session cookie: HttpOnly and secure flags
-        session_set_cookie_params(
-            SESSION_DURATION,
-            $this->getCookiePath(),
-            null,
-            $this->request->isHTTPS(),
-            true
-        );
+        session_set_cookie_params(array(
+            'lifetime' => SESSION_DURATION,
+            'path' => $this->getCookiePath(),
+            'secure' => $this->request->isHTTPS(),
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ));
 
         // Use php_serialize handler so session data is a single serialize() call,
         // which allows safe sanitization in SessionHandler::read() (CWE-502 mitigation).

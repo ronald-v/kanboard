@@ -32,7 +32,7 @@ class RvSoftwareUpgradeTest extends Base
         $this->assertCount(0,$c['db']->table('rv_bag_entries')->findAll());
         $this->assertCount(1,$c['rvLedgerModel']->reconcile($project)['differences']);
         (new \Kanboard\Core\Plugin\SchemaHandler($c))->loadSchema('RvSoftware');
-        $this->assertEquals(6,$c['db']->table('plugin_schema_versions')->eq('plugin','rvsoftware')->findOneColumn('version'));
+        $this->assertEquals(\Kanboard\Plugin\RvSoftware\Schema\VERSION,$c['db']->table('plugin_schema_versions')->eq('plugin','rvsoftware')->findOneColumn('version'));
         $this->assertEquals(1,$c['db']->table('rv_time_meta')->count());
     }
 }

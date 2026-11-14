@@ -29,3 +29,4 @@ node_modules
 app/version.txt
 .php-cs-fixer.cache
 /.runtime/
+/mcp/vendor/

@@ -1,5 +1,13 @@
 # Seguridad y permisos
 
+## Política vigente Projecta
+F-014 exige contraseña y TOTP para todos, recuperación de un solo uso, límites
+atómicos y sesiones acotadas. F-017/F-018 usan credenciales individuales/OAuth
+revocables con scopes y permisos por objeto. [Operación y recuperación](../../plugins/RvSoftware/PROJECTA.md).
+[Pruebas controladas y límites](../evidence/2026-11-14-projecta-integracion.md)
+reemplazan el diagnóstico inicial de ausencia de pruebas dinámicas; no constituyen
+una auditoría exhaustiva ni certificación de seguridad del hosting.
+
 ## Base inspeccionada
 AuthenticationProvider configura autenticación y ACL de aplicación/proyecto/API.
 Role define app-admin/app-manager/app-user y project-manager/member/viewer.

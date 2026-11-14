@@ -1,5 +1,13 @@
 # UI/UX e identidad
 
+## Projecta, autorización posterior
+DEC-026 cambia nombre/icono a Projecta con assets/img/favicon.png suministrado,
+cabecera azul corporativo, login y estilos compartidos, y selección explícita
+del proyecto en Clientes y bolsas. 31 vistas/fragmentos HTTP fueron comprobados;
+la revisión visual por vista, móvil, teclado y zoom continúa bloqueada por la
+conexión del navegador. F-015 conserva ese bloqueo; no hereda aceptación visual
+de F-004 para estos cambios. [Evidencia](../evidence/2026-11-14-f015-ui.md).
+
 ## Aprobación vigente
 La propuesta concreta en [mockup F-004](../mockups/f004/index.html) fue aprobada
 expresamente en DEC-010. El usuario confirmó el protocolo manual de escritorio,

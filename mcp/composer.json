@@ -1,0 +1,15 @@
+{
+  "name": "rvsoftware/projecta-mcp",
+  "description": "Authenticated Projecta MCP adapter for the existing PHP application",
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": "^8.3",
+    "mcp/sdk": "0.10.0",
+    "league/oauth2-server": "^9.2",
+    "nyholm/psr7": "^1.8",
+    "psr/log": "1.1.4"
+  },
+  "autoload": { "psr-4": { "Projecta\\Mcp\\": "src/" } },
+  "config": { "sort-packages": true, "allow-plugins": false }
+}

@@ -19,6 +19,7 @@ class BootstrapMiddleware extends BaseMiddleware
     public function execute()
     {
         $this->sessionManager->open();
+        if (isset($this->container['rvAccessModel'])) { $this->response->withHeader('Cache-Control','no-store'); }
         $this->dispatcher->dispatch(new Event, 'app.bootstrap');
         $this->sendHeaders();
         $this->next();

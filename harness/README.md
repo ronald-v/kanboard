@@ -1,10 +1,11 @@
 # Harness de desarrollo y mantenimiento
 
 Entrada: [AGENTS.md](../AGENTS.md). Estado único: [feature-list.json](feature-list.json).
-Continuidad: [checkpoint](current-task.md). Esta revisión modifica solo el harness;
-no incorpora requisitos pendientes ni autoriza desarrollo o despliegue del producto.
-El historial F-001..F-012 se conserva. F-012 sigue blocked por verificación del hosting.
-Las autorizaciones históricas se consultan en feedback; no activan trabajo en este encargo.
+Continuidad: [checkpoint](current-task.md). La autorización posterior
+[DEC-026](feedback/2026-11-14-DEC-026-projecta.md) amplió el encargo a implementar
+Projecta (F-013..F-018), con pruebas aisladas y sin despliegue. El historial
+F-001..F-012 se conserva; F-012 sigue blocked por verificación del hosting.
+La revisión anterior del harness permanece como evidencia histórica.
 
 ## Arranque
 Desde `C:\Proyectos\kanboard`:
@@ -78,4 +79,5 @@ La revisión no exige Drive para operar el producto. Feedback conserva decisione
 current-task resume el punto de reanudación. No hay servicio autónomo en segundo plano,
 CI nueva ni memoria entre sesiones comprobada por escribir estos archivos.
 
-Resultado de esta revisión: [evidencia](evidence/2026-11-14-harness-upgrade.md).
+Revisión anterior del harness: [evidencia](evidence/2026-11-14-harness-upgrade.md).
+Entrega Projecta: [integración y límites](evidence/2026-11-14-projecta-integracion.md).

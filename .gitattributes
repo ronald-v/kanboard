@@ -42,3 +42,11 @@ assets/js/core export-ignore
 assets/js/polyfills export-ignore
 assets/js/src export-ignore
 assets/vendor export-ignore
+config.default.php export-ignore
+config.mariadb.example.php export-ignore
+plugins/RvSoftware/*.md export-ignore
+mcp/*.md export-ignore
+mcp/composer.json export-ignore
+mcp/composer.lock export-ignore
+# This is a public PHP class, not a private application configuration file.
+mcp/src/Config.php -export-ignore

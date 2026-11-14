@@ -1,0 +1,5 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(?:src|vendor)/ - [F,L]
+    RewriteRule ^(?:bootstrap\.php|composer\.(?:json|lock)|README\.md)$ - [F,L]
+</IfModule>

@@ -1,5 +1,18 @@
 # Pruebas y comandos reales
 
+## Perfil Projecta 0.2.0
+ProjectaEnvironment.ps1 usa PHP portable 8.5, copia .runtime/projecta/app sin
+configuración privada y MariaDB sintética loopback 13318/kanboard_compat_http.
+Prepare-ProjectaSandbox.py copia fuentes sin data/config.php. Los fixtures tienen
+guardas de destino; no ejecutar sobre la configuración del usuario. El perfil
+activa extensiones solo para su proceso. -Native deshabilita plugins e incorpora LDAP.
+Las unitarias SQLite siguen usando :memory: y autoload .runtime/vendor/autoload.php;
+las unitarias MySQL usan kanboard_unit_test reservado. Los scripts Projecta-* de
+fixtures alteran sintéticos y algunos reinician MFA; respetar su orden descrito
+en la [integración](../evidence/2026-11-14-projecta-integracion.md).
+API/MCP ya no aceptan la contraseña/token global usados por scripts HTTP históricos.
+No arrancar la copia real para intentar reproducir esas pruebas.
+
 ## Desarrollo con la configuración MariaDB del usuario
 
 `Start-LocalServer.ps1` carga `data/config.php`/`config.php` nativos y arranca en

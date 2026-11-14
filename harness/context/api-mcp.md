@@ -1,11 +1,20 @@
 # API y MCP: contrato de trabajo
 
+## Entrega Projecta 0.2.0
+F-017/F-018 implementan API individual y MCP PHP con OAuth/PKCE, sobre el mismo
+actor y permisos de objeto. Contratos y configuración: [operación](../../plugins/RvSoftware/PROJECTA.md)
+y [MCP](../../mcp/README.md). [Evidencia integrada](../evidence/2026-11-14-projecta-integracion.md).
+Las credenciales globales y contraseña API están deshabilitadas por decisión vigente.
+Los scripts históricos que las usan no son pruebas válidas de esta versión.
+Protocolo local probado; publicación, reglas del hosting y aceptación real de
+ChatGPT permanecen separadas. Las indicaciones siguientes son criterios de trabajo.
+
 ## Base comprobada por inspección
 La API existente es JSON-RPC: jsonrpc.php, app/Api/Procedure,
 app/Api/Authorization y app/ServiceProvider/ApiProvider.php. El plugin amplía
 procedimientos y permisos; revisar plugins/RvSoftware/Plugin.php y sus pruebas.
 No asumir REST, CRUD completo, autorización uniforme o MFA en tokens por existir login.
-Esta guía no implementa un servidor MCP ni acredita conexión desde ChatGPT.
+Esta guía no acredita por sí sola conexión desde ChatGPT; consultar la evidencia vigente.
 
 ## API
 Antes del cambio inventariar métodos reales, autenticación de aplicación/usuario,

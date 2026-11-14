@@ -27,6 +27,7 @@ class Runner extends Base
         try {
             $this->executeMiddleware();
 
+            if (! $this->response->isResponseAlreadySent() && isset($this->container['rvPolicyModel']) && ! $this->container['rvPolicyModel']->beforeController()) { return; }
             if (!$this->response->isResponseAlreadySent()) {
                 $this->executeController();
             }
@@ -36,6 +37,9 @@ class Runner extends Base
         } catch (AccessForbiddenException $e) {
             $controllerObject = new AppController($this->container);
             $controllerObject->accessForbidden($e->hasLayout(), $e->getMessage());
+        } catch (\DomainException $e) {
+            if (! isset($this->container['rvPolicyModel'])) { throw $e; }
+            $this->response->text($e->getMessage(),409);
         }
     }
 
@@ -98,6 +102,10 @@ class Runner extends Base
 
         if (! method_exists($className, $this->router->getAction())) {
             throw new RuntimeException('Action not implemented');
+        }
+        if (isset($this->container['rvPolicyModel'])) {
+            $method=new \ReflectionMethod($className,$this->router->getAction());
+            if (! $method->isPublic() || $method->isStatic() || str_starts_with($this->router->getAction(),'__')) { throw new PageNotFoundException(); }
         }
 
         return $className;

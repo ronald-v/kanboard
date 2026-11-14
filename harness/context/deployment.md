@@ -1,5 +1,16 @@
 # Despliegue PHP y recuperación
 
+## Preparación Projecta 0.2.0
+La [integración](../evidence/2026-11-14-projecta-integracion.md) identifica el ZIP
+exacto y su hash, con restauración sintética comprobada. Build-Release.py
+--working-tree genera un preview de fuentes revisadas y dependencias MCP fijadas;
+no es un commit publicado ni una autorización productiva. Incluye mcp/vendor
+sin documentación/pruebas de dependencias y conserva licencias.
+Respaldar PROJECTA_KEY, RSA/OAuth, configuración, base y adjuntos conjuntamente;
+revertir código no revierte migraciones 7..9. Configurar carpeta MCP privada fuera
+del document root conforme a [MCP](../../mcp/README.md). F-012 sigue bloqueada
+hasta verificar servidor y recuperación efectivos en Hostinger.
+
 ## Destino informado el 2026-11-13
 
 Ronnie indicó PHP 8.5 y MariaDB 11.8.9-MariaDB-log en Hostinger, dominio ya creado

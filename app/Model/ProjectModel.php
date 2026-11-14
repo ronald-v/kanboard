@@ -498,6 +498,14 @@ class ProjectModel extends Base
      */
     public function remove($project_id)
     {
+        if (isset($this->container['rvDeletionModel'])) {
+            return $this->rvDeletionModel->remove('projects',$project_id,function () use ($project_id) { return $this->removeRecord($project_id); });
+        }
+        return $this->removeRecord($project_id);
+    }
+
+    protected function removeRecord($project_id)
+    {
         // Remove all project attachments
         $this->projectFileModel->removeAll($project_id);
 
