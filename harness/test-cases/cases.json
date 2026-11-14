@@ -159,10 +159,12 @@
       "command": null,
       "expectedResult": "Carga reproducible, ACL/esquema correctos, núcleo preservado",
       "verificationType": "integration",
-      "status": "planned",
-      "observedResult": null,
-      "evidence": [],
-      "limitations": "No ejecutado; caso diseñado."
+      "status": "validated",
+      "observedResult": "Loader, esquema idempotente y ACL: 2 tests/10 aserciones exit 0; HTTP autenticación/rutas/CSS/CSP y plugin deshabilitado pasan. SQLite sintético; límites en evidencia.",
+      "evidence": [
+        "harness/evidence/2026-11-12-f005-plugin.md"
+      ],
+      "limitations": "Verificaciones y límites específicos en evidencia; sin revisión independiente."
     },
     {
       "id": "TC-F-006-01",

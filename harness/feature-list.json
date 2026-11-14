@@ -8,7 +8,7 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-12T05:09:23.025138-05:00",
+    "updatedAt": "2026-11-12T05:14:13.663850-05:00",
     "activeFeatureId": null,
     "features": [
         {
@@ -274,7 +274,7 @@
         {
             "id": "F-005",
             "name": "Extensión propia y compatibilidad",
-            "status": "planned",
+            "status": "validated",
             "targetVersion": null,
             "description": "Extensión propia y compatibilidad. Reutilizar capacidad nativa antes de extender.",
             "dependsOn": [
@@ -289,22 +289,26 @@
                 {
                     "id": "F-005-S1",
                     "name": "Precisar alcance, reutilización y aceptación",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "architect",
                     "agentNotes": "Rol de prompt, no agente independiente.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f005-plugin.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Leer contexto y decisiones pertinentes."
+                    "nextAction": "Conservar evidencia comprobada."
                 },
                 {
                     "id": "F-005-S2",
                     "name": "Realizar entregable y verificar criterios",
-                    "status": "planned",
+                    "status": "validated",
                     "assignedAgent": "testing",
                     "agentNotes": "Solo ejecutar dentro de alcance autorizado.",
-                    "evidence": [],
+                    "evidence": [
+                        "harness/evidence/2026-11-12-f005-plugin.md"
+                    ],
                     "blockers": [],
-                    "nextAction": "Confirmar plugin RvSoftware y excepción limitada de gitignore; probar carga."
+                    "nextAction": "Conservar evidencia comprobada."
                 }
             ],
             "relatedPrompts": [
@@ -321,15 +325,20 @@
             "relatedFiles": [
                 "app/Core/Plugin/Loader.php",
                 "app/Core/Plugin/SchemaHandler.php",
-                "plugins/.gitignore"
+                "plugins/.gitignore",
+                "plugins/RvSoftware/Plugin.php",
+                "plugins/RvSoftware/Schema",
+                "tests/units/Plugin"
             ],
             "testCases": [
                 "TC-F-005-01"
             ],
-            "evidence": [],
+            "evidence": [
+                "harness/evidence/2026-11-12-f005-plugin.md"
+            ],
             "blockers": [],
-            "nextAction": "Confirmar plugin RvSoftware y excepción limitada de gitignore; probar carga.",
-            "notes": "Propuesta; no implementada ni autorizada por generar el harness.",
+            "nextAction": "Conservar evidencia y continuar siguiente feature con dependencias validadas.",
+            "notes": "Loader, esquema idempotente y ACL: 2 tests/10 aserciones exit 0; HTTP autenticación/rutas/CSS/CSP y plugin deshabilitado pasan. SQLite sintético; límites en evidencia.",
             "suspensionApproval": null
         },
         {
