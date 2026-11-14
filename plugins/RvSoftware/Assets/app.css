@@ -1,1 +1,105 @@
 .rv-panel{background:#fff;border:1px solid #dce3ed;border-radius:10px;padding:24px;color:#0b1f3a}.rv-panel a{color:#0057ff}.rv-panel a:focus-visible{outline:3px solid #0057ff;outline-offset:4px}
+body:has(.rv-sidebar){background:#f5f7fa;color:#0b1f3a;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.rv-sidebar{position:fixed;top:0;bottom:0;left:0;width:240px;background:#0b1f3a;color:#fff;padding:30px 20px;z-index:10;overflow-y:auto}.rv-brand img{max-width:100%;height:auto}.rv-workspace{font-size:10px;letter-spacing:1.5px;color:#b5c3d8;margin:32px 10px}.rv-nav{display:flex;flex-direction:column;gap:9px}.rv-nav a{display:block;color:#dce6f6;text-decoration:none;padding:12px;border-radius:6px;font-size:14px}.rv-nav a:hover{background:#1c3352;color:#fff}.rv-tools{margin-top:25px;font-size:12px}.rv-tools summary{cursor:pointer;padding:12px;color:#dce6f6}.rv-tools a{font-size:12px}.rv-profile{padding:25px 10px;border-top:1px solid #354960;margin-top:30px;font-size:12px}.rv-mobile-nav{display:none}.rv-sidebar~header,.rv-sidebar~.page{margin-left:260px}.rv-sidebar~header{padding:20px;background:white;margin-bottom:25px;border-bottom:1px solid #dce3ed}.rv-sidebar~header .logo{display:none}.rv-sidebar~.page{margin-right:24px}.rv-skip{position:fixed;top:-90px;left:15px;background:white;padding:14px;z-index:100}.rv-skip:focus{top:10px}#rv-content{position:absolute;top:0;left:260px}.rv-home h1{font-size:clamp(26px,3vw,36px);letter-spacing:-1px;color:#0b1f3a;font-weight:650}.rv-home h2{font-size:18px;color:#0b1f3a}.rv-eyebrow{font-size:10px;letter-spacing:1.7px;color:#526176;font-weight:700}.rv-page-heading{display:flex;gap:20px;align-items:center;justify-content:space-between;margin:15px 0 28px}.rv-page-heading p:not(.rv-eyebrow){color:#526176;font-size:14px}.rv-button{background:#0057ff!important;color:white!important;padding:12px 18px;border-radius:7px;display:inline-block;text-decoration:none;white-space:nowrap}.rv-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:25px 0}.rv-stats article{background:white;border:1px solid #dce3ed;border-radius:10px;padding:24px}.rv-stats p,.rv-stats small{font-size:12px;color:#526176}.rv-stats strong{font-size:29px;display:block;margin:12px 0}.rv-stats a{font-size:12px;color:#0057ff}.rv-panel{margin-bottom:22px}.rv-task-row{display:flex;gap:20px;border-top:1px solid #dce3ed;padding:20px 0;font-size:12px;align-items:center}.rv-task-row>div{flex:1}.rv-task-row a{font-weight:600;text-decoration:none}.rv-task-row small{display:block;margin-top:6px;color:#526176}.rv-task-row>span{color:#526176}.rv-projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.rv-projects>article{padding:20px;border:1px solid #dce3ed;border-radius:8px}.rv-projects h3{font-size:14px}.rv-projects a{color:#0057ff;font-size:13px}.rv-project-action{margin-top:18px}.rv-empty{padding:25px 0;color:#526176}.rv-advanced{border-top:1px solid #dce3ed;padding:15px 0;margin-top:15px}.rv-advanced summary{font-weight:600;font-size:14px;cursor:pointer;color:#0057ff;min-height:40px}.rv-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.rv-task-form>label{margin-top:12px}.rv-task-form input[type=text]{max-width:100%}.rv-sidebar a:focus-visible,.rv-sidebar summary:focus-visible{outline:3px solid #00d4ff;outline-offset:2px}.rv-home a:focus-visible,.rv-task-form :focus-visible{outline:3px solid #0057ff;outline-offset:3px}
+@media(max-width:1050px){.rv-projects,.rv-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rv-stats article{padding:18px}.rv-stats strong{font-size:24px}}
+@media(max-width:760px){.rv-sidebar{position:static;width:auto;padding:18px}.rv-brand img{width:180px}.rv-workspace,.rv-profile,.rv-desktop-nav{display:none}.rv-mobile-nav{display:block;margin-top:15px}.rv-mobile-nav>summary{padding:12px;cursor:pointer;border:1px solid #7186a4;border-radius:6px;min-height:44px}.rv-nav{margin-top:12px}.rv-sidebar~header,.rv-sidebar~.page{margin-left:0}.rv-sidebar~header{padding:15px;margin-bottom:12px}.rv-sidebar~.page{margin:0 15px}.rv-page-heading{flex-direction:column;align-items:flex-start}.rv-stats,.rv-projects,.rv-form-grid{grid-template-columns:1fr}.rv-task-row{flex-wrap:wrap;gap:10px}.rv-task-row>div{min-width:100%}.rv-panel{padding:19px}.rv-button{white-space:normal}.rv-sidebar~header .title{font-size:20px}#rv-content{left:0}.rv-stats strong{font-size:26px}.rv-stats article{padding:18px}.rv-task-form textarea{max-width:100%}}
+
+/* Keep the fixed sidebar's OUTER width inside the space reserved by the page.
+   Kanboard intentionally does not apply a global border-box reset. */
+.rv-sidebar,
+.rv-sidebar *,
+.rv-home *,
+.rv-task-form * {
+    box-sizing: border-box;
+}
+.rv-home, .rv-projects > *, .rv-stats > *, .rv-form-grid > * { min-width: 0; }
+
+body:has(> .rv-sidebar) {
+    --color-primary: #0b1f3a;
+    --color-light: #526176;
+    --link-color-primary: #0057ff;
+    --button-primary-background-color: #0057ff;
+    --button-primary-border-color: #0057ff;
+    --button-primary-background-color-focus: #0046cc;
+    --button-primary-border-color-focus: #0046cc;
+    --input-background-color: #fff;
+    --input-border-color: #7a8ca6;
+    --input-focus-color: #0057ff;
+    --input-focus-border-color: #0057ff;
+}
+.rv-page-heading > a.js-modal-medium {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 18px;
+    min-height: 44px;
+    border: 1px solid #0057ff;
+    border-radius: 7px;
+    background: #0057ff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.rv-project-action > a.js-modal-medium {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 9px 14px;
+    border: 1px solid #7a8ca6;
+    border-radius: 7px;
+    background: #fff;
+    text-decoration: none;
+}
+body:has(> .rv-sidebar) .btn {
+    box-sizing: border-box;
+    min-height: 44px;
+    border-radius: 7px;
+    padding: 10px 16px;
+    font: 600 14px system-ui, sans-serif;
+}
+body:has(> .rv-sidebar) #modal-box {
+    box-sizing: border-box;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    border: 1px solid #dce3ed;
+    border-radius: 12px;
+    background: #fff;
+    color: #0b1f3a;
+    box-shadow: 0 18px 60px #0b1f3a33;
+}
+body:has(> .rv-sidebar) #modal-content,
+body:has(> .rv-sidebar) #modal-content * { box-sizing: border-box; }
+body:has(> .rv-sidebar) #modal-content { padding: 0 26px 24px; }
+body:has(> .rv-sidebar) #modal-header { padding: 10px 14px 0; }
+body:has(> .rv-sidebar) #modal-close-button { display: inline-block; padding: 10px; }
+body:has(> .rv-sidebar) #modal-content .page-header { margin: 0 0 22px; border: 0; }
+body:has(> .rv-sidebar) #modal-content h2 { color: #0b1f3a; font-size: 23px; line-height: 1.3; }
+body:has(> .rv-sidebar) #modal-content label { margin-top: 16px; font-size: 13px; font-weight: 600; }
+body:has(> .rv-sidebar) #modal-content input[type=text],
+body:has(> .rv-sidebar) #modal-content input[type=number],
+body:has(> .rv-sidebar) #modal-content input[type=date],
+body:has(> .rv-sidebar) #modal-content input[type=datetime-local],
+body:has(> .rv-sidebar) #modal-content textarea,
+body:has(> .rv-sidebar) #modal-content select {
+    width: 100%;
+    max-width: 100%;
+    min-height: 44px;
+    padding: 10px;
+    border: 1px solid #7a8ca6;
+    border-radius: 7px;
+    background: #fff;
+    color: #0b1f3a;
+    font: 14px system-ui, sans-serif;
+}
+body:has(> .rv-sidebar) #modal-content textarea { height: auto; min-height: 110px; }
+body:has(> .rv-sidebar) #modal-content :focus-visible {
+    outline: 3px solid #0057ff;
+    outline-offset: 3px;
+}
+body:has(> .rv-sidebar) #modal-content .form-help { color: #526176; font-size: 12px; }
+@media(max-width:760px) {
+    .rv-page-heading > a.js-modal-medium { width: 100%; justify-content: center; white-space: normal; }
+    body:has(> .rv-sidebar) #modal-content { padding: 0 18px 20px; }
+}

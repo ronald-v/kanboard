@@ -1,20 +1,22 @@
 # Checkpoint
 
-Estado canónico: [feature-list.json](feature-list.json). F-001..F-005 validated;
-sin feature activa. Rama feat/005. F-004 subida como 302b5abba.
+Estado canónico: [feature-list.json](feature-list.json). F-001..F-006 validated;
+sin feature activa. Rama feat/006. Cierre bajo autonomía DEC-015.
 
 ## Resultado
-Plugin mínimo RvSoftware 0.1.0 con ruta autenticada, CSS, ACL y esquema nativo
-baseline sin DDL. Excepción de gitignore limitada. Pruebas en tests/units/Plugin.
-[Evidencia](evidence/2026-11-12-f005-plugin.md), DEC-013.
+Corregido solapamiento: sidebar border-box de 240px dentro del margen de 260px.
+Estilos comunes para Nuevo proyecto y modales nativos proyecto/tarea/subtarea.
+Se conservan todos los campos, handlers, permisos y CSRF. Sin cambios de núcleo/DB.
+[Evidencia](evidence/2026-11-12-f006-flujos.md), DEC-014/015.
 
-## Verificaciones y límites
-2 tests/10 aserciones, exit 0. HTTP 18005 con plugin y 18006 sin plugin: login,
-ruta admin/miembro, CSS y CSP, Dashboard nativo sin plugin, todo correcto.
-Harness y diff check al cierre. SQLite sintético; sin ejecución MySQL, producción
-ni revisión independiente. Solo Chrome como mecanismo de UI; HTTP no es prueba visual.
+## Verificación y límites
+4 tests/21 aserciones, HTTP/UI/API, comparación de campos, harness/diff: exit 0.
+Revisión estática de CSS responsive/modelo de caja. Chrome falla timeoutMs;
+sin captura/render final automático, no atribuir éxito visual. El usuario autoriza
+avanzar sin aprobaciones visuales adicionales; no volver a pedirlas.
 
 ## Siguiente paso
-Commit dev feature 005 y push; crear feat/006 para integrar diseño aprobado y
-flujos nativos de proyectos/tareas/tablero. Servidores sintéticos 18005/18006
-activos; al modificar plugin refrescar copia con scripts de entorno aislado.
+Commit/push dev feature 006, crear feat/007 y desarrollar sesiones con fuente
+única, integridad, reintentos y concurrencia conforme BR-01..10 de DEC-008.
+Servidores sintéticos 18005 (plugin)/18006 (nativo) activos. Sin DB externa,
+despliegue productivo ni revisión independiente.
