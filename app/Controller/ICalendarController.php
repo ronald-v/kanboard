@@ -4,12 +4,13 @@ namespace Kanboard\Controller;
 
 use Kanboard\Core\Controller\AccessForbiddenException;
 use Kanboard\Core\Filter\QueryBuilder;
+use Kanboard\Core\ICalendar\Calendar;
 use Kanboard\Filter\TaskAssigneeFilter;
 use Kanboard\Filter\TaskDueDateRangeFilter;
 use Kanboard\Filter\TaskProjectFilter;
 use Kanboard\Filter\TaskStatusFilter;
 use Kanboard\Model\TaskModel;
-use Eluceo\iCal\Component\Calendar as iCalendar;
+use PicoDb\Table;
 
 /**
  * iCalendar Controller
@@ -33,15 +34,13 @@ class ICalendarController extends BaseController
 
         $startColumn = $this->getStartColumn('calendar_user_tasks');
 
-        $calendar = new iCalendar('Kanboard');
-        $calendar->setName($user['name'] ?: $user['username']);
-        $calendar->setDescription($user['name'] ?: $user['username']);
-        $calendar->setPublishedTTL('PT1H');
+        $name = $user['name'] ?: $user['username'];
+        $calendar = new Calendar('Kanboard', $name, $name, 'PT1H');
 
         $queryDueDateOnly = QueryBuilder::create()
             ->withQuery($this->taskFinderModel->getUserICalQuery($user['id']))
             ->withFilter(new TaskStatusFilter(TaskModel::STATUS_OPEN))
-            ->withFilter(new TaskDueDateRangeFilter(array($startRange, $endRange)))
+            ->withFilter(new TaskDueDateRangeFilter(array($startRange, $endRange), $startColumn))
             ->withFilter(new TaskAssigneeFilter($user['id']))
             ->getQuery();
 
@@ -52,11 +51,22 @@ class ICalendarController extends BaseController
             ->getQuery()
             ->addCondition($this->getConditionForTasksWithStartAndDueDate($startRange, $endRange, $startColumn, 'date_due'));
 
-        $this->response->ical($this->taskICalFormatter
+        $formatter = $this->taskICalFormatter
             ->setCalendar($calendar)
             ->addTasksWithDueDateOnly($queryDueDateOnly)
-            ->addTasksWithStartAndDueDate($queryStartAndDueDate, $startColumn, 'date_due')
-            ->format());
+            ->addTasksWithStartAndDueDate($queryStartAndDueDate, $startColumn, 'date_due');
+
+        if ($this->hasTodos()) {
+            $queryWithoutDates = QueryBuilder::create()
+                ->withQuery($this->taskFinderModel->getUserICalQuery($user['id']))
+                ->withFilter(new TaskStatusFilter(TaskModel::STATUS_OPEN))
+                ->withFilter(new TaskAssigneeFilter($user['id']))
+                ->getQuery();
+
+            $formatter->addTasksWithoutDates($this->filterTasksWithoutDates($queryWithoutDates, $startColumn));
+        }
+
+        $this->response->ical($formatter->format());
     }
 
     public function project()
@@ -73,16 +83,13 @@ class ICalendarController extends BaseController
 
         $startColumn = $this->getStartColumn('calendar_project_tasks');
 
-        $calendar = new iCalendar('Kanboard');
-        $calendar->setName($project['name']);
-        $calendar->setDescription($project['name']);
-        $calendar->setPublishedTTL('PT1H');
+        $calendar = new Calendar('Kanboard', $project['name'], $project['name'], 'PT1H');
 
         $queryDueDateOnly = QueryBuilder::create()
             ->withQuery($this->taskFinderModel->getICalQuery())
             ->withFilter(new TaskStatusFilter(TaskModel::STATUS_OPEN))
             ->withFilter(new TaskProjectFilter($project['id']))
-            ->withFilter(new TaskDueDateRangeFilter(array($startRange, $endRange)))
+            ->withFilter(new TaskDueDateRangeFilter(array($startRange, $endRange), $startColumn))
             ->getQuery();
 
         $queryStartAndDueDate = QueryBuilder::create()
@@ -92,11 +99,47 @@ class ICalendarController extends BaseController
             ->getQuery()
             ->addCondition($this->getConditionForTasksWithStartAndDueDate($startRange, $endRange, $startColumn, 'date_due'));
 
-        $this->response->ical($this->taskICalFormatter
+        $formatter = $this->taskICalFormatter
             ->setCalendar($calendar)
             ->addTasksWithDueDateOnly($queryDueDateOnly)
-            ->addTasksWithStartAndDueDate($queryStartAndDueDate, $startColumn, 'date_due')
-            ->format());
+            ->addTasksWithStartAndDueDate($queryStartAndDueDate, $startColumn, 'date_due');
+
+        if ($this->hasTodos()) {
+            $queryWithoutDates = QueryBuilder::create()
+                ->withQuery($this->taskFinderModel->getICalQuery())
+                ->withFilter(new TaskStatusFilter(TaskModel::STATUS_OPEN))
+                ->withFilter(new TaskProjectFilter($project['id']))
+                ->getQuery();
+
+            $formatter->addTasksWithoutDates($this->filterTasksWithoutDates($queryWithoutDates, $startColumn));
+        }
+
+        $this->response->ical($formatter->format());
+    }
+
+    /**
+     * Tasks without dates are only added as to-dos on request,
+     * most calendar clients ignore them in a subscribed feed
+     */
+    protected function hasTodos()
+    {
+        return $this->request->getIntegerParam('todo') === 1;
+    }
+
+    /**
+     * Keep the tasks that cannot be an event: no due date and no start date
+     */
+    protected function filterTasksWithoutDates(Table $query, $startColumn)
+    {
+        foreach (array('date_due', $startColumn) as $column) {
+            $query
+                ->beginOr()
+                ->isNull(TaskModel::TABLE.'.'.$column)
+                ->eq(TaskModel::TABLE.'.'.$column, 0)
+                ->closeOr();
+        }
+
+        return $query;
     }
 
     protected function getStartColumn($option)
