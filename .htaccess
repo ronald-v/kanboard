@@ -1,3 +1,9 @@
+Options -Indexes
+
+<FilesMatch "(?i)(^\.(?!well-known$)|^(?:composer\.(?:json|lock)|config\.php|cli|AGENTS\.md)$|\.(?:log|sql|sqlite(?:3)?|db|bak|old|orig|save|pem|key|zip|tar|gz|7z)$)">
+    Require all denied
+</FilesMatch>
+
 # Pass HTTP Authorization header via environment variable to PHP backend
 # to make HTTP Basic Authentication work for Apache/FastCGI/php-fpm
 # setups (required to authenticate over the API)
@@ -18,6 +24,10 @@
     # RewriteBase /
 
     RewriteEngine On
+    RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L]
+    RewriteRule ^(?:app|config|data|libs|vendor|tests?|harness|node_modules)(?:/|$) - [F,L,NC]
+    RewriteRule ^(?:cli|composer\.(?:json|lock)|AGENTS\.md)$ - [F,L,NC]
+    RewriteRule ^(?!index\.php$|jsonrpc\.php$|mcp/(?:index|oauth)\.php$).*\.php(?:/|$) - [F,L,NC]
     RewriteRule ^\.well-known/oauth-authorization-server$ mcp/oauth.php?action=metadata [L,QSA]
     RewriteRule ^\.well-known/oauth-protected-resource(?:/mcp/?)?$ mcp/oauth.php?action=resource [L,QSA]
     RewriteRule ^mcp/?$ mcp/index.php [L,QSA]

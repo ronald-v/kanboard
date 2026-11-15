@@ -31,6 +31,5 @@ class RvOAuthController extends \Kanboard\Controller\BaseController
         } catch (\League\OAuth2\Server\Exception\OAuthServerException $error) {
             $this->response->text('La solicitud de conexión no es válida.',400);
         } catch (\Kanboard\Core\Controller\AccessForbiddenException $error) { throw $error; }
-        catch (\Throwable $error) { $this->response->text('La conexión OAuth no está disponible. Contacta al administrador.',503); }
     }
 }

@@ -1,3 +1,61 @@
+# F-020 - Correccion de empaquetado verificada - 2026-11-14T21:39:38-05:00
+
+Sin feature activa. F-020 validated: metadata Git del paquete raiz Composer
+estabilizada sin editar vendor. 16 tests del gate, MariaDB 64/349, HTTP/MCP,
+navegador y ZIP extraido pasan. Estados anteriores conservados; sin despliegue.
+ZIP actual: .runtime/releases/projecta-0.2.0-preview-88f1e99112a1.zip
+SHA256 94a7f487c28aabbc9d91f9379fcd0330f8652e3f6560016f57d308a0cae0c865.
+El comando README funciona y dos ejecuciones producen el mismo ZIP/hash.
+[Evidencia](evidence/2026-11-14-f020-composer-packaging.md). DEC-034.
+La configuracion/cuota/recuperacion del hosting sigue pendiente bajo alcance
+especifico. F-012/F-015/F-019 conservan bloqueos. No autoriza produccion.
+
+---
+
+# F-020 ? Validaci?n local final ? 2026-11-14T20:38:10-05:00
+
+Sin feature activa. F-020 validated en copia aislada: errores HTTP contenidos,
+tablero manual, rutas/proxy/cach? reforzados y gate obligatorio de empaquetado.
+80 fallos HTTP, SQLite 152/561, MariaDB 64/349, HTTP API/MFA/MCP y Chromium pasan.
+Descarga sint?tica 80 MB con PHP64M pasa; Apache 25 denegadas/5 permitidas y gate 11 tests.
+ZIP exacto: .runtime/releases/projecta-0.2.0-preview-48bc10ea5761.zip
+SHA256 105fac3e28a1b139a1d86e37f7736d2e775fbb1e217be0fc0d1d0f86e8309bdb.
+Extracci?n/hashes y cuatro conexiones rechazadas con 503 seguro comprobadas.
+[Evidencia](evidence/2026-11-14-f020-security.md). DEC-032/DEC-033.
+Sin despliegue, base real ni revisi?n independiente. F-012/F-015/F-019 conservan
+sus bloqueos; la cuota/tr?fico y configuraci?n/recuperaci?n del hosting siguen
+pendientes. No declarar seguridad productiva por esta validaci?n local.
+Siguiente: alcance espec?fico para verificar esos controles del destino.
+
+---
+
+# Documentación · 2026-11-14T17:09:12-05:00
+
+README raíz reorganizado con características, stack, arranque local, assets, paquete
+y pruebas. README del harness reducido a índice. Base/candidato y 26 fixtures
+comprobados; sin cambios de estado del producto.
+[Evidencia](evidence/2026-11-14-readme.md). Decisión DEC-031.
+Siguiente paso documental: mantener los comandos alineados con los scripts.
+El punto de reanudación de F-019 y sus bloqueos se conserva debajo.
+
+---
+
+# F-019 ? Resultado parcial y aceptaci?n pendiente ? 2026-11-14T17:01:11-05:00
+
+Rama fix/performance; usuario conserv? c?digo en c152293f1. Sin feature activa.
+F-019 blocked: objetivo >=50 % mediana/p95 por flujo NO cumplido (Chromium
+0/26, tanto uno como diez clientes); HTTP Reportes s? supera ambas reducciones.
+Consultas reducidas: Mi tiempo 123?15; Reportes 426?20; Dashboard 737?231.
+Regresi?n SQLite/MariaDB y nativa pasan; evidencia de los cuatro pares completa.
+No declarar 50 % conseguido ni confundir reducci?n de SQL con clic-a-listo.
+Perfilador/observador preparados y probados solo en sint?ticos; muestras reales
+pendientes de actividad normal del usuario. No generar CRUD/carga en base real.
+Siguiente: perfilar costes restantes del dashboard/DOM/PHP/cola y comparar
+actividad normal Before/Current. F-012/F-015 conservan bloqueos. Sin despliegue.
+[Evidencia](evidence/2026-11-14-f019-performance.md).
+
+---
+
 # F-019 ? Optimizaci?n autorizada ? 2026-11-14T14:06:14-05:00
 
 Feature activa F-019. Plan aprobado: reducir >=50 % mediana/p95 por flujo.

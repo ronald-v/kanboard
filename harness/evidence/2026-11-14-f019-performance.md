@@ -89,3 +89,94 @@ de loopback, reducción de consultas o sintaxis.
   permanece en .runtime/f019/tests-native-sqlite-output.txt.
 - El estado F-001..F-018 sigue idéntico a la base conservada. Harness estático
   inicial pasa con 19 features/31 casos; comprobaciones finales aún pendientes.
+
+## Resultado final de los lotes
+
+Actualizaci?n: 2026-11-14T17:01:11-05:00.
+
+Cuatro pares completos: HTTP y Chromium, uno y diez clientes, un servidor PHP,
+100 muestras por cada uno de los 26 flujos. El before-http-1 se repiti? sin suites
+simult?neas y reemplaz? el lote preliminar. Snapshot restaurado antes de cada lote.
+No hay muestras emparejadas de uso normal sobre la conexi?n remota.
+
+| Lote | Flujos con >=50 % en mediana Y p95 |
+|---|---:|
+| http-1 | 1/26 |
+| http-10 | 1/26 |
+| browser-1 | 0/26 |
+| browser-10 | 0/26 |
+
+**Resultado: objetivo integral NO cumplido.** La reducci?n de consultas no demuestra
+reducci?n equivalente de clic-a-listo. Existen flujos sin mejora y regresiones de
+tiempo en loopback. No se reduce el umbral ni se considera validada F-019.
+
+| Flujo | Consultas antes/despu?s (HTTP 1) | Mediana browser 1 antes/despu?s ms | p95 browser 1 antes/despu?s ms |
+|---|---:|---:|---:|
+| home | 25 / 14 | 199.19 / 214.75 | 218.00 / 240.55 |
+| projects | 23 / 12 | 183.50 / 198.40 | 215.32 / 215.33 |
+| time | 123 / 15 | 214.54 / 198.23 | 232.45 / 217.36 |
+| bags | 35 / 23 | 198.86 / 199.55 | 218.61 / 217.40 |
+| reports | 426 / 20 | 263.53 / 199.08 | 281.62 / 232.06 |
+| dashboard | 737 / 231 | 1834.81 / 1497.18 | 2586.29 / 1862.01 |
+| board | 33 / 24 | 337.44 / 348.10 | 415.33 / 411.62 |
+| task | 39 / 30 | 215.32 / 216.20 | 264.98 / 249.01 |
+| users | 33 / 14 | 200.66 / 199.73 | 968.89 / 222.75 |
+| administration | 21 / 12 | 198.03 / 199.29 | 230.55 / 236.97 |
+| project_create_form | 22 / 12 | 140.55 / 132.60 | 165.37 / 164.15 |
+| project_edit_form | 27 / 18 | 106.86 / 131.73 | 166.08 / 149.36 |
+| task_create_form | 26 / 18 | 146.04 / 146.94 | 172.05 / 164.45 |
+| task_edit_form | 28 / 20 | 146.00 / 131.54 | 164.79 / 162.77 |
+| subtask_create_form | 22 / 14 | 146.49 / 131.99 | 164.77 / 165.02 |
+| subtask_edit_form | 25 / 17 | 98.90 / 132.96 | 165.38 / 164.37 |
+| user_create_form | 18 / 10 | 131.76 / 132.21 | 166.54 / 166.68 |
+| user_edit_form | 22 / 13 | 131.38 / 131.64 | 165.15 / 165.43 |
+| create_project | 26 / 17 | 212.45 / 213.76 | 249.22 / 238.64 |
+| edit_project | 27 / 18 | 204.66 / 217.85 | 233.71 / 252.37 |
+| create_task | 33 / 24 | 221.88 / 234.99 | 261.54 / 257.32 |
+| edit_task | 39 / 30 | 210.93 / 226.70 | 243.74 / 245.38 |
+| create_subtask | 39 / 30 | 219.54 / 231.17 | 250.98 / 277.18 |
+| edit_subtask | 39 / 30 | 234.64 / 234.28 | 270.85 / 259.50 |
+| create_user | 22 / 13 | 442.62 / 451.44 | 486.92 / 473.58 |
+| edit_user | 22 / 13 | 232.27 / 233.11 | 274.04 / 265.24 |
+
+Datos completos antes/despu?s en `.runtime/f019/{before,after}-{http,browser}-{1,10}.json`;
+comparaci?n calculada en `.runtime/f019/comparison.json`. Guardas y f?rmulas en
+F019-Compare.py. Esos JSON no contienen credenciales/IDs ni datos de negocio.
+
+Experimento separado de configuraci?n: 100 lecturas por operaci?n/modo en loopback,
+c?digo after, mismo snapshot, sin CRUD ni base real. No se mezcl? con los pares anteriores.
+
+| Vista | Mediana base ms | Mediana DEBUG ms | Mediana OPcache ms |
+|---|---:|---:|---:|
+| home | 96.90 | 97.44 | 54.43 |
+| task | 95.58 | 95.33 | 46.01 |
+| reports | 74.36 | 75.08 | 31.09 |
+| users | 80.22 | 79.53 | 31.30 |
+
+OPcache redujo coste PHP en este experimento; se verific? lectura de fuentes
+actualizadas. DEBUG no mostr? un coste relevante en esta muestra. No se modific?
+el lanzador/configuraci?n del usuario para activar OPcache ni desactivar DEBUG.
+El PHP local 8.3.27 no tiene OPcache cargado; esa diferencia de runtime y la base
+remota impiden extrapolar directamente el benchmark PHP 8.5.12 a su instalaci?n.
+
+La navegaci?n documentada con diez navegadores al dashboard sigue costosa aun
+con menos consultas: p95 before 44880.18 ms / after 43271.02 ms.
+Siguiente diagn?stico: separar CPU/DOM/recursos/cola del servidor en esa vista;
+no atribuir toda la demora a SQL ni cambiar contenido/paginaci?n sin necesidad probada.
+
+Verificaci?n final: 64 tests / 349 aserciones SQLite; MariaDB 63 tests / 343
+aserciones + nueva prueba de render 1 test / 6 aserciones, todos exit 0.
+88 tests / 904 aserciones nativos pasan. Preflight/perfilador/observador pasan
+en sint?ticos, incluida redacci?n y denegaci?n de rutas privadas. El fallo de
+alias del helper de usuarios se corrigi? con un helper propio rvUserListing y
+plantilla de detalle que conserva campos y escapa el tooltip; los lotes after
+anteriores al arreglo se descartaron y todos los pares finales usan el arreglo.
+
+Harness est?tico: 19 features/31 casos; escenarios: 26 fixtures, 0 fallos.
+Mismo ejecutor, sin revisi?n independiente. C?digo de producto conservado tal
+como est? en el commit realizado por el usuario c152293f1; no se reescribe ese commit.
+
+F-019 queda blocked por aceptaci?n no alcanzada y medici?n real pendiente.
+Responsable ejecutor: localizar costes restantes y verificar cada cambio; Ronnie:
+generar muestras de uso normal con el observador cuando se retome la aceptaci?n.
+No se ejecutaron carga/CRUD de prueba en la base real ni despliegue.

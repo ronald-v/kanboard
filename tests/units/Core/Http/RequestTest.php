@@ -108,10 +108,23 @@ class RequestTest extends Base
         $this->assertTrue($request->isHTTPS());
 
         $request = new Request($this->container, array('HTTP_X_FORWARDED_PROTO' => 'https'), array(), array(), array(), array());
-        $this->assertTrue($request->isHTTPS());
+        $this->assertFalse($request->isHTTPS());
 
         $request = new Request($this->container, array('HTTP_X_FORWARDED_PROTO' => 'http'), array(), array(), array(), array());
         $this->assertFalse($request->isHTTPS());
+    }
+
+    public function testForwardedHttpsRequiresTrustedPeerAndNeverOverridesDirectTls()
+    {
+        $trusted = $this->getMockBuilder(Request::class)->setConstructorArgs([$this->container,
+            ['REMOTE_ADDR' => '192.0.2.10', 'HTTP_X_FORWARDED_PROTO' => 'https']])
+            ->onlyMethods(['isTrustedProxy'])->getMock();
+        $trusted->expects($this->once())->method('isTrustedProxy')->willReturn(true);
+        $this->assertTrue($trusted->isHTTPS());
+        $untrusted = new Request($this->container, ['REMOTE_ADDR' => '198.51.100.10', 'HTTP_X_FORWARDED_PROTO' => 'https']);
+        $this->assertFalse($untrusted->isHTTPS());
+        $direct = new Request($this->container, ['HTTPS' => 'on', 'HTTP_X_FORWARDED_PROTO' => 'http']);
+        $this->assertTrue($direct->isHTTPS());
     }
 
     public function testGetCookie()

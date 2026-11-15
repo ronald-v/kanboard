@@ -1,5 +1,15 @@
 # Despliegue PHP y recuperación
 
+## Gate obligatorio F-020
+
+Build-Release exige --security-evidence con resultados locales vigentes (<24h),
+hashes exactos de c?digo/dependencias/locks y herramientas, y sin altos/cr?ticos
+abiertos. Los resultados antiguos tampoco se renuevan al volver a sellarlos.
+El manifiesto incluye el hash de esa evidencia y productionAuthorized=false.
+Operaci?n: [Projecta](../../plugins/RvSoftware/PROJECTA.md#seguridad-antes-de-empaquetar).
+La prueba del ZIP y del servidor aislado no verifica AllowOverride, proxy, logs,
+.user.ini, TLS, cuota ni recuperaci?n del hosting. F-012 conserva su bloqueo.
+
 ## Preparación Projecta 0.2.0
 La [integración](../evidence/2026-11-14-projecta-integracion.md) identifica el ZIP
 exacto y su hash, con restauración sintética comprobada. Build-Release.py
@@ -64,3 +74,13 @@ El harness y Node no necesitan ejecutarse en hosting. No crear gastos ni cambiar
 
 Fuentes: [requisitos](https://docs.kanboard.org/v1/admin/requirements/) y
 [actualización](https://docs.kanboard.org/v1/admin/upgrade/); verificar contra base local.
+
+## Referencia Git generada por Composer
+
+DEC-034: installed.php de Composer puede cambiar la referencia Git de
+rvsoftware/projecta-mcp al repetir install, sin cambiar c?digo o dependencias.
+El colector y la copia sint?tica usan la misma normalizaci?n estricta: solo las
+dos referencias del paquete ra?z se vuelven null en memoria/artefacto; vendor
+original queda intacto. Las referencias/versiones de dependencias y el PHP restante
+siguen protegidos por hashes completos. El manifiesto conserva la identidad del
+c?digo fuente. Cambios reales siguen requiriendo verificaci?n y evidencia nueva.

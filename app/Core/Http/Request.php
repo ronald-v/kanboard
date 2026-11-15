@@ -259,7 +259,7 @@ class Request extends Base
      */
     public function isHTTPS()
     {
-        if ($this->getServerVariable('HTTP_X_FORWARDED_PROTO') === 'https') {
+        if ($this->getServerVariable('HTTP_X_FORWARDED_PROTO') === 'https' && $this->isTrustedProxy()) {
             return true;
         }
 

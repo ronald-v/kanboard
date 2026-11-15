@@ -511,6 +511,38 @@
         "TC-F-019-01",
         "TC-F-019-02"
       ]
+    },
+    {
+      "id": "MAP-F-020",
+      "changeType": "Contenci?n de errores y revisi?n de ciberseguridad",
+      "responsible": "security",
+      "prompts": [
+        "harness/prompts/security.md",
+        "harness/prompts/dev.md",
+        "harness/prompts/testing.md",
+        "harness/prompts/release.md"
+      ],
+      "context": [
+        "harness/context/security.md",
+        "harness/context/architecture.md",
+        "harness/context/testing.md",
+        "harness/context/pentesting.md",
+        "harness/context/deployment.md"
+      ],
+      "features": [
+        "F-020"
+      ],
+      "codeZones": [
+        "app",
+        "plugins/RvSoftware",
+        "mcp",
+        "harness/scripts"
+      ],
+      "testCases": [
+        "TC-F-020-01",
+        "TC-F-020-02",
+        "TC-F-020-03"
+      ]
     }
   ],
   "specialties": [

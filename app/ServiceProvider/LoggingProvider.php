@@ -30,7 +30,7 @@ class LoggingProvider implements ServiceProviderInterface
                 $driver = new Syslog('kanboard');
                 break;
             case 'stdout':
-                $driver = new Stdout();
+                $driver = PHP_SAPI === 'cli' ? new Stdout() : new System();
                 break;
             case 'stderr':
                 $driver = new Stderr();

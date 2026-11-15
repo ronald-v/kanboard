@@ -72,7 +72,7 @@ class ExternalTaskCreationController extends BaseController
                 'swimlanes_list' => $this->swimlaneModel->getList($project['id'], false, true),
             )));
         } catch (ExternalTaskException $e) {
-            $this->step1($values, $e->getMessage());
+            $this->step1($values, t('Unable to fetch external task.'));
         }
     }
 

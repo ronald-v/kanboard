@@ -39,6 +39,8 @@ class Plugin extends Base
         $this->hook->on('template:layout:css', array('template' => 'plugins/RvSoftware/Assets/app.css'));
         $this->hook->on('template:layout:css', ['template'=>'plugins/RvSoftware/Assets/projecta.css']);
         $this->template->setTemplateOverride('layout', 'RvSoftware:layout');
+        $this->template->setTemplateOverride('board/table_container', 'RvSoftware:board/manual');
+        $this->template->setTemplateOverride('config/board', 'RvSoftware:config/board');
         $this->template->setTemplateOverride('auth/index', 'RvSoftware:auth/login');
         $this->template->setTemplateOverride('password_reset/email', 'RvSoftware:auth/reset_email');
         $this->template->setTemplateOverride('config/sidebar', 'RvSoftware:config/sidebar');

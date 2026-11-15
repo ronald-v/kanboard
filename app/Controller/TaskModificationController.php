@@ -121,9 +121,9 @@ class TaskModificationController extends BaseController
                 $params['template'] = $taskProvider->getModificationFormTemplate();
                 $params['external_task'] = $taskProvider->fetch($task['external_uri'], $task['project_id']);
             } catch (ExternalTaskAccessForbiddenException $e) {
-                throw new AccessForbiddenException($e->getMessage());
+                throw new AccessForbiddenException();
             } catch (ExternalTaskException $e) {
-                $params['error_message'] = $e->getMessage();
+                $params['error_message'] = t('Unable to fetch external task.');
             }
 
             $this->response->html($this->template->render('external_task_modification/show', $params));
@@ -170,9 +170,9 @@ class TaskModificationController extends BaseController
                 $taskProvider = $this->externalTaskManager->getProvider($task['external_provider']);
                 $result = $taskProvider->save($task['external_uri'], $values, $errors);
             } catch (ExternalTaskAccessForbiddenException $e) {
-                throw new AccessForbiddenException($e->getMessage());
+                throw new AccessForbiddenException();
             } catch (ExternalTaskException $e) {
-                $this->logger->error($e->getMessage());
+                $this->logger->error('Unable to update external task.');
                 $result = false;
             }
         }

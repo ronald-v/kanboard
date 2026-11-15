@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__DIR__).'/app/Core/Http/ErrorHandler.php';
+\Kanboard\Core\Http\ErrorHandler::register('mcp');
 require_once __DIR__.'/src/Http.php';
 if (! \Projecta\Mcp\Http::bounded()) { return; }
 require __DIR__.'/bootstrap.php';
@@ -17,9 +19,10 @@ try {
     $transport=new \Mcp\Server\Transport\StreamableHttpTransport($request,$factory,$factory,
         middleware:[new \Mcp\Server\Transport\Http\Middleware\CorsMiddleware,
             new \Mcp\Server\Transport\Http\Middleware\DnsRebindingProtectionMiddleware(allowedHosts:[$host])],maxBodyBytes:262144);
+    \Kanboard\Core\Http\ErrorHandler::stream();
     Http::emit($builder->build()->run($transport));
 } catch (\League\OAuth2\Server\Exception\OAuthServerException $error) {
     header('WWW-Authenticate: Bearer resource_metadata="'.$projectaConfig->base().'/mcp/oauth.php?action=resource"');
     Http::json(['error'=>'unauthorized'],401);
 } catch (\DomainException $error) { Http::json(['error'=>'rate_limit_exceeded'],429); }
-catch (\Throwable $error) { Http::json(['error'=>'mcp_unavailable'],503); }
+catch (\Throwable $error) { \Kanboard\Core\Http\ErrorHandler::handle($error); }

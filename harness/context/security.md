@@ -1,5 +1,16 @@
 # Seguridad y permisos
 
+## Contenci?n y revisi?n F-020
+
+F-020 a?ade una frontera HTTP independiente del bootstrap para web, JSON-RPC,
+MCP y OAuth: 500/503 gen?ricos, referencia y diagn?stico privado depurado. Mantener
+el registro fuera del directorio p?blico y DEBUG desactivado en producci?n.
+Los flujos binarios liberan el b?fer de recuperaci?n para no acumular adjuntos.
+Las cabeceras de proxy requieren redes confiables y los adjuntos son private/no-store.
+No modificar estas garant?as para depurar un fallo contra datos reales.
+[Revisi?n, pruebas y pendientes](../evidence/2026-11-14-f020-security.md).
+El diagn?stico hist?rico siguiente se conserva; no reemplaza la revisi?n local F-020.
+
 ## Política vigente Projecta
 F-014 exige contraseña y TOTP para todos, recuperación de un solo uso, límites
 atómicos y sesiones acotadas. F-017/F-018 usan credenciales individuales/OAuth

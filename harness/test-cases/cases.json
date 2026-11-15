@@ -679,12 +679,14 @@
       "steps": [
         "Ejecutar antes/despu?s y verificar resultados y efectos."
       ],
-      "command": null,
+      "command": "python harness/scripts/F019-Environment.py test --variant after --sqlite --filter SchemaHandler (repetido en MariaDB sin --sqlite)",
       "expectedResult": "Migraci?n pendiente y esquema actualizado sin escrituras innecesarias",
       "verificationType": "Integraci?n, regresi?n y rendimiento",
-      "status": "planned",
-      "observedResult": "Pendiente de ejecuci?n.",
-      "evidence": [],
+      "status": "validated",
+      "observedResult": "Esquema actualizado/superior sin transacci?n/escritura; instalaci?n, pendiente y fallo/rollback/FK pasan en SQLite y MariaDB.",
+      "evidence": [
+        "harness/evidence/2026-11-14-f019-performance.md"
+      ],
       "limitations": "No ejecutar carga ni CRUD de prueba contra la base del usuario."
     },
     {
@@ -698,13 +700,79 @@
       "steps": [
         "Ejecutar antes/despu?s y verificar resultados y efectos."
       ],
-      "command": null,
+      "command": "python harness/scripts/F019-Compare.py",
       "expectedResult": "Comparaci?n por flujo extremo a extremo; sint?ticos separados del uso real",
       "verificationType": "Integraci?n, regresi?n y rendimiento",
-      "status": "planned",
-      "observedResult": "Pendiente de ejecuci?n.",
-      "evidence": [],
-      "limitations": "No ejecutar carga ni CRUD de prueba contra la base del usuario."
+      "status": "blocked",
+      "observedResult": "4 pares completos, 100 muestras/26 flujos. HTTP cumple 1/26 por escenario; Chromium 0/26. Sin aceptaci?n real. No se cumple la reducci?n integral.",
+      "evidence": [
+        "harness/evidence/2026-11-14-f019-performance.md"
+      ],
+      "limitations": "Loopback PHP 8.5.12 no acredita PHP 8.3.27/base remota. Requiere diagn?stico adicional y muestras normales emparejadas."
+    },
+    {
+      "id": "TC-F-020-01",
+      "featureId": "F-020",
+      "objective": "Contenci?n de errores y registro privado",
+      "preconditions": [
+        "Copia aislada sin configuraci?n privada"
+      ],
+      "syntheticData": "Usuarios y base exclusivamente sint?ticos",
+      "steps": [
+        "Ejecutar pruebas pertinentes y registrar resultados observados"
+      ],
+      "command": "python harness/scripts/F020-Errors.py",
+      "expectedResult": "Contenci?n de errores y registro privado verificado sin exponer datos internos",
+      "verificationType": "integration",
+      "status": "validated",
+      "observedResult": "80 comprobaciones de fallos pasan; cuatro entradas/DEBUG on-off, registros depurados y cuatro conexiones rechazadas desde el ZIP devuelven 503 sin datos internos.",
+      "evidence": [
+        "harness/evidence/2026-11-14-f020-security.md"
+      ],
+      "limitations": "Solo sint?ticos/loopback; IIS solo XML y hosting pendiente. Condiciones, sujetos y fallos corregidos documentados en la evidencia. Sin revisi?n independiente."
+    },
+    {
+      "id": "TC-F-020-02",
+      "featureId": "F-020",
+      "objective": "Tablero manual y regresi?n de seguridad",
+      "preconditions": [
+        "Copia aislada sin configuraci?n privada"
+      ],
+      "syntheticData": "Usuarios y base exclusivamente sint?ticos",
+      "steps": [
+        "Ejecutar pruebas pertinentes y registrar resultados observados"
+      ],
+      "command": "python harness/scripts/F020-Integration.py",
+      "expectedResult": "Tablero manual y regresi?n de seguridad verificado sin exponer datos internos",
+      "verificationType": "integration",
+      "status": "validated",
+      "observedResult": "SQLite 152/561 y MariaDB 64/349 pasan; HTTP MFA/API/OAuth/MCP, vistas, scopes y permisos; Chromium comprueba manual/filtro/drag sin duplicaci?n y descarga 80 MB con PHP64M.",
+      "evidence": [
+        "harness/evidence/2026-11-14-f020-security.md"
+      ],
+      "limitations": "Solo sint?ticos/loopback; IIS solo XML y hosting pendiente. Condiciones, sujetos y fallos corregidos documentados en la evidencia. Sin revisi?n independiente."
+    },
+    {
+      "id": "TC-F-020-03",
+      "featureId": "F-020",
+      "objective": "Gate de entrega y reglas HTTP",
+      "preconditions": [
+        "Copia aislada sin configuraci?n privada"
+      ],
+      "syntheticData": "Usuarios y base exclusivamente sint?ticos",
+      "steps": [
+        "Ejecutar pruebas pertinentes y registrar resultados observados"
+      ],
+      "command": "python harness/scripts/Test-ReleaseSecurity.py",
+      "expectedResult": "Gate de entrega y reglas HTTP verificado sin exponer datos internos",
+      "verificationType": "integration",
+      "status": "validated",
+      "observedResult": "16 tests del gate pasan; referencia Git raiz normalizada sin editar vendor. Dependencias/PHP distintos y evidencia antigua siguen rechazados. ZIP reproducido dos veces con el mismo SHA256; runtime extraido devuelve 503 seguros.",
+      "evidence": [
+        "harness/evidence/2026-11-14-f020-security.md",
+        "harness/evidence/2026-11-14-f020-composer-packaging.md"
+      ],
+      "limitations": "Solo sint?ticos/loopback; IIS solo XML y hosting pendiente. Condiciones, sujetos y fallos corregidos documentados en la evidencia. Sin revisi?n independiente."
     }
   ]
 }

@@ -1,5 +1,22 @@
 # Pruebas y comandos reales
 
+## Seguridad F-020
+
+F020-Errors.py inyecta fallos solo en copias de las entradas, sin DB. F020-Integration.py
+prepara fuentes sint?ticas, rechaza archivos sobrantes, verifica datadir y ejecuta
+Apache/PHP FastCGI/MariaDB exclusivamente en loopback; cierra solo procesos propios.
+F020-Units.py ejecuta la regresi?n SQLite. F020-Audit.py vincula los audits a los locks.
+Test-ReleaseSecurity.py prueba rechazo de evidencia ausente/caducada/modificada y
+hallazgos altos/cr?ticos abiertos. F020-Evidence.py sella ?nicamente resultados
+observados y fuentes coincidentes; el informe humano conserva l?mites y riesgos.
+F020-Artifact.py valida hashes y ejecuta el ZIP contra un puerto local sin DB.
+--http-only exige adem?s evidencia MariaDB coincidente; --browser-only es un retest
+parcial y no genera evidencia integral. Nunca usar estos fixtures sobre producci?n.
+El ?ltimo perfil de seguridad usa flush_log_at_trx_commit=2 y sync_binlog=0 solo en
+el proceso MariaDB sint?tico para coste de fixtures; no es una prueba de durabilidad
+ante ca?da ni un benchmark de F-019, y no modifica my.ini ni el hosting.
+[Resultados y alcance](../evidence/2026-11-14-f020-security.md).
+
 ## Perfil Projecta 0.2.0
 ProjectaEnvironment.ps1 usa PHP portable 8.5, copia .runtime/projecta/app sin
 configuración privada y MariaDB sintética loopback 13318/kanboard_compat_http.

@@ -42,12 +42,13 @@ class FileViewerController extends BaseController
      */
     protected function renderFileWithCache(array $file, $mimetype)
     {
+        $this->response->withHeader('Cache-Control', 'private, no-store');
         if ($this->request->getHeader('If-None-Match') === '"'.$file['etag'].'"') {
             $this->response->status(304);
         } else {
             try {
                 $this->response->withContentType($mimetype);
-                $this->response->withCache(5 * 86400, $file['etag']);
+                $this->response->withoutCache();
                 $this->response->send();
                 $this->objectStorage->output($file['path']);
             } catch (ObjectStorageException $e) {
@@ -121,7 +122,7 @@ class FileViewerController extends BaseController
         $model = $file['model'];
         $filename = $this->$model->getThumbnailPath($file['path']);
 
-        $this->response->withCache(5 * 86400, $file['etag']);
+        $this->response->withoutCache()->withHeader('Cache-Control', 'private, no-store');
         $this->response->withContentType('image/png');
 
         if ($this->request->getHeader('If-None-Match') === '"'.$file['etag'].'"') {
@@ -153,6 +154,7 @@ class FileViewerController extends BaseController
     {
         try {
             $file = $this->getFile();
+            $this->response->withoutCache()->withHeader('Cache-Control', 'private, no-store');
             $this->response->withFileDownload($file['name']);
             $this->response->send();
             $this->objectStorage->output($file['path']);

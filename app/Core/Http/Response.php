@@ -222,6 +222,14 @@ class Response extends Base
             header($header.': '.$value);
         }
 
+        // Keep binary files, CSV and text streams out of the recovery buffer.
+        $type = $this->httpHeaders['Content-Type'] ?? '';
+        if (PHP_SAPI !== 'cli' && class_exists(ErrorHandler::class, false)
+            && (isset($this->httpHeaders['Content-Disposition'])
+                || ($type !== '' && strpos($type, 'text/html') !== 0 && strpos($type, 'application/json') !== 0))) {
+            ErrorHandler::stream();
+        }
+
         if (! empty($this->httpBody)) {
             echo $this->httpBody;
         }

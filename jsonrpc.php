@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__.'/app/Core/Http/ErrorHandler.php';
+\Kanboard\Core\Http\ErrorHandler::register('jsonrpc');
+
 // Bound unauthenticated input before bootstrap/JSON parsing allocates the payload.
 if (($_SERVER['REQUEST_METHOD'] ?? 'POST')!=='POST') {
     http_response_code(405); header('Allow: POST'); header('Content-Type: application/json');
@@ -19,6 +22,5 @@ try {
         echo $container['rvApiModel']->response($result);
     } else { echo $result; }
 } catch (\Throwable $error) {
-    if (! isset($container['rvApiModel'])) { throw $error; }
-    $container['response']->json(['jsonrpc'=>'2.0','id'=>null,'error'=>['code'=>-32603,'message'=>'Internal error']],500);
+    \Kanboard\Core\Http\ErrorHandler::handle($error);
 }

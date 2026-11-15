@@ -8,8 +8,8 @@
         "done",
         "validated"
     ],
-    "updatedAt": "2026-11-14T14:06:14-05:00",
-    "activeFeatureId": "F-019",
+    "updatedAt": "2026-11-14T21:39:38-05:00",
+    "activeFeatureId": null,
     "features": [
         {
             "id": "F-001",
@@ -1140,7 +1140,7 @@
             "id": "F-019",
             "name": "Reducir la espera de navegaci?n y CRUD al menos un 50 %",
             "description": "Plan aprobado por el usuario: diagn?stico local con MariaDB remota, correcciones m?nimas y comparaci?n por flujo; DEC-029.",
-            "status": "in_progress",
+            "status": "blocked",
             "targetVersion": null,
             "dependsOn": [
                 "F-013"
@@ -1155,12 +1155,17 @@
                 {
                     "id": "F-019-S1",
                     "name": "Medir, optimizar y verificar navegaci?n y CRUD",
-                    "status": "in_progress",
+                    "status": "blocked",
                     "assignedAgent": "performance",
                     "agentNotes": "Mismo ejecutor; consulta de roles, sin delegaci?n.",
-                    "evidence": [],
-                    "blockers": [],
-                    "nextAction": "Fijar l?nea base aislada, medir costes y aplicar cambios m?nimos."
+                    "evidence": [
+                        "harness/evidence/2026-11-14-f019-performance.md"
+                    ],
+                    "blockers": [
+                        "Objetivo >=50 % de mediana y p95 por flujo no alcanzado: Chromium 0/26 en uno y diez clientes; hace falta diagn?stico adicional de costes restantes.",
+                        "Aceptaci?n sobre la conexi?n real pendiente de muestras emparejadas de uso normal; no autoriza automatizar carga ni CRUD de prueba all?."
+                    ],
+                    "nextAction": "Perfilar costes restantes (dashboard/DOM/PHP/cola), ensayar cambio m?nimo y contrastar Before/Current mediante actividad normal sin datos de prueba en base real."
                 }
             ],
             "relatedPrompts": [
@@ -1179,16 +1184,102 @@
                 "harness/context/security.md"
             ],
             "relatedFiles": [
-                "app/Core/Plugin/SchemaHandler.php"
+                "app/Core/Plugin/SchemaHandler.php",
+                "plugins/RvSoftware/Model/RvDashboardPagination.php",
+                "harness/scripts/F019-Browser.py",
+                "harness/scripts/F019-ObserveLocal.py"
             ],
             "testCases": [
                 "TC-F-019-01",
                 "TC-F-019-02"
             ],
-            "evidence": [],
+            "evidence": [
+                "harness/evidence/2026-11-14-f019-performance.md"
+            ],
+            "blockers": [
+                "Objetivo >=50 % de mediana y p95 por flujo no alcanzado: Chromium 0/26 en uno y diez clientes; hace falta diagn?stico adicional de costes restantes.",
+                "Aceptaci?n sobre la conexi?n real pendiente de muestras emparejadas de uso normal; no autoriza automatizar carga ni CRUD de prueba all?."
+            ],
+            "nextAction": "Perfilar costes restantes (dashboard/DOM/PHP/cola), ensayar cambio m?nimo y contrastar Before/Current mediante actividad normal sin datos de prueba en base real.",
+            "notes": "DEC-029 implementada parcialmente: regresi?n pasa, reducci?n de consultas comprobada, objetivo integral no cumplido. DEC-030 registra resultados y l?mites. Sin despliegue.",
+            "suspensionApproval": null
+        },
+        {
+            "id": "F-020",
+            "name": "Contenci?n de errores y revisi?n de ciberseguridad",
+            "description": "Plan aprobado: errores seguros en cuatro entradas HTTP, tablero manual, correcciones comprobadas y gate de entregas; DEC-032.",
+            "status": "validated",
+            "targetVersion": null,
+            "dependsOn": [
+                "F-005",
+                "F-014",
+                "F-017",
+                "F-018"
+            ],
+            "acceptanceCriteria": [
+                "Fallos de arranque y ejecuci?n contenidos sin datos internos en web, JSON-RPC, MCP y OAuth; diagn?stico privado depurado.",
+                "Tableros Projecta manuales y permisos, MFA, CSRF, sesiones y persistencia conservados.",
+                "Auditor?a con hallazgos, correcciones y retests; empaquetado exige evidencia vigente y rechaza altos/cr?ticos abiertos.",
+                "Pruebas solo sint?ticas; distinguir configuraci?n HTTP comprobada localmente y hosting pendiente.",
+                "El cambio de referencia Git generado por Composer para el paquete raiz no altera los bytes verificados; cambios de dependencias o PHP siguen rechazados."
+            ],
+            "subtasks": [
+                {
+                    "id": "F-020-S1",
+                    "name": "Implementar y verificar contenci?n, revisi?n y entrega",
+                    "status": "validated",
+                    "assignedAgent": "security",
+                    "agentNotes": "Mismo ejecutor, sin delegaci?n ni revisi?n independiente.",
+                    "evidence": [
+                        "harness/evidence/2026-11-14-f020-security.md",
+                        "harness/evidence/2026-11-14-f020-composer-packaging.md"
+                    ],
+                    "blockers": [],
+                    "nextAction": "Verificar configuraci?n, cuota y recuperaci?n del hosting bajo alcance autorizado; no desplegar por esta validaci?n local."
+                }
+            ],
+            "relatedPrompts": [
+                "harness/prompts/security.md",
+                "harness/prompts/dev.md",
+                "harness/prompts/testing.md",
+                "harness/prompts/release.md"
+            ],
+            "relatedContext": [
+                "harness/context/security.md",
+                "harness/context/architecture.md",
+                "harness/context/testing.md",
+                "harness/context/pentesting.md",
+                "harness/context/deployment.md"
+            ],
+            "relatedFiles": [
+                "index.php",
+                "jsonrpc.php",
+                "mcp/index.php",
+                "mcp/oauth.php",
+                "plugins/RvSoftware/Plugin.php",
+                "app/Core/Http/ErrorHandler.php",
+                "app/Core/Http/Response.php",
+                "app/Core/Http/Request.php",
+                "app/Controller/FileViewerController.php",
+                "plugins/RvSoftware/Template/board/manual.php",
+                "harness/scripts/Build-Release.py",
+                "harness/scripts/release_security.py",
+                "harness/scripts/Prepare-ProjectaSandbox.py",
+                "harness/scripts/F020-Evidence.py",
+                "harness/scripts/Test-ReleaseSecurity.py"
+            ],
+            "testCases": [
+                "TC-F-020-01",
+                "TC-F-020-02",
+                "TC-F-020-03"
+            ],
+            "evidence": [
+                "harness/evidence/2026-11-14-f020-security.md",
+                "harness/evidence/2026-11-14-f020-composer-packaging.md"
+            ],
             "blockers": [],
-            "nextAction": "Medir l?nea base y verificar migraciones/permisos sin conectar suites a la base real.",
-            "notes": "Autorizaci?n vigente: Please implement the plan. Sin despliegue ni cambios de destino/base real.",
+            "nextAction": "Verificar configuraci?n, cuota y recuperaci?n del hosting bajo alcance autorizado; no desplegar por esta validaci?n local.",
+            "notes": "DEC-032 implementada; DEC-033 registra resultados locales, paquete exacto y l?mites. Sin revisi?n independiente ni despliegue. DEC-034: metadata Composer estabilizada, 16 tests del gate y ZIP nuevo verificados.",
             "suspensionApproval": null
         }
     ]
